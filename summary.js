@@ -5,49 +5,162 @@ const req  = new http({hostname:'api.globalbioticinteractions.org'});
 
 const input = encodeURIComponent('homo sapiens');
 const interaction = 'hasPathogen';
-const limit = 10000;
+const limit = 100000;
+const printThreshold = 10;
 
 
 
-req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=${limit}&offset=0&sourceTaxon=${input}&field=target_taxon_path&field=target_taxon_external_id`}, (status, headers, body)=>{
+req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=${limit}&offset=0&sourceTaxon=${input}&field=target_taxon_path&field=target_taxon_external_id&field=target_taxon_path_ranks`}, (status, headers, body)=>{
     body = JSON.parse(body);
 
 
 
     //console.log(body);
 
+    /*
+        { target_taxon_path: 'Ascomycota | Sordariomycetes | Ophiostomatales | Ophiostomataceae | Sporothrix | Sporothrix schenckii',
+          target_taxon_path_ranks: 'Phylum | Class | Order | Family | Genus | Species',
+          target_taxon_external_id: 'NBN:BMSSYS0000017767' }
+    */
+
+    console.log(body[0]);
+
+/*
+
+'superkingdom |  |  | family | genus | species |  |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus A | Influenza A virus | H2N2 subtype | Influenza A virus (A/Albany/1/63(H2N2))'
+'superkingdom |  |  | family | genus | species |  |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus A | Influenza A virus | H2N2 subtype | Influenza A virus (A/Albany/1/65(H2N2))'
+'superkingdom |  |  | family | genus | species |  |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus A | Influenza A virus | H2N2 subtype | Influenza A virus (A/Albany/6/58(H2N2))'
+
+'superkingdom |  |  | family | genus | species |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus B | Influenza B virus | Influenza B virus (B/Thailand/clinical isolate SA29/2002)'
+'superkingdom |  |  | family | genus | species |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus B | Influenza B virus | Influenza B virus (B/Thailand/clinical isolate SA3/2002)'
+'superkingdom |  |  | family | genus | species |'
+'Viruses | ssRNA viruses | ssRNA negative-strand viruses | Orthomyxoviridae | Influenzavirus B | Influenza B virus | Influenza B virus (B/Thailand/clinical isolate SA30/2002)'
+
+*/
+
+
+/*
+    console.log( body.map(speci => {
+
+        if ('|' === speci.target_taxon_path_ranks.slice(-1)) speci.target_taxon_path_ranks += ' ';
+
+        console.dir(speci.target_taxon_path);
+        console.dir(speci.target_taxon_path_ranks);
+
+        return [speci.target_taxon_external_id.split(':')[0], speci.target_taxon_path.split(' | ').length];
+
+    }).reduce( (prev, [id, len]) => {
+        if (!prev[id]) {
+            prev[id] = {};
+        }
+        if(undefined === prev[id][len]) {
+            prev[id][len] = 1;
+        } else {
+            prev[id][len]++;
+        }
+        return prev;
+    }, {}) );
+*/
+
+
     for (const interactionResult of body) {
-        interactionResult.path = interactionResult.target_taxon_path.split(' | ');
-        delete interactionResult.target_taxon_path;
+        try {
+            if ('|' === interactionResult.target_taxon_path_ranks.slice(-1)) interactionResult.target_taxon_path_ranks += ' ';
+
+
+            interactionResult.key = interactionResult.target_taxon_path_ranks.split(' | ');
+            interactionResult.val = interactionResult.target_taxon_path.split(' | ');
+        } catch(e) {
+            console.log('fuckbug');
+            console.log(interactionResult);
+            continue;
+        }
+        // delete interactionResult.target_taxon_path_ranks;
+        // delete interactionResult.target_taxon_path;
+
         insertIntoTree(tree, interactionResult);
     }
 
+
+// 'superkingdom |  |  | family | genus | species |  | '
+    
     console.log(JSON.stringify(tree, false, 6));
 
-})
+});
 
 const tree = {
-    _results: []
-}
+    _species: {}
+};
 
-function insertIntoTree(tree, interactionResult) {
+function insertIntoTree(tree, speci) {
 
-    if (interactionResult.path.length === 0) {
-        tree._results.push(interactionResult);
-        delete interactionResult.path;
+    if (speci.key.length === 0) {
+        console.log('no species for');
+        console.log(speci);
         return;
+    } // if
+
+    if ('species' === speci.key[0].toLowerCase() ) {
+
+        let val;
+        try {
+            val = speci.val.shift().toLowerCase();
+        } catch(e) { val = 'unknown'; }
+
+        if (val === ' |') {
+            console.log('LÜCKRRR');
+            console.log(speci);
+        } // if
+
+        if (undefined === tree._species[val]) {
+            tree._species[val] = 0;
+        } // if
+        tree._species[val]++; // .push(speci);
+        return;
+    } // if
+
+    const key = speci.key.shift();
+    speci.val.shift();
+
+    if (!tree[key]) {
+        tree[key] = { _species:{} };
     }
 
-    const rank = interactionResult.path.shift();
-
-    if (!tree[rank]) {
-        tree[rank] = {_results: []};
-    }
-
-    insertIntoTree(tree[rank], interactionResult);
+    insertIntoTree(tree[key], speci);
 }
 
+/*
+function get_lowest_depth(){}
+    return lowestDepth;
 
+function getMostCommonHits(tree){
+
+
+    if total depth is > then lowestDepth; kill useless ranks (go through specific loop for results with more depth) (maybe track total depth bei hit?, append counter to species level)
+
+    loop through genus/rank and get number of duplicates
+
+    add number of hits in one depth; get % for every rank
+
+    when no %rank < printThreshold then go 1 depth higher and add #hits 
+
+    if %rank is > printThreshold -> print 3 of the highest ranks, save 10 after (mouseover);
+
+
+
+
+}
+
+"The Human eats the organisms of the Phylla Paarhufer(3232/13%), Delphine(3532/4%), Pilze(2435/2%) and others." (mouseover others lists 10 next Phylla at the same way)
+
+*/
+
+function input_field(){
 /*
 ##      interaction     source     target
 ## 1        preysOn   predator       prey
@@ -61,6 +174,8 @@ function insertIntoTree(tree, interactionResult) {
 ## 9     symbiontOf     source     target
 ## 10 interactsWith     source     target
 */
+}
+
 
 function append_field(field_name){
 /*
@@ -120,7 +235,7 @@ function append_field(field_name){
     TAXON_EXTERNAL_URL("taxon_external_url"),
     TAXON_PATH("taxon_path"),
     TAXON_PATH_IDS("taxon_path_ids"),
-    TAXON_PATH_RANKS("taxon_path_ranks"),
+    TAXON_PATH_RANKS("^"),
     STUDY_URL("study_url"),
     STUDY_DOI("study_doi"),
     STUDY_CITATION("study_citation"),
