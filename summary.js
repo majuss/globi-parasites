@@ -5,11 +5,13 @@ const req  = new http({hostname:'api.globalbioticinteractions.org'});
 
 const input = encodeURIComponent('homo sapiens');
 const interaction = 'hasPathogen';
+
 const limit = 100000;
 const printThreshold = 10;
 
+const tree = { _species: {} };
 
-
+//method get from object req. Input is a object parameter and 3 variables. And the "value" of an annonymous function.
 req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=${limit}&offset=0&sourceTaxon=${input}&field=target_taxon_path&field=target_taxon_external_id&field=target_taxon_path_ranks`}, (status, headers, body)=>{
     body = JSON.parse(body);
 
@@ -22,8 +24,6 @@ req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=$
           target_taxon_path_ranks: 'Phylum | Class | Order | Family | Genus | Species',
           target_taxon_external_id: 'NBN:BMSSYS0000017767' }
     */
-
-    console.log(body[0]);
 
 /*
 
@@ -71,21 +71,25 @@ req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=$
     for (const interactionResult of body) {
         try {
             if ('|' === interactionResult.target_taxon_path_ranks.slice(-1)) interactionResult.target_taxon_path_ranks += ' ';
+            if ('|' === interactionResult.target_taxon_path.slice(-1)) interactionResult.target_taxon_path += ' ';
 
+            if ('|' === interactionResult.target_taxon_path_ranks[0]) interactionResult.target_taxon_path_ranks = ' ' + interactionResult.target_taxon_path_ranks;
+            if ('|' === interactionResult.target_taxon_path[0]) interactionResult.target_taxon_path = ' ' + interactionResult.target_taxon_path;
 
             interactionResult.key = interactionResult.target_taxon_path_ranks.split(' | ');
             interactionResult.val = interactionResult.target_taxon_path.split(' | ');
+
+            // console.log(interactionResult.key, '#', interactionResult.val);
+            // console.log(interactionResult.target_taxon_path_ranks, '#', interactionResult.target_taxon_path);
+            
         } catch(e) {
-            console.log('fuckbug');
+            console.log('Rank does not match value for:');
             console.log(interactionResult);
             continue;
         }
-        // delete interactionResult.target_taxon_path_ranks;
-        // delete interactionResult.target_taxon_path;
 
         insertIntoTree(tree, interactionResult);
     }
-
 
 // 'superkingdom |  |  | family | genus | species |  | '
     
@@ -93,14 +97,12 @@ req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=$
 
 });
 
-const tree = {
-    _species: {}
-};
+
 
 function insertIntoTree(tree, speci) {
 
     if (speci.key.length === 0) {
-        console.log('no species for');
+        console.log('No rank definition for:');
         console.log(speci);
         return;
     } // if
@@ -112,15 +114,16 @@ function insertIntoTree(tree, speci) {
             val = speci.val.shift().toLowerCase();
         } catch(e) { val = 'unknown'; }
 
-        if (val === ' |') {
-            console.log('LÜCKRRR');
-            console.log(speci);
-        } // if
+        const genusIdx  = speci.target_taxon_path_ranks.split(' | ').indexOf('genus');
+        const genusName = speci.target_taxon_path.split(' | ')[genusIdx];
+        
+        if(undefined === tree[genusName]) tree[genusName] = {};
 
-        if (undefined === tree._species[val]) {
-            tree._species[val] = 0;
+        if (undefined === tree[genusName][val]) {
+            tree[genusName][val] = 0;
         } // if
-        tree._species[val]++; // .push(speci);
+        tree[genusName][val]++; // .push(speci);
+
         return;
     } // if
 
@@ -128,11 +131,13 @@ function insertIntoTree(tree, speci) {
     speci.val.shift();
 
     if (!tree[key]) {
-        tree[key] = { _species:{} };
+        tree[key] = { };
     }
 
     insertIntoTree(tree[key], speci);
 }
+
+//------------------------------------------------------------------------------------------------------------------------
 
 /*
 function get_lowest_depth(){}
