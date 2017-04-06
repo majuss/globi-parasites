@@ -89,6 +89,7 @@ req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=$
         }
 
         insertIntoTree(tree, interactionResult);
+        calcSums(tree);
     }
 
 // 'superkingdom |  |  | family | genus | species |  | '
@@ -98,6 +99,19 @@ req.get({path: `/interaction?type=json.v2&interactionType=${interaction}&limit=$
 });
 
 
+function calcSums(node) {
+
+    node.sum = 0;
+    for(const key in node) {
+        if (key === 'sum') continue;
+        if ('number' === typeof node[key]) {
+            node.sum += node[key];
+        } else {
+            node.sum += calcSums(node[key]);
+        }
+    }
+    return node.sum;
+}
 
 function insertIntoTree(tree, speci) {
 
@@ -117,11 +131,12 @@ function insertIntoTree(tree, speci) {
         const genusIdx  = speci.target_taxon_path_ranks.split(' | ').indexOf('genus');
         const genusName = speci.target_taxon_path.split(' | ')[genusIdx];
         
-        if(undefined === tree[genusName]) tree[genusName] = {};
+        if (undefined === tree[genusName]) tree[genusName] = {};
 
         if (undefined === tree[genusName][val]) {
             tree[genusName][val] = 0;
         } // if
+        
         tree[genusName][val]++; // .push(speci);
 
         return;
@@ -161,7 +176,8 @@ function getMostCommonHits(tree){
 
 }
 
-"The Human eats the organisms of the Phylla Paarhufer(3232/13%), Delphine(3532/4%), Pilze(2435/2%) and others." (mouseover others lists 10 next Phylla at the same way)
+"The Human eats the organisms of the Phylla Paarhufer(3232/13%), Delphine(3532/4%), Pilze(2435/2%) and others." (mouseover >others< lists 10 next Phylla at the same way)
+mouseover the % result lists the ranks under it in % Paarhufer -> %Kühe, %Pferde..
 
 */
 
