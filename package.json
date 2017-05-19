@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "request-easy": "^2.0.1"
+    "request-easy": "^2.0.1",
+    "fastango3": "3.2.0",
+    "arangojs":  "5.6.1"
   }
 }

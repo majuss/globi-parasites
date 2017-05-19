@@ -4,7 +4,7 @@ ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
 
 
-1. Setup arangodb and node8
+1. Setup arangodb and node8 and install needed packages in package.json
 
 2. Download globi's .tsv dump:
 ```
@@ -33,8 +33,6 @@ node namesimport_ncbi.js
 Currently working on:
 
 - expanded rebuild: if rankpath in GLOBI is no good, look for good path in ncbi imported db. If there is also no good path call the WORMS api.
-
-
 
 
 Future work:
