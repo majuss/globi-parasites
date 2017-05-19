@@ -33,6 +33,8 @@ node namesimport_ncbi.js
 Currently working on:
 
 - expanded rebuild: if rankpath in GLOBI is no good, look for good path in ncbi imported db. If there is also no good path call the WORMS api.
+- which interaction parasite/free living
+- export free living or. parasite state
 
 
 Future work:
