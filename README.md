@@ -16,7 +16,7 @@ Import the extraced tsv-dump with:
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true
 ```
 
-3. Download NCBI taxdump
+3. **import open tree of life dump**
 
 ```
 ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
@@ -30,15 +30,14 @@ node namesimport_ncbi.js
 
 4. Now we should repair the rank-path inside of the globi entries and export them as edge-collection. `rebuild_rankpath_clean.js` just rebuild a simpleRank/Path and imports the rank into `nodes_interaction` and `edges_interaction`.
 
-Currently working on:
+**Currently working on:**
 
-- expanded rebuild: if rankpath in GLOBI is no good, look for good path in ncbi imported db. If there is also no good path call the WORMS api.
+- expanded rebuild: if rankpath in GLOBI is no good, look for good path in open tree of life db
 - which interaction parasite/free living
 - export free living or. parasite state
 
 
-Future work:
+**Future work:**
 
 - draw the graph database with sigma.js(?)
-- Look into GBIF dump
 - look at the opentree for phylogeny `https://tree.opentreeoflife.org/opentree/argus/opentree9.1@ott93302`

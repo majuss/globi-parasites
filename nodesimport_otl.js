@@ -42,14 +42,7 @@ async function readLast() {
 
 async function parseLine(line) {
     line = line.split('\t|\t');
-    await fastango.edges_otl.asyncSave(JSON.stringify({ _to:`${line[0]}`, _from:`${line[1]}` }));
+    await fastango.nodes_otl.asyncSave(JSON.stringify({ _key:line[0], name:line[2], rank:line[3] }));
 
-
-    // await fastango._asyncQ(`for doc in names
-    // filter doc._key == '${line[0]}'
-    // update doc with {rank:'${line[2]}'} in names`);
-
-    console.log(line[0], line[1];
+    console.log(line[0], line[2], line[3]);
 };
-
-
