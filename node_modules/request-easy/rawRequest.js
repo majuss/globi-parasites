@@ -18,15 +18,15 @@ module.exports = (opts, cb) => {
 
     const req = opts.con.request(opts);
   
-    req.on('error', (e) => {
+    req.on('error', (err) => {
         if (doneCallback) {
             log.line(`${opts.id} - ${reqId} - RawRequest: req.on.error doneCallback is true, return`);
             return;
         } // if
         doneCallback = true;
 
-        log.line(`${opts.id} - ${reqId} - RawRequest: req.on.error callback`, e);
-        cb(e);
+        log.line(`${opts.id} - ${reqId} - RawRequest: req.on.error callback`, err);
+        cb(err);
     });
 
     req.on('response', (res) => {
@@ -41,6 +41,17 @@ module.exports = (opts, cb) => {
         } else {
             buf = Buffer.alloc(0);
         }
+
+        res.on('error', (err) => {
+            if (doneCallback) {
+                log.line(`${opts.id} - ${reqId} - RawRequest: res.on.error doneCallback is true, return`);
+                return;
+            } // if
+            doneCallback = true;
+
+            log.line(`${opts.id} - ${reqId} - RawRequest: res.on.error callback`, err);
+            cb(err, res.statusCode, res.headers, buf);
+        });
 
         res.on('data', (d) => {
             if(length) {

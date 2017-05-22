@@ -41,6 +41,57 @@ class Request {
 
     delete(opts, cb) { this.doRequest(opts, 'DELETE', cb); }
 
+    // START async http
+    asyncHead(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'HEAD', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+
+    asyncGet(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'GET', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+
+    asyncPost(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'POST', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+
+    asyncPut(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'PUT', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+
+    asyncPatch(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'PATCH', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+
+    asyncDelete(opts, cb) {
+        return new Promise((res) => {
+            this.doRequest(opts, 'DELETE', (status, headers, body) => {
+                res([status, headers, body]);
+            });
+        });
+    }
+    // END async http
+
+
     doRequest(opts, method, cb) {
         const reqOpts = this.reqOpts(opts);
         reqOpts.method = method;

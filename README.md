@@ -40,3 +40,5 @@ Currently working on:
 Future work:
 
 - draw the graph database with sigma.js(?)
+- Look into GBIF dump
+- look at the opentree for phylogeny `https://tree.opentreeoflife.org/opentree/argus/opentree9.1@ott93302`
