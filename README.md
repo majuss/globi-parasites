@@ -1,3 +1,9 @@
+# Globi Parasites
+
+This project tries to find the origins of parasitism with the help of interaction GLOBIs database
+
+## Getting Started
+
 connect to the VM:
 ```
 ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
