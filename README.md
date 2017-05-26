@@ -2,9 +2,8 @@ connect to the VM:
 ```
 ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
-
-
-1. Setup arangodb and node8 and install needed packages in package.json
+---
+1. Setup arangodb and node_7.9 and install needed packages in package.json
 
 2. Download globi's .tsv dump:
 ```
@@ -19,22 +18,22 @@ arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --crea
 3. **import open tree of life dump**
 
 ```
-ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdmp.zip
+http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz
 ```
-Extract it and create the collections for the edges (nodes.dmp) and nodes (names.dmp)
-The run the importer with node8!
+Extract it and create the collections for the edges (edges_otl) and nodes (nodes_otl)
+The run the importer with node_7.9!
 ```
-node nodesimport_ncbi.js
-node namesimport_ncbi.js
+node nodesimport_otl.js
+node edgesimport_otl.js
 ```
 
 4. Now we should repair the rank-path inside of the globi entries and export them as edge-collection. `rebuild_rankpath_clean.js` just rebuild a simpleRank/Path and imports the rank into `nodes_interaction` and `edges_interaction`.
 
 **Currently working on:**
 
-- expanded rebuild: if rankpath in GLOBI is no good, look for good path in open tree of life db
-- which interaction parasite/free living
-- export free living or. parasite state
+- expanded rebuild: if rankpath in GLOBI is no good, look for good path in open tree of life db OR discard rankpath from GLOBI and always use oTOL
+- find out which interactionTypeName determines if a species is free living or parasitic
+- export free living or parasite state
 
 
 **Future work:**
