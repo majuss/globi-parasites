@@ -31,7 +31,7 @@ node edgesimport_otl.js
 
 **Currently working on:**
 
-- expanded rebuild: if rankpath in GLOBI is no good, look for good path in open tree of life db OR discard rankpath from GLOBI and always use oTOL
+- save shortest path from every parasite/free living to new collection; key which determines if parasite
 - find out which interactionTypeName determines if a species is free living or parasitic
 - export free living or parasite state
 
