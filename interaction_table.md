@@ -11,25 +11,25 @@ Target species of this interaction type are certainly free living.
 ### in question
 These interaction types need further evaluation, if they can be used to determine if a species is parasitic or free living.
 ### not useful
-You cannot determine if the species is free living or parasitic with this interaction type.
+You cannot determine if the species is free living or parasitic with the help of this interaction type.
 
 parasitic interaction (source)|parasitic interaction (target)| freeliving interaction (source) | freeliving interaction (target)|in question|not useful|no definition
 ---|---|---|---|---|---|---
-**hasHost**|**hostOf**|**visits**||**eatenBy**|**livesNear**|**ectoParasitoid**(61)
-**parasiteOf**||**preysOn**||**parasitoidOf**|**interactsWith**|**livesNear**(131)
-**ectoParasiteOf**||**eats**||**pollinatedBy**|**visitsFlowersOf**|**livesUnder**(113)
+**hasHost**|**hostOf**|**visits**| |**eatenBy**|**livesNear**|**ectoParasitoid**(61)
+**parasiteOf**| |**preysOn**| |**parasitoidOf**|**interactsWith**|**livesNear**(131)
+**ectoParasiteOf**||**eats**| |**pollinatedBy**|**visitsFlowersOf**|**livesUnder**(113)
 **kleptoparasiteOf** sajhfhjsdfjsagdfjs<br/>dgfhjdsgfhjgdshfgjshdgfjhgasduzfgu<br/>wzfguzwgfuzwerg||||**hasParasite**|**pollinates**|**inhabits**(15)
-**ectoParasitoid**||||**hasDispersalVector**|**farms** (1)|**endoparasitoidOf**(1462)
- ||||**hasVector**||**livesInsideOf**(583)
- ||||**symbiontOf**||**guestOf**(141)
- ||||**pathogenOf**||**livesOn**(1073)
- ||||**adjacentTo**|
- ||||**flowersVisitedBy**|
- ||||**endoparasiteOf**|
- ||||**preyedUponBy**|
- ||||**hasPathogen**|
- ||||**dispersalVectorOf**|
- ||||**vectorOf**|
+**ectoParasitoid**| | | |**hasDispersalVector**|**farms** (1)|**endoparasitoidOf**(1462)
+ | | | |**hasVector**| |**livesInsideOf**(583)
+ | | | |**symbiontOf**| |**guestOf**(141)
+ | | | |**pathogenOf**| |**livesOn**(1073)
+ | | | |**adjacentTo**|
+ | | | |**flowersVisitedBy**|
+ | | | |**endoparasiteOf**|
+ | | | |**preyedUponBy**|
+ | | | |**hasPathogen**|
+ | | | |**dispersalVectorOf**|
+ | | | |**vectorOf**|
 
 ## Raw interaction type IDs
 
