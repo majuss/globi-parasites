@@ -15,21 +15,22 @@ You cannot determine if the species is free living or parasitic with the help of
 
 parasitic interaction (source)|parasitic interaction (target)| freeliving interaction (source) | freeliving interaction (target)|in question|not useful|no definition
 ---|---|---|---|---|---|---
-**hasHost**|**hostOf**|**visits**| |**eatenBy**|**livesNear**|**ectoParasitoid**(61)
-**parasiteOf**| |**preysOn**| |**parasitoidOf**|**interactsWith**|**livesNear**(131)
-**ectoParasiteOf**||**eats**| |**pollinatedBy**|**visitsFlowersOf**|**livesUnder**(113)
-**kleptoparasiteOf** sajhfhjsdfjsagdfjs<br/>dgfhjdsgfhjgdshfgjshdgfjhgasduzfgu<br/>wzfguzwgfuzwerg||||**hasParasite**|**pollinates**|**inhabits**(15)
-**ectoParasitoid**| | | |**hasDispersalVector**|**farms** (1)|**endoparasitoidOf**(1462)
+**hasHost**|**hostOf** The term host is usually used for the larger (macro) of the two members of a symbiosis (GO)|**visits**| |**eatenBy**|**livesNear**|**ectoParasitoid**(61)
+**parasiteOf**| |**preysOn** An interaction relationship involving a predation process, where the subject kills the target in order to eat it or to feed to siblings, offspring or group members| |**parasitoidOf** A parasite that kills or sterilizes its host|**interactsWith**  An interaction relationship in which at least one of the partners is an organism and the other is either an organism or an abiotic entity with which the organism interacts|**livesNear**(131)
+**ectoParasiteOf** A sub-relation of parasite-of in which the parasite lives on or in the integumental system of the host||**eats**| |**pollinatedBy** is target of pollination interaction with; has polinator|**visitsFlowersOf**|**livesUnder**(113)
+**kleptoparasiteOf** A sub-relation of parasite of in which a parasite steals resources from another organism, usually food or nest material||||**hasParasite**|**pollinates** This relation is intended to be used for biotic pollination - e.g. a bee pollinating a flowering plant. Some kinds of pollination may be semibiotic - e.g. wind can have the role of pollinator. We would use a separate relation for this.|**inhabits**(15)
+**ectoParasitoid**| | | |**hasDispersalVector** a dispersal vector is "an agent transporting seeds or other dispersal units". Dispersal vectors may include biotic factors, such as animals, or abiotic factors, such as the wind or the ocean|**farms** (1)|**endoparasitoidOf**(1462)
  | | | |**hasVector**| |**livesInsideOf**(583)
- | | | |**symbiontOf**| |**guestOf**(141)
+ | | | |**symbiontOf** A biotic interaction in which the two organisms live together in more or less intimate association| |**guestOf**(141)
  | | | |**pathogenOf**| |**livesOn**(1073)
- | | | |**adjacentTo**|
+ | | | |**adjacentTo** X adjacent to y if and only if x and y share a boundary|
  | | | |**flowersVisitedBy**|
- | | | |**endoparasiteOf**|
- | | | |**preyedUponBy**|
+ | | | |**endoparasiteOf** A sub-relation of parasite-of in which the parasite lives inside the host, beneath the integumental system; Types|
+ | | | |**preyedUponBy** Inverse of preys on|
  | | | |**hasPathogen**|
- | | | |**dispersalVectorOf**|
+ | | | |**dispersalVectorOf** A dispersal vector is an agent transporting seeds or other dispersal units. Dispersal vectors may include biotic factors, such as animals, or abiotic factors, such as the wind or the ocean|
  | | | |**vectorOf**|
+ | | | |**kills**| |
 
 ## Raw interaction type IDs
 
