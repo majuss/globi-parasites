@@ -58,8 +58,8 @@ typings/
 # dotenv environment variables file
 .env
 
-#famous ds_store
+# famous ds_store
 .DS_Store
 
-#working data like huge db dumps
+# working data like huge db dumps
 data/

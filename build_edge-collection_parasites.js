@@ -3,7 +3,12 @@
 const db = require('arangojs')();
 const collection = db.collection('otl_parasites_nodes');
 
-db.query(`for doc in interaction_tsv sort rand() limit 100 return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
+db.query(`for doc in interaction_tsv
+          filter doc.interactionTypeName == 'parasiteOf' ||
+          doc.interactionTypeName == 'ectoParasiteOf' ||
+          doc.interactionTypeName == 'kleptoparasiteOf' ||
+          doc.interactionTypeName == 'ectoParasitoid'
+          return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
     if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
