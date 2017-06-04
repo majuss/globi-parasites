@@ -27,7 +27,7 @@ node nodesimport_otl.js
 node edgesimport_otl.js
 ```
 
-4. Now we create a subsetted collection containing all parasites (according to interactionTypeName) with:
+4. Now we create 2 subsetted collections containing all parasites (according to interactionTypeName) with:
 ```
 node build_parasites-collection.js
 ```
@@ -36,6 +36,7 @@ node build_parasites-collection.js
 
 **Currently working on:**
 - find out which interactionTypeName determines if a species is free living or parasitic (in documents/interaction_table.md)
+- create collection with all free living species (write a builder)
 - import the parasite-data from weinstein 2016 (in weinstein_extract.md)
 
 **In the long run:**
