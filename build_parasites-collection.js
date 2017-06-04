@@ -23,7 +23,7 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott) {
-    console.log('write rank');
+    console.log('writing ${ott}');
     db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return e)
     filter doc
     insert merge(doc, {_id:concat('otl_parasites_edges/', doc._key),
