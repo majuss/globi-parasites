@@ -14,22 +14,20 @@ These interaction types need further evaluation, if they can be used to determin
 You cannot determine if the species is free living or parasitic with the help of this interaction type.
 
 # Table of all interactions and their parasitic character
-Note that we're assuming that no parasit is getting parasited by other parasites.
+Note that we're assuming that no parasit is getting parasited by other parasitic species.
 
 parasitic interaction (source)|parasitic interaction (target)| freeliving interaction (source) | freeliving interaction (target)|in question|not useful
 ---|---|---|---|---|---
-**ectoParasitoid**||**visits**|**preyedUponBy**|**eatenBy**|**livesNear**(131)
+**ectoParasitoid**|**hasParasite**|**visits**|**preyedUponBy**|**eatenBy**|**livesNear**(131)
 **parasiteOf**| |**preysOn**| **ectoParasitoid**|**hasHost**|**interactsWith**
-**ectoParasiteOf**||**eats**| **parasiteOf**|**pollinatedBy**|**inhabits**(15)
+**ectoParasiteOf**||**eats**| **parasiteOf**|**kills**|**inhabits**(15)
 **kleptoparasiteOf**||**flowersVisitedBy**|**ectoParasiteOf**|**hostOf**|**pollinates**|
 **endoparasiteOf**| |**hasPathogen**|**kleptoparasiteOf**|**hasDispersalVector**|**farms** (1)
-**parasitoidOf**| | |**visitsFlowersOf**|**hasVector**|**livesUnder**(113)|
-**endoparasitoidOf**(1462)| | |**hasParasite**|**symbiontOf** |**livesOn**(1073)|
+**parasitoidOf**| |**pollinatedBy**|**visitsFlowersOf**|**hasVector**|**livesUnder**(113)|
+**endoparasitoidOf**(1462)| |**hasParasite**||**symbiontOf** |**livesOn**(1073)|
 **ectoParasitoid**(61)| | | |**pathogenOf**| **guestOf**(141)
- | | | |**adjacentTo** | **livesInsideOf**(583)
- | | | |**dispersalVectorOf** | 
- | | | |**vectorOf**| 
- | | | |**kills**|
+ | | | |**vectorOf**| **livesInsideOf**(583)
+ | | | |**dispersalVectorOf**|**adjacentTo**
 
 ## Raw interaction type IDs and their definitions
 

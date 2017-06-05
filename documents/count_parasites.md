@@ -26,7 +26,7 @@ Note that this table should get visualized in a better way later on (tree with n
 taxonomic group | count of parasites
 ---|---
 Eukaryota | 11.030
-> Fungi | 2.385
-> Metazoa | 8.207
-> Archaeplastida | 126
-> Chloroplastida | 125
+- Fungi | 2.385
+- Metazoa | 8.207
+- Archaeplastida | 126
+- Chloroplastida | 125
