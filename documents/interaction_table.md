@@ -24,10 +24,10 @@ parasitic interaction (source)|parasitic interaction (target)| freeliving intera
 **kleptoparasiteOf**||**flowersVisitedBy**|**ectoParasiteOf**|**hostOf**|**pollinates**|
 **endoparasiteOf**| |**hasPathogen**|**kleptoparasiteOf**|**hasDispersalVector**|**farms** (1)
 **parasitoidOf**| |**pollinatedBy**|**visitsFlowersOf**|**hasVector**|**livesUnder**(113)|
-**endoparasitoidOf**(1462)| |**hasParasite**||**symbiontOf** |**livesOn**(1073)|
-**ectoParasitoid**(61)| | | |**pathogenOf**| **guestOf**(141)
- | | | |**vectorOf**| **livesInsideOf**(583)
- | | | |**dispersalVectorOf**|**adjacentTo**
+**endoparasitoidOf**(1462)| |**hasParasite**|**endoparasiteOf**|**symbiontOf** |**livesOn**(1073)|
+**ectoParasitoid**(61)| | |**parasitoidOf**|**pathogenOf**| **guestOf**(141)
+ | | |**endoparasitoidOf**(1462)|**vectorOf**| **livesInsideOf**(583)
+ | | |**ectoParasitoid**(61)|**dispersalVectorOf**|**adjacentTo**
 
 ## Raw interaction type IDs and their definitions
 

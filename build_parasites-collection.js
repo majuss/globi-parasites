@@ -7,7 +7,10 @@ db.query(`for doc in interaction_tsv
           filter doc.interactionTypeName == 'parasiteOf' ||
           doc.interactionTypeName == 'ectoParasiteOf' ||
           doc.interactionTypeName == 'kleptoparasiteOf' ||
-          doc.interactionTypeName == 'ectoParasitoid'
+          doc.interactionTypeName == 'ectoParasitoid' ||
+          doc.interactionTypeName == 'endoparasiteOf' ||
+          doc.interactionTypeName == 'parasitoidOf' ||
+          doc.interactionTypeName == 'endoparasitoidOf'
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
