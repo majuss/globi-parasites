@@ -37,7 +37,10 @@ function writeNewRankPath(ott) {
             }) in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
     db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
     filter doc
-    insert merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
-                        freeliving: doc._key == '${ott}' ? 1 : 0 }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
+
+    UPSERT { _key: '${ott}'}
+    INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
+                        freeliving: doc._key == '${ott}' ? 1 : 0 }) 
+    UPDATE { freeliving: doc._key == '${ott}' ? 1 : 0 } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
 }
 return;

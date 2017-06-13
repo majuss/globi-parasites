@@ -20,7 +20,7 @@ function testAvailable(cursor) {
         try {
             const ottId = doc.sourceTaxonIds.match(/OTT\:(\d+)/)[1];
             writeNewRankPath(ottId);
-        } catch(e) {} //here goes code to handle entries without OTTID
+        } catch (e) { } //here goes code to handle entries without OTTID
         testAvailable(cursor);
     });
 }
@@ -36,7 +36,11 @@ function writeNewRankPath(ott) {
 
     db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
     filter doc
-    insert merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
-                        parasite: doc._key == '${ott}' ? 1 : 0 }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
+
+    UPSERT { _key: '${ott}' }
+    INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
+                        parasite: doc._key == '${ott}' ? 1 : 0 })
+    UPDATE { parasite: doc._key == '${ott}' ? 1 : 0,
+             globi: doc._key == '${ott}' ? 1 : 0 } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 }
 return;
