@@ -39,8 +39,8 @@ function writeNewRankPath(ott) {
 
     UPSERT { _key: '${ott}' }
     INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
-                        parasite: doc._key == '${ott}' ? 1 : 0 },
-                        globi: doc._key == '${ott}' ? 1 : 0 )
+                        parasite: doc._key == '${ott}' ? 1 : 0,
+                        globi: doc._key == '${ott}' ? 1 : 0 })
     UPDATE { parasite: doc._key == '${ott}' ? 1 : 0,
              globi: doc._key == '${ott}' ? 1 : 0 } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 }
