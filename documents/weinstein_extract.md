@@ -227,7 +227,7 @@ Pseudacteon
 Megasalia sp.
 Borophaga
 Diplonevra pilosella
-D. nitidula
+Dirhinosia nitidula
 Dohrniphora sp.
 Neottiophilinae
 Senotainia sp.
