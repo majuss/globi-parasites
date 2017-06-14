@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Build system for the required data
+# Build system for the required data (OTT taxonomy.tsv and GLoBI interactions.tsv)
 
+npm i arangojs fastango3
 mkdir data
 cd data
 wget https://s3.amazonaws.com/globi/snapshot/target/data/tsv/interactions.tsv.gz

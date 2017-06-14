@@ -1,7 +1,6 @@
 'use strict';
 
 const db = require('arangojs')();
-const collection = db.collection('otl_parasites_nodes');
 
 db.query(`for doc in interaction_tsv
           filter doc.interactionTypeName == 'preyedUponBy' ||
@@ -21,13 +20,13 @@ function testAvailable(cursor) {
     cursor.next().then(doc => {
         try {
             const ottId = doc.targetTaxonIds.match(/OTT\:(\d+)/)[1];
-            writeNewRankPath(ottId);
+            writeNewRankPath(ottId, doc);
         } catch (e) { } //here goes code to handle entries without OTTID
         testAvailable(cursor);
     });
 }
 
-function writeNewRankPath(ott) {
+function writeNewRankPath(ott, dok) {
     console.log('writing' + ott);
     db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return e)
     filter doc
@@ -40,7 +39,13 @@ function writeNewRankPath(ott) {
 
     UPSERT { _key: '${ott}'}
     INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
-                        freeliving: doc._key == '${ott}' ? 1 : 0 }) 
-    UPDATE { freeliving: doc._key == '${ott}' ? 1 : 0 } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
+                        freeliving: doc._key == '${ott}' ? 1 : 0,
+                        globi: doc._key == '${ott}' ? 1 : 0,
+                        interactionTypeNameFL == '${dok.interactionTypeName}',
+                        directionFL == 'target'  }) 
+    UPDATE { freeliving: doc._key == '${ott}' ? 1 : 0,
+             globi: doc._key == '${ott}' ? 1 : 0,
+             interactionTypeNameFL == '${dok.interactionTypeName}',
+             directionFL == 'target' } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
 }
 return;

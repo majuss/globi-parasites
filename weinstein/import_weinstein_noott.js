@@ -1,7 +1,6 @@
 'use strict';
 
 const db = require('arangojs')();
-const collection = db.collection('otl_parasites_nodes');
 
 db.query(`for doc in weinstein_noott
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
