@@ -1,5 +1,6 @@
 # How to generate the number of parasites in GLoBIs databse
 
+Further counting will be automated by: `generate_counts.js`.
 For all interactions used to determine which species is freeliving/parasite, look at `documents/interaction_table.md`.
 
 ## Number of Databases inside GLoBI's
@@ -37,6 +38,15 @@ RETURN v)
 ```
 Note that the OTT-ID 304358 represents the Eukaryota-node.
 
+### Return number of crosshits
+
+```
+return count(
+for doc in otl_parasites_nodes
+filter doc.parasite == 1 && doc.freeliving == 1
+return doc
+)
+```
 # Tables
 
 Note that this table should get visualized in a better way later on (tree with number).

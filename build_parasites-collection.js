@@ -40,12 +40,12 @@ function writeNewRankPath(ott, dok) {
     INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
                         parasite: doc._key == '${ott}' ? 1 : 0,
                         globi: doc._key == '${ott}' ? 1 : 0,
-                        interactionTypeNameP: '${dok.interactionTypeName}',
+                        interactionTypeNameP: doc._key == '${ott}' ? '${dok.interactionTypeName}' : 0,
                         directionP: 'source' })
 
     UPDATE { parasite: doc._key == '${ott}' ? 1 : 0,
              globi: doc._key == '${ott}' ? 1 : 0,
-             interactionTypeNameP: '${dok.interactionTypeName}',
+             interactionTypeNameP: doc._key == '${ott}' ? '${dok.interactionTypeName}' : 0,
              directionP: 'source' } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 }
 return;

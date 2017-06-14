@@ -35,15 +35,12 @@ node build_parasites-collection.js
 # ToDo's
 
 **Currently working on:**
-- find out which interactionTypeName determines if a species is free living or parasitic (in documents/interaction_table.md)
-- create collection with all free living species (write a builder)
-- import the parasite-data from weinstein 2016 (in weinstein_extract.md); parse weinstein parasites into own collection and build importer into otl_parasites
-- create counts of "everything" and think about figures to include (how much p/fl in differenct phylla)
-- count unique parasites and freeliving by adding attribute to interaction_tsv
-- save interactionTypeName by importing otl_parasites_nodes to determine which interaction gets cross+ into
+- counts: count unique parasites and freeliving by adding attribute to interaction_tsv
+- counts: array with all animal phylla, loop trought them update doc.
 
 **In the long run:**
 - use simple parsimony algorithm to determine how often parasitism occurred in the evolution (of Eukaryota?)
+- find out which interactionTypeName determines if a species is free living or parasitic (in documents/interaction_table.md)
 
 **May?**
 - write master thesis as git-book? Create new book and add basic ToC and points what to include
