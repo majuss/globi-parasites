@@ -42,7 +42,7 @@ function writeNewRankPath(ott, dok) {
     db.query(`
     INSERT {_id:concat('otl_parasites_nodes/', ${dok.sourceTaxonId}),
                         key: ${dok.sourceTaxonId},
-                        name:${dok.sourceTaxonName},
+                        name: '${dok.sourceTaxonName}',
                         rank: 'species',
                         parasite: 1,
                         weinstein: 1}in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);    
