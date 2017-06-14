@@ -41,11 +41,11 @@ function writeNewRankPath(ott, dok) {
     INSERT merge(doc, {_id:concat('otl_parasites_nodes/', doc._key),
                         freeliving: doc._key == '${ott}' ? 1 : 0,
                         globi: doc._key == '${ott}' ? 1 : 0,
-                        interactionTypeNameFL: == '${dok.interactionTypeName}',
-                        directionFL: == 'target'  }) 
+                        interactionTypeNameFL: '${dok.interactionTypeName}',
+                        directionFL: 'target'  }) 
     UPDATE { freeliving: doc._key == '${ott}' ? 1 : 0,
              globi: doc._key == '${ott}' ? 1 : 0,
-             interactionTypeNameFL: == '${dok.interactionTypeName}',
-             directionFL: == 'target' } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
+             interactionTypeNameFL: '${dok.interactionTypeName}',
+             directionFL: 'target' } in otl_parasites_nodes OPTIONS { ignoreErrors: true }`); //if doc.key == searched OTTID update state to parasite
 }
 return;
