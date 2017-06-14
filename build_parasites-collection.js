@@ -44,7 +44,7 @@ function writeNewRankPath(ott, dok) {
                         directionP: == 'source' })
 
     UPDATE { parasite: doc._key == '${ott}' ? 1 : 0,
-             globi: doc._key == '${ott}' ? 1 : 0 },
+             globi: doc._key == '${ott}' ? 1 : 0,
              interactionTypeNameP: == '${dok.interactionTypeName}',
              directionP: == 'source' }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 }
