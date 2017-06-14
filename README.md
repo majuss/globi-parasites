@@ -40,6 +40,7 @@ node build_parasites-collection.js
 - import the parasite-data from weinstein 2016 (in weinstein_extract.md); parse weinstein parasites into own collection and build importer into otl_parasites
 - create counts of "everything" and think a about figures to include
 - count unique parasites and freeliving by adding attribute to interaction_tsv
+- save interactionTypeName by importing otl_parasites_nodes to determine which interaction gets cross+ into
 
 **In the long run:**
 - use simple parsimony algorithm to determine how often parasitism occurred in the evolution (of Eukaryota?)
