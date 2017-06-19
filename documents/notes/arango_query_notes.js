@@ -56,3 +56,42 @@ return doc
 //Filter p.vertices[-1] == homosapiensid
 //
 //Return p
+
+
+
+//concat(phyll.phylla, 
+//concat('otl_parasites_edges/', doc._key)
+
+/*
+
+const phyllaNames = ["Acanthocephala", "Annelida", "Arthropoda", "Brachiopoda", "Bryozoa", "Chaetognatha", "Chordata", "Cnidaria", "Ctenophora", "Cycliophora", "Echinodermata", "Entoprocta", "Gastrotricha", "Gnathostomulida", "Hemichordata", "Kinorhyncha", "Loricifera", "Micrognathozoa", "Mollusca", "Nematoda", "Nematomorpha", "Nemertea", "Onychophora", "Orthonectida", "Phoronida", "Placozoa", "Platyhelminthes", "Porifera", "Priapulida", "Rhombozoa", "Rotifera", "Sipuncula", "Tardigrada", "Xenacoelomorpha"];
+
+
+const phyllaOTT = [];
+async function counting() {
+
+    for (let i = 0; i < phyllaNames.length; i++) {
+
+        let result = await db.query(`
+            for doc in otl_parasites_nodes
+            filter contains(doc.name, '${phyllaNames[i]}')
+            filter doc.rank == 'phylum'
+            //UPDATE "phylla" with{phyllaOTT: doc._key} in counts OPTIONS { ignoreErrors: true } 
+            return doc._key`);
+        console.log (phyllaNames[i], result._result);
+        phyllaOTT.push(result._result);
+        //console.log(phyllaOTT);
+    }
+
+}
+counting();
+
+
+
+
+`
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
+    filter v.rank == 'phylum'
+    RETURN v
+`
+*/
