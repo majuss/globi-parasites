@@ -1,42 +1,46 @@
-connect to the VM:
+# GLoBIs parasites
+
+Here is the workflow to reproduce the current findings:
+
+**1. connect to the VM thats running arangoDB:**
 ```
 ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
----
-1. Setup arangodb and node_7.9 and install needed packages in package.json
+**2. Setup arangoDB and node.v8+ and install needed packages in package.json**
 
-2. Download globi's .tsv dump:
+**3. Run the data-building script:**
 ```
-wget https://s3.amazonaws.com/globi/snapshot/target/data/tsv/interactions.tsv.gz
+bash build_data.sh
 ```
-
-Import the extraced tsv-dump with:
-```
-arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true
-```
-
-3. **import open tree of life dump**
-
-```
-http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz
-```
-Extract it and create the collections for the edges (edges_otl) and nodes (nodes_otl)
-The run the importer with node_7.9!
+**4. Import open tree of life dump**
 ```
 node nodesimport_otl.js
 node edgesimport_otl.js
 ```
-
-4. Now we create 2 subsetted collections containing all parasites (according to interactionTypeName) with:
+**4. Now we create 2 subsetted collections containing all parasites (according to interactionTypeName) with:**
 ```
 node build_parasites-collection.js
+node build_freeliving_source.js
+node build_freeliving_target.js
 ```
+**5. Create Weinstein.2016 extract by selecting all *bold* entries from her supp. data and write it to a file**
+
+**6. Build and import Weinstein.2016 data:**
+```
+bash build_weinstein-tsv.sh weinstein_extract.tsv data/taxonomy.tsv
+node import_weinstein_noott.js
+node import_weinstein.js
+```
+**7. Tag interaction_tsv collection**
+```
+node tag_interactiontsv_paras.js
+```
+**8. To count stuff just execute the js code in /documents**
 
 # ToDo's
 
 **Currently working on:**
-- counts: count unique parasites and freeliving by adding attribute to interaction_tsv
-- counts: array with all animal phylla, loop trought them update doc.
+- counts: array with all animal phylla, loop trough them update doc.
 
 **In the long run:**
 - use simple parsimony algorithm to determine how often parasitism occurred in the evolution (of Eukaryota?)
@@ -48,3 +52,10 @@ node build_parasites-collection.js
 **Future work:** (not important)
 - draw the graph database with sigma.js(?)
 - look at the opentree for phylogeny `https://tree.opentreeoflife.org/opentree/argus/opentree9.1@ott93302`
+
+
+### Notes
+
+Link to current thesis notes: https://www.icloud.com/pages/0U8KA609rmdiKQphfj_W2TaFQ#ma
+
+If you get an error that says that node is out of memory, run it with more: `--max_old_space_size=16384`

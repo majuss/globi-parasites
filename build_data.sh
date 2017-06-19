@@ -12,3 +12,4 @@ tar -xvf ott3.0.tgz
 rm ott3.0.tgz
 mv ott/taxonomy.tsv .
 rm -rf ott
+arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true
