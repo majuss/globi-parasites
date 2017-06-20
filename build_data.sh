@@ -13,3 +13,12 @@ rm ott3.0.tgz
 mv ott/taxonomy.tsv .
 rm -rf ott
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true
+node tagging/tag_interactionstsv_freelivings.js
+node tagging/tag_interactionstsv_paras.js
+node tagging/tag_interactionstsv_freelivingt.js
+node build_freeliving_source.js
+node build_freeliving_target.js
+node build_parasites-collection.js
+bash weinstein/build_weinstein-tsv.sh weinstein/weinstein_extract.md data/taxonomy.tsv
+node weinstein/import_weinstein.js
+node weinstein/import_weinstein_noott.js

@@ -3,13 +3,7 @@
 const db = require('arangojs')();
 
 db.query(`for doc in interaction_tsv
-          filter doc.interactionTypeName == 'visits' ||
-          doc.interactionTypeName == 'preysOn' ||
-          doc.interactionTypeName == 'eats' ||
-          doc.interactionTypeName == 'flowersVisitedBy' ||
-          doc.interactionTypeName == 'hasPathogen' ||
-          doc.interactionTypeName == 'pollinatedBy' ||
-          doc.interactionTypeName == 'hasParasite'
+          filter doc.freeliving == 1 && doc.directionF == 'source'
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
