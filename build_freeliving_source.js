@@ -7,7 +7,7 @@ db.query(`for doc in interaction_tsv
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
+    if (!cursor.hasNext()) { console.log('Finished building freeliving(source)'); return };
 
     cursor.next().then(doc => {
         try {
@@ -19,14 +19,13 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott, dok) {
-    console.log('writing: ' + ott);
     db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return e)
     filter doc
     insert merge(doc, {_id:concat('otl_parasites_edges/', doc._key),
                     _from:concat('otl_parasites_nodes/', SPLIT(doc._from, '/')[1] ),
                     _to:concat('otl_parasites_nodes/',   SPLIT(doc._to,   '/')[1] )
             }) in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
-   db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
+    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
     filter doc
     
     UPSERT { _key: '${ott}'}

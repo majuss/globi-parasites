@@ -2,6 +2,7 @@
 
 const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
+const db       = require('arangojs')();
 const instream = fs.createReadStream('data/taxonomy.tsv');
 
 const bufs = [];
@@ -14,6 +15,7 @@ instream.on('data', async function(d) {
 });
 instream.on('end', () => {
     readLast();
+    console.log('Finished building OTT edges');
 });
 
 async function readNames() {
@@ -49,7 +51,6 @@ async function parseLine(line) {
     // filter doc._key == '${line[0]}'
     // update doc with {rank:'${line[2]}'} in names`);
 
-    console.log(line[0], line[1]);
 };
 
 

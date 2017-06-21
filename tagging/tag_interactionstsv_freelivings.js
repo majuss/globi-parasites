@@ -14,7 +14,7 @@ db.query(`for doc in interaction_tsv
           return doc`, {}, { ttl: 1000 * 3600 }).then(tagFreelivingS); //filter for interaction; ie isparasyte
 
 function tagFreelivingS(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
+    if (!cursor.hasNext()) { console.log('Finished building freeliving(source)'); return };
     cursor.next().then(doc => {
         try {db.query(`UPDATE "${doc._key}" WITH { freeliving: 1,
                                                    directionF: 'source',

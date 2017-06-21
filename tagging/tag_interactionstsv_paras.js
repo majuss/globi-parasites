@@ -2,6 +2,7 @@
 const db = require('arangojs')();
 
 //tag parasites source
+
 db.query(`for doc in interaction_tsv
           filter doc.interactionTypeName == 'parasiteOf' ||
           doc.interactionTypeName == 'ectoParasiteOf' ||
@@ -13,11 +14,11 @@ db.query(`for doc in interaction_tsv
           return doc`, {}, { ttl: 1000 * 3600 }).then(tagParasS); //filter for interaction; ie isparasyte
 
 function tagParasS(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
+    if (!cursor.hasNext()) { console.log('Finished tagging parasites(source)'); return };
     cursor.next().then(doc => {
         try {db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
                                                    directionP: 'source',
-                                                   fname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
+                                                   pname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
         } catch (e) { }
         tagParasS(cursor);
     });

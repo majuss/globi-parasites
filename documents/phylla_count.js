@@ -5,7 +5,6 @@ var db = require('arangojs')();
 db.query(`REMOVE "phylla_metazoa" IN counts`);
 db.query(`INSERT { _key: "phylla_metazoa" } IN counts`);
 
-
 db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
           filter v.rank == 'phylum'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getPhylum);

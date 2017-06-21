@@ -2,6 +2,7 @@
 
 const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
+const db       = require('arangojs')();
 const instream = fs.createReadStream('data/taxonomy.tsv');
 
 const bufs = [];
@@ -14,6 +15,7 @@ instream.on('data', async function(d) {
 });
 instream.on('end', () => {
     readLast();
+    console.log('Finished building OTT nodes');
 });
 
 async function readNames() {
@@ -44,5 +46,4 @@ async function parseLine(line) {
     line = line.split('\t|\t');
     await fastango.nodes_otl.asyncSave(JSON.stringify({ _key:line[0], name:line[2], rank:line[3] }));
 
-    console.log(line[0], line[2], line[3]);
 };
