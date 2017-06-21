@@ -17,7 +17,7 @@ function tagParasS(cursor) {
     cursor.next().then(doc => {
         try {db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
                                                    directionP: 'source',
-                                                   pfname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
+                                                   fname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
         } catch (e) { }
         tagParasS(cursor);
     });

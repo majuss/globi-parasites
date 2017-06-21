@@ -20,7 +20,7 @@ function tagFreelivingT(cursor) {
     cursor.next().then(doc => {
         try {db.query(`UPDATE "${doc._key}" WITH { freeliving: 1,
                                                    directionF: 'target',
-                                                   pfname: '${doc.targetTaxonName}' } IN interaction_tsv`);
+                                                   fname: '${doc.targetTaxonName}' } IN interaction_tsv`);
         } catch (e) { }
         tagFreelivingT(cursor);
     });
