@@ -6,7 +6,7 @@ Here is the workflow to reproduce the current findings:
 ```
 ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
-**2. Setup arangoDB and node.v8+ and install needed packages in package.json**
+**2. Setup arangoDB and node.v8+**
 
 **3. Run the data-building script:**
 ```
