@@ -12,13 +12,14 @@ ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
 bash build_data.sh
 ```
-**4. To count stuff just execute the js code in /documents**
 
 # ToDo's
 
 **Currently working on:**
-- counts: array with all animal phylla, loop trough them update doc; count general nr of parasites inside pipeline (noott etc)
-- rebuild data builder
+- builder needs to create graph 'otl'
+- investigate counts in plants (150/450)
+- MA content and which gfx to include
+- parsimony-like algorithm
 
 **In the long run:**
 - use simple parsimony algorithm to determine how often parasitism occurred in the evolution (of Eukaryota?) (root at phylum; jeden möglichen Baum berechnen, Anzahl der Edges mit Attribut = character change = 1 zählen)

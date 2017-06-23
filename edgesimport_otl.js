@@ -2,10 +2,26 @@
 
 const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
-const db       = require('arangojs')();
 const instream = fs.createReadStream('data/taxonomy.tsv');
+const db       = require('arangojs')();
 
 const bufs = [];
+
+const graph = db.graph('otl');
+graph.drop();
+graph.create({
+    edgeDefinitions: [
+        {
+            collection: 'otl_parasites_edges',
+            from: [
+                'otl_parasites_nodes'
+            ],
+            to: [
+                'otl_parasites_nodes'
+            ]
+        }
+    ]
+});
 
 instream.on('data', async function(d) {
     instream.pause();

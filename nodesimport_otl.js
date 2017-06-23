@@ -2,7 +2,6 @@
 
 const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
-const db       = require('arangojs')();
 const instream = fs.createReadStream('data/taxonomy.tsv');
 
 const bufs = [];
