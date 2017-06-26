@@ -16,7 +16,6 @@ bash build_data.sh
 # ToDo's
 
 **Currently working on:**
-- builder needs to create graph 'otl'
 - investigate counts in plants (150/450)
 - MA content and which gfx to include
 - parsimony-like algorithm

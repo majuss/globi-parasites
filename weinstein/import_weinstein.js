@@ -14,6 +14,7 @@ function testAvailable(cursor) {
             writeNewRankPath(ottId);
 
         } catch (e) { } //here goes code to handle entries without OTTID
+        //insert noott stuff
         testAvailable(cursor);
     });
 }

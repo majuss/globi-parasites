@@ -14,6 +14,20 @@ function testAvailable(cursor) {
             writeNewRankPath(ottId, doc);
 
         } catch (e) { } //here goes code to handle entries without OTTID
+        db.query(`
+        insert {_id: concat('otl_parasites_edges/', ${doc.sourceTaxonId}),
+            _key: ${doc.sourceTaxonId},
+            _from: concat('otl_parasites_nodes/', ${doc.ParentOTT}),
+            _to: concat('otl_parasites_nodes/', ${doc.sourceTaxonId})} in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
+
+        db.query(`
+        INSERT {_id:concat('otl_parasites_nodes/', ${doc.sourceTaxonId}),
+            _key: ${doc.sourceTaxonId},
+            name: '${doc.sourceTaxonName}',
+            rank: 'species',
+            parasite: 1,
+            weinstein: 1}in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
+
         testAvailable(cursor);
     });
 }
@@ -28,23 +42,13 @@ function writeNewRankPath(ott, dok) {
                        _from:concat('otl_parasites_nodes/', SPLIT(doc._from, '/')[1] ),
                        _to:concat('otl_parasites_nodes/',   SPLIT(doc._to,   '/')[1] )}) in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
 
-    db.query(`
-    insert {_id: concat('otl_parasites_edges/', ${dok.sourceTaxonId}),
-            _key: ${dok.sourceTaxonId},
-            _from: concat('otl_parasites_nodes/', ${ott}),
-            _to: concat('otl_parasites_nodes/', ${dok.sourceTaxonId})} in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
-    
+
+
     db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
     filter doc
     INSERT merge(doc, { _id:concat('otl_parasites_nodes/', doc._key) }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 
-    db.query(`
-    INSERT {_id:concat('otl_parasites_nodes/', ${dok.sourceTaxonId}),
-                        _key: ${dok.sourceTaxonId},
-                        name: '${dok.sourceTaxonName}',
-                        rank: 'species',
-                        parasite: 1,
-                        weinstein: 1}in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);    
+
 }
 return;
