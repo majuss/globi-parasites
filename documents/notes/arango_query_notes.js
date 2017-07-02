@@ -95,3 +95,96 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
     RETURN v
 `
 */
+
+
+//return count(
+//for doc in interaction_tsv
+//filter doc.interactionTypeName == 'parasiteOf' ||
+//doc.interactionTypeName == 'ectoParasiteOf'||
+//doc.interactionTypeName == 'kleptoparasiteOf' ||
+//doc.interactionTypeName == 'ectoParasitoid' ||
+//doc.interactionTypeName == 'endoparasiteOf' ||
+//doc.interactionTypeName == 'parasitoidOf' ||
+//doc.interactionTypeName == 'endoparasitoidOf'
+//return distinct doc.sourceTaxonName
+//)
+
+
+//return count(
+//for doc in interaction_tsv
+//filter doc.interactionTypeName == 'preyedUponBy' ||
+//doc.interactionTypeName == 'ectoParasitoid'||
+//doc.interactionTypeName == 'parasiteOf' ||
+//doc.interactionTypeName == 'ectoParasiteOf' ||
+//doc.interactionTypeName == 'kleptoparasiteOf' ||
+//doc.interactionTypeName == 'visitsFlowersOf' ||
+//doc.interactionTypeName == 'endoparasitoidOf'||
+//doc.interactionTypeName == 'parasitoidOf'||
+//doc.interactionTypeName == 'endoparasiteOf'
+//return distinct doc.targetTaxonName
+//)
+
+//for doc in otl_parasites_nodes
+//filter doc.name == 'Myxozoa'
+//return doc
+
+//for doc in otl_parasites_nodes
+//filter doc.name == 'SAR'
+//return doc
+
+//for doc in otl_parasites_nodes
+//filter doc.parasite == 1 && doc.freeliving == 1
+//return doc.interactionTypeNameP
+
+//for doc in otl_parasites_nodes
+//filter doc.globi == 1 && doc.weinstein == 1
+//return doc
+
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
+//    filter v.rank == 'phylum'
+//    RETURN v
+
+//return count(
+//for doc in interaction_tsv
+//filter doc.freeliving == 1 && doc.parasite == 1
+//return distinct doc.pfname)
+
+//for node in otl_parasites_nodes
+//filter node.parasite != 1 && node.freeliving != 1
+//
+//return node
+
+
+//
+//    for doc in otl_parasites_nodes
+//    filter doc.rank == 'phylum'
+//    filter contains(doc.name, 'Sipuncula')
+//    return doc
+
+
+
+//FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/412087' GRAPH 'otl' return v
+
+
+//
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes/395057' otl_parasites_edges
+//          filter v.rank == 'class'
+//          RETURN v
+
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes/125642' otl_parasites_edges
+//          filter v.parasite == 1
+//          RETURN v
+
+
+
+//for dok in otl_parasites_nodes
+//insert dok in otl_parasites_nodes_bak
+
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
+//          filter v.rank == 'kingdom'
+//          RETURN v
+
+
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
+          filter v.rank == 'kingdom'
+          RETURN v
