@@ -56,8 +56,9 @@ arangoimp --file weinstein/weinstein_noOTT.tsv --type tsv --collection weinstein
 node weinstein/import_weinstein.js 
 node weinstein/import_weinstein_noott.js 
 echo "$(tput setaf 1)$(tput setab 7)-------- Done importing weinstein2016 (7/8) --------$(tput sgr 0)" 1>&3
-node documents/generate_counts.js 
-node documents/phylla_count.js
+node counting/generate_counts.js 
+node counting/phylla_count_parasites.js
+node counting/phylla_count_freeliving.js
 nohit=$(wc -l weinstein/weinstein_nohit.tsv | awk '{print $1}')
 arangosh --server.authentication false --javascript.execute-string "db._update('counts/table', {'no Hits for Weinstein': $nohit})"
 echo "$(tput setaf 1)$(tput setab 7)-------- Done generating counts (8/8) --------$(tput sgr 0)" 1>&3

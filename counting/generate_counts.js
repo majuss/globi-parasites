@@ -94,10 +94,22 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/352914' otl_parasites_edges
     FILTER v.parasite == 1
     RETURN v)`);
 
+let fungif = await db.query(`
+return count(
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/352914' otl_parasites_edges
+    FILTER v.freeliving == 1
+    RETURN v)`);
+
 let metazoa = await db.query(`
 return count(
 FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
     FILTER v.parasite == 1
+    RETURN v)`);
+
+let metazoaf = await db.query(`
+return count(
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
+    FILTER v.freeliving == 1
     RETURN v)`);
 
 let plants = await db.query(`
@@ -106,10 +118,22 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5268475' otl_parasites_edges
     FILTER v.parasite == 1
     RETURN v)`);
 
+let plantsf = await db.query(`
+return count(
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5268475' otl_parasites_edges
+    FILTER v.freeliving == 1
+    RETURN v)`);
+
 let amebes = await db.query(`
 return count(
 FOR v,e IN 1..100 outbound 'otl_parasites_nodes/1064655' otl_parasites_edges
     FILTER v.parasite == 1
+    RETURN v)`);
+
+let amebesf = await db.query(`
+return count(
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/1064655' otl_parasites_edges
+    FILTER v.freeliving == 1
     RETURN v)`);
 
 let sar = await db.query(`
@@ -118,6 +142,11 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5246039' otl_parasites_edges
     FILTER v.parasite == 1
     RETURN v)`);
 
+let sarf = await db.query(`
+return count(
+FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5246039' otl_parasites_edges
+    FILTER v.freeliving == 1
+    RETURN v)`);
 
 let percent_noott_parasites_nd = ((100 / parasites_interaction_nd._result) * noott_parasites_nd._result).toFixed(2);
 let percent_noott_parasites_d = ((100 / parasites_interaction_d._result) * noott_parasites_d._result).toFixed(2);
@@ -138,10 +167,15 @@ INSERT {    _key: 'table',
             'Parasite Count': ${parasites._result},
             'Freeliving Count': ${freeliving._result},
             'Fungi Parasites': ${fungi._result},
+            'Fungi freeliving': ${fungif._result},
             'Metazoa Parasites': ${metazoa._result},
+            'Metazoa freeliving': ${metazoaf._result},
             'Plant Parasites': ${plants._result},
+            'Plant freeliving': ${plantsf._result},
             'Amebe Parasites': ${amebes._result},
-            'SAR Parasites': ${sar._result} } in counts`);
+            'Amebe freeliving': ${amebesf._result},
+            'SAR Parasites': ${sar._result},
+            'SAR freeliving': ${sarf._result} } in counts`);
 }
 
 counting();

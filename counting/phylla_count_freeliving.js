@@ -1,5 +1,4 @@
 'use strict';
-//retrieve counts for all METAZOA PARASITES
 
 var db = require('arangojs')();
 db.query(`REMOVE "phylla_metazoa_f" IN counts`);
@@ -10,6 +9,9 @@ db.query(`REMOVE "phylla_sar_f" IN counts`);
 db.query(`INSERT { _key: "phylla_sar_f" } IN counts`);
 db.query(`REMOVE "phylla_plant_f" IN counts`);
 db.query(`INSERT { _key: "phylla_plant_f" } IN counts`);
+
+
+//retrieve counts for all METAZOA PARASITES
 
 db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
           filter v.rank == 'phylum'

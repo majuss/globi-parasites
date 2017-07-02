@@ -14,7 +14,7 @@ cd data
 wget https://s3.amazonaws.com/globi/snapshot/target/data/tsv/interactions.tsv.gz -nv
 gunzip interactions.tsv.gz
 wget http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz -nv
-tar -xvf ott3.0.tgz 
+tar -xf ott3.0.tgz 
 rm ott3.0.tgz 
 mv ott/taxonomy.tsv . 
 rm -rf ott 
@@ -65,30 +65,3 @@ end=$(date +%s)
 runtime=$(((end-start)/60))
 echo "$runtime minutes" 
 echo "$(tput setaf 1)$(tput setab 7)This run took $runtime minutes$(tput sgr 0)" 1>&3
-
-
-
-
-
-
-
-
-Administration Functions:
-  _help()                               this help
-  _flushCache()                         flush and refill collection cache
-
-Collection Functions:
-  _collections()                        list all collections
-  _collection(<name>)                   get collection by identifier/name
-  _create(<name>, <properties>)         creates a new collection
-  _createEdgeCollection(<name>)         creates a new edge collection
-  _drop(<name>)                         delete a collection
-
-Document Functions:
-  _document(<id>)                       get document by handle (_id)
-  _replace(<id>, <data>, <overwrite>)   overwrite document
-  _update(<id>, <data>, <overwrite>,    partially update document
-          <keepNull>)
-  _remove(<id>)                         delete document
-  _exists(<id>)                         checks whether a document exists
-  _truncate()                           delete all documents
