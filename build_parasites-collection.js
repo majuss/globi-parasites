@@ -19,14 +19,14 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott, dok) {
-    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return e)
+    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return e)
     filter doc
     insert merge(doc, {_id:concat('otl_parasites_edges/', doc._key),
                     _from:concat('otl_parasites_nodes/', SPLIT(doc._from, '/')[1] ),
                     _to:concat('otl_parasites_nodes/',   SPLIT(doc._to,   '/')[1] )
             }) in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
 
-    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
+    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
 
     UPSERT { _key: '${ott}' }

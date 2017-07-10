@@ -1,4 +1,4 @@
-#arango db queries
+/*#arango db queries
 
 /* Please insert some values for the @@collection1 and @@collection2 bind parameters */
 //FOR doc1 IN @@collection1
@@ -11,12 +11,12 @@
 //filter lower(doc.name) == "metazoa"
 //return doc
 
-
+/*
 return count (
 for doc in interaction_tsv
 filter contains(doc.sourceTaxonIds, "OTT:")
 return doc
-)
+)*/
 
 /* Please insert some values for the @@collection1 and @@collection2 bind parameters */
 //FOR doc1 IN @@collection1
@@ -184,7 +184,7 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
 //          filter v.rank == 'kingdom'
 //          RETURN v
 
-
+/*
 FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
           filter v.rank == 'kingdom'
-          RETURN v
+          RETURN v*/

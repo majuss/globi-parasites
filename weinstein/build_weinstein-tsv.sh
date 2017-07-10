@@ -26,23 +26,22 @@ echo -e "sourceTaxonId\tsourceTaxonName\tinteractionTypeName\tParentOTT\treferen
 while IFS='' read -r line || [[ -n "$line" ]]; do
     hit=$(grep "$line" "$2" | head -1 | awk -F "|" '{OFS="\t"; print $1,$3,"parasiteOf","weinstein2016"}' | tr -s '\t')
     if [[ $hit ]]; then
-    echo "$hit" >> weinstein/weinstein.tsv
-
-else
-    hit2=$(echo $line | awk -F " " '{print $1}')
-    if [ ${#hit2} -ge 3 ]; then
-        hit3=$(grep "$hit2" "$2" | head -2 | tail -1)
-        hit4=$(echo -e "$hit3" | awk -F "|" -v ottid="$ottid" -v sline="$line" '{OFS="\t"; print ottid,sline,"parasiteOf",$2,"weinstein2016"}' | tr -s '\t')
-        if [[ $hit3 ]]; then
-            echo "$hit4" >> weinstein/weinstein_noOTT.tsv
-        else
-            echo "$line" >> weinstein/weinstein_nohit.tsv
-        fi
-    ((ottid++))
+            echo "$hit" >> weinstein/weinstein.tsv
     else
-    echo "$line" >> weinstein/weinstein_nohit.tsv
+        hit2=$(echo $line | awk -F " " '{print $1}')
+        if [ ${#hit2} -ge 3 ]; then
+            hit3=$(grep "$hit2" "$2" | head -2 | tail -1)
+            hit4=$(echo -e "$hit3" | awk -F "|" -v ottid="$ottid" -v sline="$line" '{OFS="\t"; print ottid,sline,"parasiteOf",$2,"weinstein2016"}' | tr -s '\t')
+            if [[ $hit3 ]]; then
+                echo "$hit4" >> weinstein/weinstein_noOTT.tsv
+            else
+                echo "$line" >> weinstein/weinstein_nohit.tsv
+            fi
+            ((ottid++))
+        else
+        echo "$line" >> weinstein/weinstein_nohit.tsv
+        fi
     fi
-fi
 done < "$1"
 
 echo "Finished building Weinstein data"

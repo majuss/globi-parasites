@@ -36,7 +36,7 @@ function writeNewRankPath(ott, dok) {
     console.log('writing: ' + dok.sourceTaxonId);
 
     db.query(`
-    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return e)
+    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return e)
     filter doc
     insert merge(doc, {_id:concat('otl_parasites_edges/', doc._key),
                        _from:concat('otl_parasites_nodes/', SPLIT(doc._from, '/')[1] ),
@@ -45,9 +45,9 @@ function writeNewRankPath(ott, dok) {
 
 
     db.query(`
-    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' GRAPH 'otl' return v)
+    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
-    INSERT merge(doc, { _id:concat('otl_parasites_nodes/', doc._key) }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
+    INSERT merge(doc, { _id:concat('otl_parasites_nodes/', doc._key), parasite: 0, weinstein: 1 }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
 
 
 }
