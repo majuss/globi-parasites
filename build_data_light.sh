@@ -17,6 +17,13 @@ node build_freeliving_source.js &
 node build_freeliving_target.js &
 node build_parasites-collection.js &
 wait
+arangosh --server.authentication false --javascript.execute-string 'db._drop("otl_parasites_nodes_nowein");' 
+arangosh --server.authentication false --javascript.execute-string 'db._drop("otl_parasites_edges_nowein");' 
+arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("otl_parasites_edges_nowein");' 
+arangosh --server.authentication false --javascript.execute-string 'db._create("otl_parasites_nodes_nowein");' 
+wait
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_nodes INSERT doc IN otl_parasites_nodes_nowein");' 
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_edges INSERT doc IN otl_parasites_edges_nowein");' 
 echo "$(tput setaf 1)$(tput setab 7)-------- Building parasite/freeliving collections done (6/9) --------$(tput sgr 0)" 1>&3
 arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein");' 
 arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein_noott");' 
@@ -32,8 +39,13 @@ arangosh --server.authentication false --javascript.execute-string "db._update('
 echo "$(tput setaf 1)$(tput setab 7)-------- Done generating counts (8/9) --------$(tput sgr 0)" 1>&3
 node write_pis.js
 node taxonomic_majority_censoring.js
+node find_origins.js
 node counting/tag_origin_counts.js
-echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (9/9) --------$(tput sgr 0)" 1>&3
+node write_pis_nowein.js
+node taxonomic_majority_censoring_nowein.js
+node find_origins_nowein.js
+node counting/tag_origin_counts.js
+echo "$(tput setaf 1)$(tput setab 7)-------- Done generating PIs, calculating origins and tag origin counts (9/9) --------$(tput sgr 0)" 1>&3
 end=$(date +%s)
 runtime=$(((end-start)/60))
 echo "$runtime minutes" 
