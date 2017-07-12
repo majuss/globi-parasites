@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build system for everything this will take about 50 minutes (20 cores ivy bridge, 64 GB RAM)
+# Build system for everything this will take about 90 minutes (20 cores ivy bridge, 64 GB RAM)
 echo "Logifle written to: build_data.log"
 exec 3>&1 1>>build_data.log 2>&1
 
@@ -17,7 +17,9 @@ wget http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz -nv
 tar -xf ott3.0.tgz 
 rm ott3.0.tgz 
 mv ott/taxonomy.tsv . 
-rm -rf ott 
+rm -rf ott
+sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv
+wait
 echo "$(tput setaf 1)$(tput setab 7)------- Tree and Interaction-data downloaded (2/9) --------$(tput sgr 0)" 1>&3
 arangosh --server.authentication false --javascript.execute-string 'db._drop("interaction_tsv");' 
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true --server.authentication false
@@ -82,5 +84,3 @@ end=$(date +%s)
 runtime=$(((end-start)/60))
 echo "$runtime minutes" 
 echo "$(tput setaf 1)$(tput setab 7)This run took $runtime minutes$(tput sgr 0)" 1>&3
-
-#sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv
