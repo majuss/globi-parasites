@@ -6,7 +6,7 @@ Here is the workflow to reproduce the current findings:
 ```
 ssh h -L 127.0.0.1:8529:127.0.0.1:8529 -p 15350 -q
 ```
-**2. Setup arangoDB and node.v8+**
+**2. Setup arangoDB and node.v8 and disable arangos auth. (etc/arangodb3/arangod.conf)+**
 
 **3. Run the data-building script:**
 ```

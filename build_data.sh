@@ -18,7 +18,12 @@ tar -xf ott3.0.tgz
 rm ott3.0.tgz 
 mv ott/taxonomy.tsv . 
 rm -rf ott
-sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv
+sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv #Chloroplastida
+#sed -i '27272s/phylum/no rank/' taxonomy.tsv #Streptophyta
+#sed -i '27272s/phylum/no rank/' taxonomy.tsv #Tracheophyta
+#sed -i '27272s/phylum/no rank/' taxonomy.tsv #Magnoliophyta
+#sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv #Rhodophyta
+#sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv #Chlorophyta
 wait
 echo "$(tput setaf 1)$(tput setab 7)------- Tree and Interaction-data downloaded (2/9) --------$(tput sgr 0)" 1>&3
 arangosh --server.authentication false --javascript.execute-string 'db._drop("interaction_tsv");' 

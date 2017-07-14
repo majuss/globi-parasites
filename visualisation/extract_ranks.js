@@ -7,7 +7,7 @@ INSERT {
         _key: '304358',
         name: "Eukaryota",
         rank: "domain"
-    } INTO rank_extract`);
+    } INTO rank_extract OPTIONS { ignoreErrors: true }`);
 
 // kingdom - phlyum - class - order - family - genus
 
@@ -38,7 +38,7 @@ async function counting() {
             Object.keys(phylla._result).forEach(async function (key) {
             let classs = await db.query(`
             FOR v,e IN 1..100 outbound 'otl_parasites_nodes/${phylla._result[key]._key}' otl_parasites_edges
-            FILTER v.rank == 'classs'
+            FILTER v.rank == 'class'
             INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
             INSERT {
             _from: "rank_extract/${phylla._result[key]._key}",
