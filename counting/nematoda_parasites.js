@@ -14,7 +14,7 @@ db.query(`INSERT { _key: "nematoda_enoplea_p" } IN counts`);
 //chromadorea freeliving
 
 
-db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931693' otl_parasites_edges
+db.query(`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931693' edges_otl
           filter v.rank == 'order'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getchromadorea_f);
 
@@ -31,7 +31,7 @@ function getchromadorea_f(cursor) {
 async function insertchromadorea_f(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'otl_parasites_nodes/${currentDoc._key}' otl_parasites_edges
+    FOR v,e IN 1..100 OUTBOUND 'nodes_otl/${currentDoc._key}' edges_otl
           filter v.freeliving == 1
     RETURN v)`)
     db.query(`UPDATE "nematoda_chromadorea_f" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -39,7 +39,7 @@ async function insertchromadorea_f(currentDoc) {
 
 //chromadorea parasites
 
-db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931693' otl_parasites_edges
+db.query(`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931693' edges_otl
           filter v.rank == 'order'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getchromadorea_p);
 
@@ -56,7 +56,7 @@ function getchromadorea_p(cursor) {
 async function insertchromadorea_p(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'otl_parasites_nodes/${currentDoc._key}' otl_parasites_edges
+    FOR v,e IN 1..100 OUTBOUND 'nodes_otl/${currentDoc._key}' edges_otl
           filter v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "nematoda_chromadorea_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -64,7 +64,7 @@ async function insertchromadorea_p(currentDoc) {
 
 //enoplea freeliving
 
-db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931695' otl_parasites_edges
+db.query(`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931695' edges_otl
           filter v.rank == 'order'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getenoplea_f);
 
@@ -81,7 +81,7 @@ function getenoplea_f(cursor) {
 async function insertenoplea_f(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'otl_parasites_nodes/${currentDoc._key}' otl_parasites_edges
+    FOR v,e IN 1..100 OUTBOUND 'nodes_otl/${currentDoc._key}' edges_otl
           filter v.freeliving == 1
     RETURN v)`)
     db.query(`UPDATE "nematoda_enoplea_f" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -89,7 +89,7 @@ async function insertenoplea_f(currentDoc) {
 
 //enoplea parasites
 
-db.query(`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931695' otl_parasites_edges
+db.query(`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931695' edges_otl
           filter v.rank == 'order'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getenoplea_p);
 
@@ -106,7 +106,7 @@ function getenoplea_p(cursor) {
 async function insertenoplea_p(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'otl_parasites_nodes/${currentDoc._key}' otl_parasites_edges
+    FOR v,e IN 1..100 OUTBOUND 'nodes_otl/${currentDoc._key}' edges_otl
           filter v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "nematoda_enoplea_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -145,13 +145,13 @@ async function insertenoplea_p(currentDoc) {
 // retrieve orders
 /*
 
-`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931693' otl_parasites_edges
+`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931693' edges_otl
           filter v.rank == 'order'
           RETURN v`
 
 
 
-`FOR v,e IN 1..100 outbound 'otl_parasites_nodes/931695' otl_parasites_edges
+`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/931695' edges_otl
           filter v.rank == 'order'
           RETURN v`
 */

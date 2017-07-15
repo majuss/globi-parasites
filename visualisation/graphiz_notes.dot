@@ -1,0 +1,12 @@
+digraph G {
+
+graph [fontname = "helvetica"];
+node [fontname = "helvetica"];
+edge [fontname = "helvetica"];    
+    
+    
+    
+"class \n PI: 0.45"-> "family \n PI: 0.5" //[label=Testing];
+"family \n PI: 0.5" -> "genus A \n PI: 0.5" -> {"Species A \n PI: 0" [style=filled, color=green] "Species B  \n PI: 1" [style=filled, color=red] "Species C  \n PI: 0" [style=filled, color=green]}
+"family \n PI: 0.5" -> "genus B \n PI: 0.5" -> {"Species D \n PI: 1" [style=filled, color=red] "Species E \n PI: 0" [style=filled, color=green]}
+}

@@ -188,3 +188,133 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
 FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
           filter v.rank == 'kingdom'
           RETURN v*/
+
+//for doc in interaction_tsv
+//return distinct doc.interactionTypeName
+
+//for doc in otl_parasites_nodes_bak
+//INSERT doc in otl_parasites_nodes
+
+
+
+
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
+//    filter v.rank == 'kingdom'
+//    sort v.name asc
+//    RETURN v
+
+//return distinct doc.rank
+//
+//filter doc.parasite == 0 || doc.freeliving == 0
+//update doc with {pi: 0.5} in otl_parasites_nodes
+//
+//insert doc in otl_bak
+//
+//filter doc.pi == null
+//update doc with { pi: 0.5} in otl_parasites_nodes
+
+
+//filter doc.rank != 'species' && doc.rank != 'genus' && doc.rank != 'subspecies' && doc.parasite == 1 && doc.parasite == 1
+//update doc WITH { pi: 0.55 } in otl_parasites_nodes
+//return doc
+
+
+//filter doc.pi == 0.55
+//return doc
+
+
+
+
+//for node in otl_parasites_nodes
+
+//filter node.pi == null
+//return node
+//filter node.pi >= 0.9
+//
+//return distinct node.pi
+
+
+//return count(
+//FOR node IN otl_parasites_nodes
+//        FILTER 0 == length(
+//        FOR v,e,p IN OUTBOUND node._id otl_parasites_edges
+//        RETURN v)
+//        RETURN node._id)
+
+
+//FOR v,e IN INBOUND SHORTEST_PATH 'otl_parasites_nodes/5137581' TO 'otl_parasites_nodes/304358' otl_parasites_edges
+//filter v.pi != 0.5
+//return v
+
+//for node in otl_parasites_nodes
+// filter 0 == length(
+//    FOR v,e IN INBOUND SHORTEST_PATH node TO 'otl_parasites_nodes/304358' otl_parasites_edges
+//    return v
+// )
+// return node //check if every node is connected
+
+//return count(
+//for doc in otl_parasites_nodes
+//filter doc.pi == 0.5
+//return doc)
+
+//for doc in otl_parasites_edges return DOCUMENT([doc._from, doc._to])
+
+//for doc in otl_parasites_nodes
+//filter doc.parasite == 0 || doc.freeliving == 0
+//update doc with {pi: 0.5} in otl_parasites_nodes
+
+//for doc in otl_parasites_nodes
+//filter doc.parasite == 0 || doc.freeliving == 0
+//update doc with {pi: 0.5} in otl_parasites_nodes
+
+
+//for doc in otl_parasites_edges
+//return doc
+
+//RETURN DOCUMENT('nodes_otl/304358').name
+
+//for doc in otl_parasites_nodes
+//FILTER doc.origin2 == 1
+//return doc._originIDs
+
+
+
+//for doc in otl_parasites_nodes
+//filter doc.sourceTaxonName == "Trichodectes canis"
+//return distinct doc
+//filter doc.name == "Tardigrada"
+//return doc
+
+//for doc in otl_parasites_nodes
+//filter doc.name == "Chloroplastida"
+//filter doc.rank == "class"
+//filter doc.name == "Archaeplastida"
+
+//return doc
+
+//FOR v,e IN 1..100 OUTBOUND 'otl_parasites_nodes/5268475' otl_parasites_edges
+//FILTER v.rank == "phylum"
+//RETURN v.name
+
+
+//FOR node IN otl_parasites_nodes
+//FILTER 0 == length(
+//FOR v,e,p IN OUTBOUND node._id otl_parasites_edges
+//RETURN v)
+//RETURN node._id
+
+
+//FOR v,e IN INBOUND SHORTEST_PATH 'otl_parasites_nodes/5137581' TO 'otl_parasites_nodes/304358' otl_parasites_edges
+
+
+//return count(
+//FOR v,e IN INBOUND SHORTEST_PATH 'otl_parasites_nodes/3671425' TO 'otl_parasites_nodes/304358' otl_parasites_edges RETURN e)
+
+//for doc in otl_parasites_nodes_nowein
+//FILTER doc.name == "Metazoa"
+//return doc
+
+//FOR v,e IN 1..100 outbound 'otl_parasites_nodes_nowein/304358' otl_parasites_edges_nowein
+//    filter v.rank == 'kingdom'
+//    RETURN v

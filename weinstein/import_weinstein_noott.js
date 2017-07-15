@@ -15,18 +15,18 @@ function testAvailable(cursor) {
 
         } catch (e) { } //here goes code to handle entries without OTTID
         db.query(`
-        insert {_id: concat('otl_parasites_edges/', ${doc.sourceTaxonId}),
+        insert {_id: concat('edges_otl/', ${doc.sourceTaxonId}),
             _key: ${doc.sourceTaxonId},
-            _from: concat('otl_parasites_nodes/', ${doc.ParentOTT}),
-            _to: concat('otl_parasites_nodes/', ${doc.sourceTaxonId})} in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
+            _from: concat('nodes_otl/', ${doc.ParentOTT}),
+            _to: concat('nodes_otl/', ${doc.sourceTaxonId})} in edges_otl OPTIONS { ignoreErrors: true }`);
 
         db.query(`
-        INSERT {_id:concat('otl_parasites_nodes/', ${doc.sourceTaxonId}),
+        INSERT {_id:concat('nodes_otl/', ${doc.sourceTaxonId}),
             _key: ${doc.sourceTaxonId},
             name: '${doc.sourceTaxonName}',
             rank: 'species',
             parasite: 1,
-            weinstein: 1}in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
+            weinstein: 1}in nodes_otl OPTIONS { ignoreErrors: true }`);
 
         testAvailable(cursor);
     });
@@ -38,16 +38,16 @@ function writeNewRankPath(ott, dok) {
     db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return e)
     filter doc
-    insert merge(doc, {_id:concat('otl_parasites_edges/', doc._key),
-                       _from:concat('otl_parasites_nodes/', SPLIT(doc._from, '/')[1] ),
-                       _to:concat('otl_parasites_nodes/',   SPLIT(doc._to,   '/')[1] )}) in otl_parasites_edges OPTIONS { ignoreErrors: true }`);
+    insert merge(doc, {_id:concat('edges_otl/', doc._key),
+                       _from:concat('nodes_otl/', SPLIT(doc._from, '/')[1] ),
+                       _to:concat('nodes_otl/',   SPLIT(doc._to,   '/')[1] )}) in edges_otl OPTIONS { ignoreErrors: true }`);
 
 
 
     db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
-    INSERT merge(doc, { _id:concat('otl_parasites_nodes/', doc._key), parasite: 0, weinstein: 1 }) in otl_parasites_nodes OPTIONS { ignoreErrors: true }`);
+    INSERT merge(doc, { _id:concat('nodes_otl/', doc._key), parasite: 0, weinstein: 1 }) in nodes_otl OPTIONS { ignoreErrors: true }`);
 
 
 }

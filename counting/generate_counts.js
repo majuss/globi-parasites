@@ -6,13 +6,13 @@ async function counting() {
 
 let crossCount = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.parasite == 1 && doc.freeliving == 1
     return doc)`);
 
 let globiP = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.parasite == 1 && doc.globi == 1
     return doc)`);
 
@@ -66,85 +66,85 @@ return count(
 
 let weinstein = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.weinstein == 1
     return doc)`);
 
 let weinsteinglobi = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.globi == 1 && doc.weinstein == 1
     return doc)`);
 
 let parasites = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.parasite == 1
     return doc)`);
 
 let freeliving = await db.query(`
 return count(
-    for doc in otl_parasites_nodes
+    for doc in nodes_otl
     filter doc.freeliving == 1
     return doc)`);
 
 let fungi = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/352914' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/352914' edges_otl
     FILTER v.parasite == 1
     RETURN v)`);
 
 let fungif = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/352914' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/352914' edges_otl
     FILTER v.freeliving == 1
     RETURN v)`);
 
 let metazoa = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/691846' edges_otl
     FILTER v.parasite == 1
     RETURN v)`);
 
 let metazoaf = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/691846' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/691846' edges_otl
     FILTER v.freeliving == 1
     RETURN v)`);
 
 let plants = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5268475' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/5268475' edges_otl
     FILTER v.parasite == 1
     RETURN v)`);
 
 let plantsf = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5268475' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/5268475' edges_otl
     FILTER v.freeliving == 1
     RETURN v)`);
 
 let amebes = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/1064655' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/1064655' edges_otl
     FILTER v.parasite == 1
     RETURN v)`);
 
 let amebesf = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/1064655' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/1064655' edges_otl
     FILTER v.freeliving == 1
     RETURN v)`);
 
 let sar = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5246039' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/5246039' edges_otl
     FILTER v.parasite == 1
     RETURN v)`);
 
 let sarf = await db.query(`
 return count(
-FOR v,e IN 1..100 outbound 'otl_parasites_nodes/5246039' otl_parasites_edges
+FOR v,e IN 1..100 outbound 'nodes_otl/5246039' edges_otl
     FILTER v.freeliving == 1
     RETURN v)`);
 

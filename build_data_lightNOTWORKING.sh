@@ -23,7 +23,8 @@ arangosh --server.authentication false --javascript.execute-string 'db._createEd
 arangosh --server.authentication false --javascript.execute-string 'db._create("otl_parasites_nodes_nowein");' 
 wait
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_nodes INSERT doc IN otl_parasites_nodes_nowein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_edges INSERT doc IN otl_parasites_edges_nowein");' 
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_edges INSERT doc IN otl_parasites_edges_nowein");'
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in otl_parasites_edges_nowein UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "otl_parasites_nodes", "otl_parasites_nodes_nowein" )), _to: (SUBSTITUTE( doc._to, "otl_parasites_nodes", "otl_parasites_nodes_nowein" )) } IN otl_parasites_edges_nowein");' 
 echo "$(tput setaf 1)$(tput setab 7)-------- Building parasite/freeliving collections done (6/9) --------$(tput sgr 0)" 1>&3
 arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein");' 
 arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein_noott");' 

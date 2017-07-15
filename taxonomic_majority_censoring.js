@@ -8,9 +8,9 @@ const convert = () => {
 
     const computedIds = new Set();
     const leafIds = db._query(`
-        FOR node IN otl_parasites_nodes     //look for any node, if hes got an outbound path
+        FOR node IN nodes_otl     //look for any node, if hes got an outbound path
         FILTER 0 == length(
-        FOR v,e,p IN OUTBOUND node._id otl_parasites_edges
+        FOR v,e,p IN OUTBOUND node._id edges_otl
         RETURN v)
         RETURN node._id`).toArray();
     
@@ -25,10 +25,10 @@ const convert = () => {
 
         console.log(leafIds.length);
 
-        const parent = db._query(`FOR v,e,p IN INBOUND '${leafId}' otl_parasites_edges RETURN v`).toArray()[0];
+        const parent = db._query(`FOR v,e,p IN INBOUND '${leafId}' edges_otl RETURN v`).toArray()[0];
         if (!parent) continue;
 
-        const childs = db._query(`FOR v,e,p IN OUTBOUND '${parent._id}' otl_parasites_edges RETURN v`).toArray();
+        const childs = db._query(`FOR v,e,p IN OUTBOUND '${parent._id}' edges_otl RETURN v`).toArray();
 
         if (childs.filter(child => !computedIds.has(child._id)).length) {
             for (const child of childs) {
@@ -46,7 +46,7 @@ const convert = () => {
         childs.forEach(child => val += child.pi);
         val /= (childs.length + 1);
 
-        db.otl_parasites_nodes.update(parent._id, {pi:val});
+        db.nodes_otl.update(parent._id, {pi:val});
 
         computedIds.add(parent._id);
         for (const child of childs) {
@@ -59,7 +59,7 @@ const convert = () => {
     } // while
     
     piPoint5s = db._query(`
-        FOR node IN otl_parasites_nodes     //look for any node, if hes got an outbound path
+        FOR node IN nodes_otl     //look for any node, if hes got an outbound path
         FILTER node.pi == 0.5
         RETURN node._id`).toArray();
 
@@ -69,14 +69,14 @@ const convert = () => {
             const pi = db._query(`
             
             FOR pi IN SLICE(
-                    (FOR v IN INBOUND SHORTEST_PATH '${piPoint5}' TO 'otl_parasites_nodes/304358' otl_parasites_edges 
+                    (FOR v IN INBOUND SHORTEST_PATH '${piPoint5}' TO 'nodes_otl/304358' edges_otl 
                     RETURN v.pi)
                 , 1)
             
                 Filter pi != 0.5
                 return pi`).toArray()[0];
             if (pi == null) console.log('pi', pi, piPoint5);
-        db.otl_parasites_nodes.update(piPoint5, {pi:pi});
+        db.nodes_otl.update(piPoint5, {pi:pi});
         } catch(e) {
             console.log('FAIL', e);
         }
@@ -88,8 +88,8 @@ const convert = () => {
 
 db._txn({
     collections: {
-        read:['otl_parasites_edges', 'otl_parasites_nodes'],
-        write:['otl_parasites_edges', 'otl_parasites_nodes'],
+        read:['edges_otl', 'nodes_otl'],
+        write:['edges_otl', 'nodes_otl'],
     }}, convert, (status, headers, body) => {
         // console.log(status);
         body = JSON.parse(body);
