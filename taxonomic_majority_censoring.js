@@ -8,9 +8,9 @@ const convert = () => {
 
     const computedIds = new Set();
     const leafIds = db._query(`
-        FOR node IN nodes_otl     //look for any node, if hes got an outbound path
+        FOR node IN nodes_otl_sub     //look for any node, if hes got an outbound path
         FILTER 0 == length(
-        FOR v,e,p IN OUTBOUND node._id edges_otl
+        FOR v,e,p IN OUTBOUND node._id edges_otl_sub
         RETURN v)
         RETURN node._id`).toArray();
     
@@ -25,10 +25,10 @@ const convert = () => {
 
         console.log(leafIds.length);
 
-        const parent = db._query(`FOR v,e,p IN INBOUND '${leafId}' edges_otl RETURN v`).toArray()[0];
+        const parent = db._query(`FOR v,e,p IN INBOUND '${leafId}' edges_otl_sub RETURN v`).toArray()[0];
         if (!parent) continue;
 
-        const childs = db._query(`FOR v,e,p IN OUTBOUND '${parent._id}' edges_otl RETURN v`).toArray();
+        const childs = db._query(`FOR v,e,p IN OUTBOUND '${parent._id}' edges_otl_sub RETURN v`).toArray();
 
         if (childs.filter(child => !computedIds.has(child._id)).length) {
             for (const child of childs) {
@@ -59,7 +59,7 @@ const convert = () => {
     } // while
     
     piPoint5s = db._query(`
-        FOR node IN nodes_otl     //look for any node, if hes got an outbound path
+        FOR node IN nodes_otl_sub     //look for any node, if hes got an outbound path
         FILTER node.pi == 0.5
         RETURN node._id`).toArray();
 
@@ -69,7 +69,7 @@ const convert = () => {
             const pi = db._query(`
             
             FOR pi IN SLICE(
-                    (FOR v IN INBOUND SHORTEST_PATH '${piPoint5}' TO 'nodes_otl/304358' edges_otl 
+                    (FOR v IN INBOUND SHORTEST_PATH '${piPoint5}' TO 'nodes_otl_sub/304358' edges_otl_sub
                     RETURN v.pi)
                 , 1)
             
@@ -81,15 +81,13 @@ const convert = () => {
             console.log('FAIL', e);
         }
     }
-    
-
     return 'done'; // res[0];
 };
 
 db._txn({
     collections: {
-        read:['edges_otl', 'nodes_otl'],
-        write:['edges_otl', 'nodes_otl'],
+        read:['edges_otl_sub', 'nodes_otl_sub'],
+        write:['edges_otl_sub', 'nodes_otl_sub'],
     }}, convert, (status, headers, body) => {
         // console.log(status);
         body = JSON.parse(body);

@@ -16,9 +16,7 @@ bash build_data.sh
 # ToDo's
 
 **Currently working on:**
-- investigate counts in plants (150/450)
 - MA content and which gfx to include
-- parsimony-like algorithm
 
 **In the long run:**
 - use simple parsimony algorithm to determine how often parasitism occurred in the evolution (of Eukaryota?) (root at phylum; jeden möglichen Baum berechnen, Anzahl der Edges mit Attribut = character change = 1 zählen)

@@ -44,6 +44,6 @@ async function readLast() {
 async function parseLine(line) {
     line = line.split('\t|\t');
     await fastango.nodes_otl.asyncSave(JSON.stringify({ _key:line[0], name:line[2], rank:line[3] }));
-    console.log(status);
+    //console.log(status);
 
 };

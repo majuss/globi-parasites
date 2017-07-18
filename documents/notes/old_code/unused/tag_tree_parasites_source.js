@@ -19,12 +19,12 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott, dok) {
-    db.query(`for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
+    db.query(`FOR doc IN (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl RETURN v)
     FILTER doc
     UPDATE doc WITH {
         parasite: doc._key == '${ott}' ? 1 : 0,
         globi: doc._key == '${ott}' ? 1 : 0,
         interactionTypeNameP: doc._key == '${ott}' ? '${dok.interactionTypeName}' : 'null',
-        directionP: 'source' }`);
+        directionP: 'source' } IN nodes_otl`);
 }
 return;

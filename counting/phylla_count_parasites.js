@@ -1,19 +1,15 @@
 'use strict';
 
 var db = require('arangojs')();
-db.query(`REMOVE "phylla_metazoa_p" IN counts`);
 db.query(`INSERT { _key: "phylla_metazoa_p" } IN counts`);
-db.query(`REMOVE "phylla_fungi_p" IN counts`);
 db.query(`INSERT { _key: "phylla_fungi_p" } IN counts`);
-db.query(`REMOVE "phylla_sar_p" IN counts`);
 db.query(`INSERT { _key: "phylla_sar_p" } IN counts`);
-db.query(`REMOVE "phylla_plant_p" IN counts`);
 db.query(`INSERT { _key: "phylla_plant_p" } IN counts`);
 
 //retrieve counts for all METAZOA PARASITES
 
 
-db.query(`FOR v,e IN 1..100 outbound 'nodes_otl/691846' edges_otl
+db.query(`FOR v,e IN 1..100 outbound 'nodes_otl_sub/691846' edges_otl_sub
           filter v.rank == 'phylum'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getPhylum_metazoa);
 
@@ -30,7 +26,7 @@ function getPhylum_metazoa(cursor) {
 async function insertPhylum_metazoa(currentDoc) {
     let phylumCount = await db.query(`
     RETURN COUNT(
-    FOR v,e IN 1..100 outbound 'nodes_otl/${currentDoc._key}' edges_otl
+    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${currentDoc._key}' edges_otl_sub
           FILTER v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "phylla_metazoa_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -38,7 +34,7 @@ async function insertPhylum_metazoa(currentDoc) {
 
 //retrieve counts for all FUNGI PARASITES
 
-db.query(`FOR v,e IN 1..100 outbound 'nodes_otl/352914' edges_otl
+db.query(`FOR v,e IN 1..100 outbound 'nodes_otl_sub/352914' edges_otl_sub
           filter v.rank == 'phylum'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getPhylum_fungi);
 
@@ -55,7 +51,7 @@ function getPhylum_fungi(cursor) {
 async function insertPhylum_fungi(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'nodes_otl/${currentDoc._key}' edges_otl
+    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${currentDoc._key}' edges_otl_sub
           filter v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "phylla_fungi_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -63,7 +59,7 @@ async function insertPhylum_fungi(currentDoc) {
 
 //retrieve counts for all SAR PARASITES
 
-db.query(`FOR v,e IN 1..100 outbound 'nodes_otl/5246039' edges_otl
+db.query(`FOR v,e IN 1..100 outbound 'nodes_otl_sub/5246039' edges_otl_sub
           filter v.rank == 'phylum'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getPhylum_sar);
 
@@ -80,7 +76,7 @@ function getPhylum_sar(cursor) {
 async function insertPhylum_sar(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'nodes_otl/${currentDoc._key}' edges_otl
+    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${currentDoc._key}' edges_otl_sub
           filter v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "phylla_sar_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
@@ -88,12 +84,12 @@ async function insertPhylum_sar(currentDoc) {
 
 //retrieve counts for all PLANT PARASITES
 
-db.query(`FOR v,e IN 1..100 outbound 'nodes_otl/5268475' edges_otl
+db.query(`FOR v,e IN 1..100 outbound 'nodes_otl_sub/5268475' edges_otl_sub
           filter v.rank == 'phylum'
           RETURN v`, {}, { ttl: 1000 * 3600 }).then(getPhylum_plant);
 
 function getPhylum_plant(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished plant'); return };
+    if (!cursor.hasNext()) { console.log('Finished plant phylla parasites'); return };
     cursor.next().then(doc => {
         try {
             insertPhylum_plant(doc);
@@ -105,7 +101,7 @@ function getPhylum_plant(cursor) {
 async function insertPhylum_plant(currentDoc) {
     let phylumCount = await db.query(`
     return count(
-    FOR v,e IN 1..100 outbound 'nodes_otl/${currentDoc._key}' edges_otl
+    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${currentDoc._key}' edges_otl_sub
           filter v.parasite == 1
     RETURN v)`)
     db.query(`UPDATE "phylla_plant_p" WITH { ${currentDoc.name}: ${phylumCount._result} } IN counts`)
