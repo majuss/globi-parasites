@@ -20,7 +20,6 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott) {
-    console.log('writing: ' + ott);
     db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl_sub/304358' TO 'nodes_otl_sub/${ott}' edges_otl_sub return e)
     filter doc

@@ -15,10 +15,10 @@ db.query(`for doc in interaction_tsv
 
 function tagFreelivingS(cursor) {
     if (!cursor.hasNext()) { console.log('Finished tagging freeliving(source)'); return };
-    cursor.next().then(doc => {
-        try {db.query(`UPDATE "${doc._key}" WITH { freeliving: 1,
+    cursor.next().then(async doc => {
+        try {await db.query(`UPDATE "${doc._key}" WITH { freeliving: 1,
                                                    directionF: "source",
-                                                   fname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
+                                                   fname: @sourceTaxonName } IN interaction_tsv`, {sourceTaxonName:doc.sourceTaxonName});
         } catch (e) { }
         tagFreelivingS(cursor);
     });

@@ -1,0 +1,104 @@
+[
+	{
+		"group": "nodes",
+		"data": {
+			"id": "1",
+			"label": "A",
+			"children": [
+				{
+					"name": "size",
+					"type": "integer",
+					"value": "24"
+				},
+				{
+					"name": "confirmed",
+					"type": "boolean",
+					"value": "true"
+				}
+			]
+		}
+	},
+	{
+		"group": "nodes",
+		"data": {
+			"id": "2",
+			"label": "B",
+			"children": [
+				{
+					"name": "size",
+					"type": "integer",
+					"value": "16"
+				},
+				{
+					"name": "confirmed",
+					"type": "boolean",
+					"value": "false"
+				}
+			]
+		}
+	},
+	{
+		"group": "nodes",
+		"data": {
+			"id": "3",
+			"label": "C",
+			"children": [
+				{
+					"name": "size",
+					"type": "integer",
+					"value": "13"
+				},
+				{
+					"name": "confirmed",
+					"type": "boolean",
+					"value": "true"
+				}
+			]
+		}
+	},
+	{
+		"group": "edges",
+		"data": {
+			"label": "A-B",
+			"source": "1",
+			"target": "2",
+			"children": [
+				{
+					"name": "weight",
+					"type": "integer",
+					"value": "7"
+				}
+			]
+		}
+	},
+	{
+		"group": "edges",
+		"data": {
+			"label": "B-C",
+			"source": "2",
+			"target": "3",
+			"children": [
+				{
+					"name": "weight",
+					"type": "integer",
+					"value": "8"
+				}
+			]
+		}
+	},
+	{
+		"group": "edges",
+		"data": {
+			"label": "C-A",
+			"source": "3",
+			"target": "1",
+			"children": [
+				{
+					"name": "weight",
+					"type": "integer",
+					"value": "4"
+				}
+			]
+		}
+	}
+]

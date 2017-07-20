@@ -7,16 +7,16 @@ db.query(`for doc in interaction_tsv
           filter doc.interactionTypeName == "hasParasite" ||
           doc.interactionTypeName == "hasPathogen" ||
           doc.interactionTypeName == "hasParasite"
-          return doc`, {}, { ttl: 1000 * 3600 }).then(tagParasS); //filter for interaction; ie isparasyte
+          return doc`, {}, { ttl: 1000 * 3600 }).then(tagParasT); //filter for interaction; ie isparasyte
 
-function tagParasS(cursor) {
+function tagParasT(cursor) {
     if (!cursor.hasNext()) { console.log('Finished tagging parasites(target)'); return };
-    cursor.next().then(doc => {
-        try {db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
+    cursor.next().then(async doc => {
+        try {await db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
                                                    directionP: "target",
-                                                   pname: '${doc.targetTaxonName}' } IN interaction_tsv`);
+                                                   pname: @targetTaxonName } IN interaction_tsv`, {targetTaxonName:doc.targetTaxonName});
         } catch (e) { }
-        tagParasS(cursor);
+        tagParasT(cursor);
     });
 }
 

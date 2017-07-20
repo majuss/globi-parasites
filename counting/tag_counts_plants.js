@@ -23,17 +23,44 @@ async function counting() {
         let countp = await db.query(`
         RETURN COUNT(
         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${test._result[key]._key}' edges_otl_sub
-        FILTER v.parasite == 1)`)
+        FILTER v.parasite == 1
+        RETURN v)`)
         let countf = await db.query(`
         RETURN COUNT(
         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${test._result[key]._key}' edges_otl_sub
-        FILTER v.freeliving == 1)`)
+        FILTER v.freeliving == 1
+        RETURN v)`)
         db.query(`
         UPDATE "${test._result[key]._key}" WITH {
         nr_parasites_new: ${countp._result},
         nr_freeliving_new: ${countf._result}
         } IN nodes_otl_sub`)
     }) 
+
+
+
+
+
+
+
+
+
+
+
+
+`
+FOR v,e IN 1..100 OUTBOUND 'nodes_otl_sub/5268475' edges_otl_sub
+
+    let paras = count(for x IN 1..100 OUTBOUND v edges_otl_sub
+                filter x.parasite == 1 return v) 
+
+    let frees = count(for x IN 1..100 OUTBOUND v edges_otl_sub
+                filter x.freeliving == 1 return v)
+
+    UPDATE v WITH { nr_parasites_new: paras,
+                    nr_freeliving_new: frees } in nodes_otl_sub
+`
+
 
 
 

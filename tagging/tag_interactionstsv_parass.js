@@ -16,10 +16,10 @@ db.query(`for doc in interaction_tsv
 
 function tagParasS(cursor) {
     if (!cursor.hasNext()) { console.log('Finished tagging parasites(source)'); return };
-    cursor.next().then(doc => {
-        try {db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
+    cursor.next().then(async doc => {
+        try {await db.query(`UPDATE "${doc._key}" WITH { parasite: 1,
                                                    directionP: "source",
-                                                   pname: '${doc.sourceTaxonName}' } IN interaction_tsv`);
+                                                   pname: @sourceTaxonName } IN interaction_tsv`, {sourceTaxonName:doc.sourceTaxonName});
         } catch (e) { }
         tagParasS(cursor);
     });
