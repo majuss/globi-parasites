@@ -61,4 +61,5 @@ db._txn({
         // console.log(status);
         body = JSON.parse(body);
         console.log(body);
+        console.log("Finished write PIs noWein");
 });

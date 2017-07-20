@@ -6,7 +6,7 @@ db.query(`for doc in weinstein
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
+    if (!cursor.hasNext()) { console.log('Finished writing weinstein'); return };
 
     cursor.next().then(doc => {
         try {

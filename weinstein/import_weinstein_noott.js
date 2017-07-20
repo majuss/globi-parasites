@@ -6,7 +6,7 @@ db.query(`for doc in weinstein_noott
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished / reached last entry'); return };
+    if (!cursor.hasNext()) { console.log('Finished writing weinstein noott'); return };
 
     cursor.next().then(doc => {
         try {
@@ -33,7 +33,6 @@ function testAvailable(cursor) {
 }
 
 function writeNewRankPath(ott, dok) {
-    console.log('writing: ' + dok.sourceTaxonId);
 
     db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl_sub/304358' TO 'nodes_otl_sub/${ott}' edges_otl_sub return e)

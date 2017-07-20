@@ -32,8 +32,17 @@
 - most common consumer strategy of all (Lafferty et al. 2008!!!
 - One reason for this is that interactions between hosts and parasites are often weak (compared to, for instance, predatory interactions), as effects on individual hosts are usually sublethal (Hatcher et al. 2006; Hatcher and Dunn 2011)
 - p are changing energy budgets
-### Homage to Linnaeus: How many parasites? How many hosts? - Dobsen 2008
 
+### Homage to Linnaeus: How many parasites? How many hosts? - Dobsen 2008
+- "75,000 and 300,000 helminth species parasitizing the vertebrates"
+- "We estimate that between 3% and 5% of parasitic helminths are threatened with extinction in the next 50 to 100 years"
+- "studies of food webs suggest that  75% of the links in food webs involve a parasitic species; these links are vital for regulation of host abundance and potentially for reducing the impact of toxic pollutants"
+- parasitic worms were in paradoxa (linnaeus)
+- a lot of invertebrates and protists are not classified because a little number of taxonoms are working on them
+- 40% of all species are parasites and 60% are free-living: tested in salt marshes
+- "Recent work by Sures (52, 59) and colleagues has shown that parasitic helminths may play a substantial role in concentrating and ultimately removing heavy metals and other pollutants from their hosts"
+- 3% animal biomass -> 30-50% pollunt mass
+- if parasite is lost, host is getting more pollunts
 ### Parasites in food webs: the ultimate missing links - Lafferty 2008
 
 
@@ -59,6 +68,7 @@
 ### Parasitism, the Diversity of Life, and Paleoparasitology - Araújo 2003
 
 ### Factors mediating plastid dependency and the origins of parasitism in apicomplexans and their close relatives - Janouškoveca 2014
+- mostly off topic
 
 ### The Many Roads to Parasitism: A Tale of Convergence - Robert Poulin 2011
 

@@ -46,7 +46,7 @@ const convert = () => {
         childs.forEach(child => val += child.pi);
         val /= (childs.length + 1);
 
-        db.nodes_otl.update(parent._id, {pi:val});
+        db.nodes_otl_sub.update(parent._id, {pi:val});
 
         computedIds.add(parent._id);
         for (const child of childs) {
@@ -76,7 +76,7 @@ const convert = () => {
                 Filter pi != 0.5
                 return pi`).toArray()[0];
             if (pi == null) console.log('pi', pi, piPoint5);
-        db.nodes_otl.update(piPoint5, {pi:pi});
+        db.nodes_otl_sub.update(piPoint5, {pi:pi});
         } catch(e) {
             console.log('FAIL', e);
         }
@@ -92,4 +92,5 @@ db._txn({
         // console.log(status);
         body = JSON.parse(body);
         console.log(body);
+        console.log("Finished TMC");
     });

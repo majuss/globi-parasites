@@ -26,8 +26,8 @@ async function counting() {
         UPDATE "${kingdomcount._result[key]._key}" WITH {
         nr_parasites: ${countp._result},
         nr_freeliving: ${countf._result}
-        } IN nodes_otl_sub_bak`)
-        console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
+        } IN nodes_otl_sub`)
+        //console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
 
         let phyllacount = await db.query(`
         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
@@ -49,8 +49,8 @@ async function counting() {
             UPDATE "${phyllacount._result[key]._key}" WITH {
             nr_parasites: ${countp._result},
             nr_freeliving: ${countf._result}
-            } IN nodes_otl_sub_bak`)
-            console.log(phyllacount._result[key].name, phyllacount._result[key]._key, countp._result, countf._result); // phylla
+            } IN nodes_otl_sub`)
+            //console.log(phyllacount._result[key].name, phyllacount._result[key]._key, countp._result, countf._result); // phylla
 
             let classcount = await db.query(`
             FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
@@ -72,8 +72,8 @@ async function counting() {
                 UPDATE "${classcount._result[key]._key}" WITH {
                 nr_parasites: ${countp._result},
                 nr_freeliving: ${countf._result}
-                } IN nodes_otl_sub_bak`)
-                console.log(classcount._result[key].name, classcount._result[key]._key, countp._result, countf._result); // class
+                } IN nodes_otl_sub`)
+                //console.log(classcount._result[key].name, classcount._result[key]._key, countp._result, countf._result); // class
 
                 let ordercount = await db.query(`
                 FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
@@ -95,8 +95,8 @@ async function counting() {
                     UPDATE "${ordercount._result[key]._key}" WITH {
                     nr_parasites: ${countp._result},
                     nr_freeliving: ${countf._result}
-                    } IN nodes_otl_sub_bak`)
-                    console.log(ordercount._result[key].name, ordercount._result[key]._key, countp._result, countf._result); // order
+                    } IN nodes_otl_sub`)
+                    //console.log(ordercount._result[key].name, ordercount._result[key]._key, countp._result, countf._result); // order
 
                     let familycount = await db.query(`
                     FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
@@ -118,8 +118,8 @@ async function counting() {
                         UPDATE "${familycount._result[key]._key}" WITH {
                         nr_parasites: ${countp._result},
                         nr_freeliving: ${countf._result}
-                        } IN nodes_otl_sub_bak`)
-                        console.log(familycount._result[key].name, familycount._result[key]._key, countp._result, countf._result); // family
+                        } IN nodes_otl_sub`)
+                        //console.log(familycount._result[key].name, familycount._result[key]._key, countp._result, countf._result); // family
 
                         let genuscount = await db.query(`
                         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
@@ -141,9 +141,10 @@ async function counting() {
                             UPDATE "${genuscount._result[key]._key}" WITH {
                             nr_parasites: ${countp._result},
                             nr_freeliving: ${countf._result}
-                            } IN nodes_otl_sub_bak`)
-                            console.log(genuscount._result[key].name, genuscount._result[key]._key, countp._result, countf._result); // genus
+                            } IN nodes_otl_sub`)
+                            //console.log(genuscount._result[key].name, genuscount._result[key]._key, countp._result, countf._result); // genus
                         })
+                        console.log("finished tagging counts");
                     })
                 })
             })
