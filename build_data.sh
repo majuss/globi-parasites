@@ -55,7 +55,8 @@ echo "$(tput setaf 1)$(tput setab 7)------- Interactions imported and collection
 cd ..
 bash weinstein/build_weinstein-tsv.sh weinstein/weinstein_extract.md data/taxonomy.tsv &
 node tagging/tag_interactionstsv_freelivings.js
-node tagging/tag_interactionstsv_paras.js
+node tagging/tag_interactionstsv_parass.js
+node tagging/tag_interactionstsv_parast.js
 node tagging/tag_interactionstsv_freelivingt.js
 node edgesimport_otl.js &
 node nodesimport_otl.js

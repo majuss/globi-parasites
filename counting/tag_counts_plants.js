@@ -3,9 +3,47 @@
 var db = require('arangojs')();
 
 // kingdom - phlyum - class - order - family - genus
+// special case for plants...
+
+
+//get outbound archaeplastida
+
+//for every member in the query count children sum
+
 
 async function counting() {
     
+
+    let test = await db.query(`
+    FOR v,e IN OUTBOUND 'nodes_otl_sub/5268475' edges_otl_sub
+    RETURN v
+    `)
+
+    Object.keys(test._result).forEach(async function (key) {
+        let countp = await db.query(`
+        RETURN COUNT(
+        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${test._result[key]._key}' edges_otl_sub
+        FILTER v.parasite == 1)`)
+        let countf = await db.query(`
+        RETURN COUNT(
+        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${test._result[key]._key}' edges_otl_sub
+        FILTER v.freeliving == 1)`)
+        db.query(`
+        UPDATE "${test._result[key]._key}" WITH {
+        nr_parasites_new: ${countp._result},
+        nr_freeliving_new: ${countf._result}
+        } IN nodes_otl_sub`)
+    }) 
+
+
+
+
+
+
+
+
+   
+
     let kingdomcount = await db.query(`
     FOR v,e IN 1..100 outbound 'nodes_otl_sub/304358' edges_otl_sub
     filter v.rank == 'kingdom'

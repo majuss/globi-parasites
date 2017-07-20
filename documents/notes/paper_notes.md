@@ -3,6 +3,13 @@
 ### The Origins of Parasitism in the Platyhelminthes: a Summary Interpreted on the Basis of Recent Literature - Rohde 1997
 
 ### The evolution of parasitism in Nematoda - Blaxter 2014
+- genomes of free-living organisms also need to get sequenced
+- 1/3 to 1/4 of human population is right now infected with nematodes
+- important regulators of plant and animal production
+- to understand the origins is important for medical and veterinary science
+- origin of nematoda was not a parasite
+- "Independent origins of the parasitic habit can be validated by molecular phylogenetic placement of parasitic taxa and their free-living relatives (Blaxter et al. 1998; Dorris et al. 1999). With the current available molecular data we can define three origins of plant parasitism, 10 of parasitism of a wide range of non-vertebrates and five of parasitism of vertebrate hosts across the three subclasses (Fig. 1 and Table 1). Many additional events of acquisition of parasitic lifestyles could be proposed. For example, Sudhaus has suggested at least 20 independent events of acquisition of parasitism of insects in Nematoda (Sudhaus, 2008)."
+- human parasites are overrepresented
 - 
 
 ### Synthesis of phylogeny and taxonomy into a comprehensive tree of life - Hinchliff 2015
