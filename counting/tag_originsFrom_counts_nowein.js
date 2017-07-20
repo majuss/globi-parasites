@@ -24,7 +24,7 @@ async function counting() {
         RETURN v)`);
         db.query(`
         UPDATE "${kingdomcount._result[key]._key}" WITH {
-        nr_origins1: ${countp._result},
+        nr_origins_from: ${countp._result},
         nr_loss_from: ${countf._result}
         } IN nodes_otl_nowein`)
         //console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
@@ -47,7 +47,7 @@ async function counting() {
             RETURN v)`);
             db.query(`
             UPDATE "${phyllacount._result[key]._key}" WITH {
-            nr_origins1: ${countp._result},
+            nr_origins_from: ${countp._result},
             nr_loss_from: ${countf._result}
             } IN nodes_otl_nowein`)
             //console.log(phyllacount._result[key].name, phyllacount._result[key]._key, countp._result, countf._result); // phylla
@@ -70,7 +70,7 @@ async function counting() {
                 RETURN v)`);
                 db.query(`
                 UPDATE "${classcount._result[key]._key}" WITH {
-                nr_origins1: ${countp._result},
+                nr_origins_from: ${countp._result},
                 nr_loss_from: ${countf._result}
                 } IN nodes_otl_nowein`)
                 //console.log(classcount._result[key].name, classcount._result[key]._key, countp._result, countf._result); // class
@@ -93,7 +93,7 @@ async function counting() {
                     RETURN v)`);
                     db.query(`
                     UPDATE "${ordercount._result[key]._key}" WITH {
-                    nr_origins1: ${countp._result},
+                    nr_origins_from: ${countp._result},
                     nr_loss_from: ${countf._result}
                     } IN nodes_otl_nowein`)
                     //console.log(ordercount._result[key].name, ordercount._result[key]._key, countp._result, countf._result); // order
@@ -116,7 +116,7 @@ async function counting() {
                         RETURN v)`);
                         db.query(`
                         UPDATE "${familycount._result[key]._key}" WITH {
-                        nr_origins1: ${countp._result},
+                        nr_origins_from: ${countp._result},
                         nr_loss_from: ${countf._result}
                         } IN nodes_otl_nowein`)
                         //console.log(familycount._result[key].name, familycount._result[key]._key, countp._result, countf._result); // family
@@ -139,7 +139,7 @@ async function counting() {
                             RETURN v)`);
                             db.query(`
                             UPDATE "${genuscount._result[key]._key}" WITH {
-                            nr_origins1: ${countp._result},
+                            nr_origins_from: ${countp._result},
                             nr_loss_from: ${countf._result}
                             } IN nodes_otl_nowein`)
                             //console.log(genuscount._result[key].name, genuscount._result[key]._key, countp._result, countf._result); // genus

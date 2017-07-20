@@ -15,17 +15,17 @@ async function counting() {
         let countp = await db.query(`
         return count(
         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
-        FILTER v.origin_from == 1
+        FILTER v.origin_to == 1
         RETURN v)`);
         let countf = await db.query(`
         return count(
         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
-        FILTER v.loss_from == 1
+        FILTER v.loss_to == 1
         RETURN v)`);
         db.query(`
         UPDATE "${kingdomcount._result[key]._key}" WITH {
-        nr_origins_from: ${countp._result},
-        nr_loss_from: ${countf._result}
+        nr_origins_to: ${countp._result},
+        nr_loss_to: ${countf._result}
         } IN nodes_otl_sub`)
         //console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
 
@@ -38,17 +38,17 @@ async function counting() {
             let countp = await db.query(`
             return count(
             FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
-            FILTER v.origin_from == 1
+            FILTER v.origin_to == 1
             RETURN v)`);
             let countf = await db.query(`
             return count(
             FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
-            FILTER v.loss_from == 1
+            FILTER v.loss_to == 1
             RETURN v)`);
             db.query(`
             UPDATE "${phyllacount._result[key]._key}" WITH {
-            nr_origins_from: ${countp._result},
-            nr_loss_from: ${countf._result}
+            nr_origins_to: ${countp._result},
+            nr_loss_to: ${countf._result}
             } IN nodes_otl_sub`)
             //console.log(phyllacount._result[key].name, phyllacount._result[key]._key, countp._result, countf._result); // phylla
 
@@ -61,17 +61,17 @@ async function counting() {
                 let countp = await db.query(`
                 return count(
                 FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
-                FILTER v.origin_from == 1
+                FILTER v.origin_to == 1
                 RETURN v)`);
                 let countf = await db.query(`
                 return count(
                 FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
-                FILTER v.loss_from == 1
+                FILTER v.loss_to == 1
                 RETURN v)`);
                 db.query(`
                 UPDATE "${classcount._result[key]._key}" WITH {
-                nr_origins_from: ${countp._result},
-                nr_loss_from: ${countf._result}
+                nr_origins_to: ${countp._result},
+                nr_loss_to: ${countf._result}
                 } IN nodes_otl_sub`)
                 //console.log(classcount._result[key].name, classcount._result[key]._key, countp._result, countf._result); // class
 
@@ -84,17 +84,17 @@ async function counting() {
                     let countp = await db.query(`
                     return count(
                     FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
-                    FILTER v.origin_from == 1
+                    FILTER v.origin_to == 1
                     RETURN v)`);
                     let countf = await db.query(`
                     return count(
                     FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
-                    FILTER v.loss_from == 1
+                    FILTER v.loss_to == 1
                     RETURN v)`);
                     db.query(`
                     UPDATE "${ordercount._result[key]._key}" WITH {
-                    nr_origins_from: ${countp._result},
-                    nr_loss_from: ${countf._result}
+                    nr_origins_to: ${countp._result},
+                    nr_loss_to: ${countf._result}
                     } IN nodes_otl_sub`)
                     //console.log(ordercount._result[key].name, ordercount._result[key]._key, countp._result, countf._result); // order
 
@@ -107,17 +107,17 @@ async function counting() {
                         let countp = await db.query(`
                         return count(
                         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
-                        FILTER v.origin_from == 1
+                        FILTER v.origin_to == 1
                         RETURN v)`);
                         let countf = await db.query(`
                         return count(
                         FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
-                        FILTER v.loss_from == 1
+                        FILTER v.loss_to == 1
                         RETURN v)`);
                         db.query(`
                         UPDATE "${familycount._result[key]._key}" WITH {
-                        nr_origins_from: ${countp._result},
-                        nr_loss_from: ${countf._result}
+                        nr_origins_to: ${countp._result},
+                        nr_loss_to: ${countf._result}
                         } IN nodes_otl_sub`)
                         //console.log(familycount._result[key].name, familycount._result[key]._key, countp._result, countf._result); // family
 
@@ -130,17 +130,17 @@ async function counting() {
                             let countp = await db.query(`
                             return count(
                             FOR v,e IN 1..100 outbound 'nodes_otl_sub/${genuscount._result[key]._key}' edges_otl_sub
-                            FILTER v.origin_from == 1
+                            FILTER v.origin_to == 1
                             RETURN v)`);
                             let countf = await db.query(`
                             return count(
                             FOR v,e IN 1..100 outbound 'nodes_otl_sub/${genuscount._result[key]._key}' edges_otl_sub
-                            FILTER v.loss_from == 1
+                            FILTER v.loss_to == 1
                             RETURN v)`);
                             db.query(`
                             UPDATE "${genuscount._result[key]._key}" WITH {
-                            nr_origins_from: ${countp._result},
-                            nr_loss_from: ${countf._result}
+                            nr_origins_to: ${countp._result},
+                            nr_loss_to: ${countf._result}
                             } IN nodes_otl_sub`)
                             //console.log(genuscount._result[key].name, genuscount._result[key]._key, countp._result, countf._result); // genus
                         })

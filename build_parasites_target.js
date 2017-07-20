@@ -3,11 +3,11 @@
 const db = require('arangojs')();
 
 db.query(`for doc in interaction_tsv
-          filter doc.parasite == 1 && doc.directionP == 'source'
+          filter doc.parasite == 1 && doc.directionP == 'target'
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
-    if (!cursor.hasNext()) { console.log('Finished building parasites(source)'); return };
+    if (!cursor.hasNext()) { console.log('Finished building parasites(target)'); return };
 
     cursor.next().then(doc => {
         try {
@@ -34,11 +34,11 @@ function writeNewRankPath(ott, dok) {
                         parasite: doc._key == '${ott}' ? 1 : 0,
                         globi: doc._key == '${ott}' ? 1 : 0,
                         interactionTypeNameP: doc._key == '${ott}' ? '${dok.interactionTypeName}' : 'null',
-                        directionP: 'source' })
+                        directionP: 'target' })
 
     UPDATE { parasite: doc._key == '${ott}' ? 1 : 0,
              globi: doc._key == '${ott}' ? 1 : 0,
              interactionTypeNameP: doc._key == '${ott}' ? '${dok.interactionTypeName}' : 'null',
-             directionP: 'source' } in nodes_otl_sub OPTIONS { ignoreErrors: true }`);
+             directionP: 'target' } in nodes_otl_sub OPTIONS { ignoreErrors: true }`);
 }
 return;

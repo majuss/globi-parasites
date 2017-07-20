@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# Build system for everything this will take about 90 minutes (20 cores ivy bridge, 64 GB RAM)
+# Build system for everything this will take about 120 minutes (20 cores ivy bridge, 64 GB RAM)
 echo "Logifle written to: build_data.log"
 exec 3>&1 1>>build_data.log 2>&1
-
 echo $(date)
 start=$(date +%s)
 npm i arangojs fastango3
@@ -68,6 +67,7 @@ arangosh --server.authentication false --javascript.execute-string 'db._query("F
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_weinonly");'
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_weinonly UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_weinonly" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_weinonly" )) } IN edges_otl_weinonly");' 
 node build_parasites_source.js
+node build_parasites_target.js
 wait
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_bak");' 
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_bak");' 
@@ -79,7 +79,9 @@ echo "$(tput setaf 1)$(tput setab 7)------- Tagging tree and creating noWein don
 arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --create-collection true --server.authentication false 
 arangoimp --file weinstein/weinstein_noOTT.tsv --type tsv --collection weinstein_noott --create-collection true --server.authentication false 
 node weinstein/import_weinstein.js 
-node weinstein/import_weinstein_noott.js 
+node weinstein/import_weinstein_noott.js
+node weinstein/import_weinstein_weinonly.js 
+node weinstein/import_weinstein_noott_weinonly.js
 echo "$(tput setaf 1)$(tput setab 7)------- Done importing weinstein2016 (6/8) --------$(tput sgr 0)" 1>&3
 node counting/tag_counts.js
 node counting/generate_counts.js 
@@ -88,16 +90,21 @@ node counting/phylla_count_freeliving.js
 nohit=$(wc -l weinstein/weinstein_nohit.tsv | awk '{print $1}')
 arangosh --server.authentication false --javascript.execute-string "db._update('counts/table', {'no Hits for Weinstein': $nohit})"
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating counts (7/8) --------$(tput sgr 0)" 1>&3
-node write_pis.js
-node taxonomic_majority_censoring.js
-node find_origins.js
-node counting/tag_originsTo_counts.js
-node counting/tag_originsFrom_counts.js
-node write_pis_nowein.js
-node taxonomic_majority_censoring_nowein.js
-node find_origins_nowein.js
-node counting/tag_originsTo_counts_nowein.js
-node counting/tag_originsFrom_counts_nowein.js
+node write_pis.js &
+node write_pis_nowein.js &
+node write_pis_weinonly.js &
+wait
+node taxonomic_majority_censoring.js &
+node taxonomic_majority_censoring_nowein.js &
+node taxonomic_majority_censoring_weinonly.js &
+wait
+node find_origins.js &
+node find_origins_nowein.js &
+node find_origins_weinonly.js &
+wait
+node counting/tag_originsFrom_counts.js &
+node counting/tag_originsFrom_counts_nowein.js &
+node counting/tag_originsFrom_counts_weinonly.js &
 wait
 rm -rf dump
 arangodump --collection nodes_otl_sub --collection edges_otl_sub --output-directory "dump" --server.authentication false

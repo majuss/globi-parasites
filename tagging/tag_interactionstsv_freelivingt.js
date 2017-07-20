@@ -12,7 +12,8 @@ db.query(`for doc in interaction_tsv
           doc.interactionTypeName == 'visitsFlowersOf' ||
           doc.interactionTypeName == 'endoparasitoidOf' ||
           doc.interactionTypeName == 'parasitoidOf' ||
-          doc.interactionTypeName == 'endoparasiteOf'
+          doc.interactionTypeName == 'endoparasiteOf' ||
+          doc.interactionTypeName == 'pathogenOf'
           return doc`, {}, { ttl: 1000 * 3600 }).then(tagFreelivingT); //filter for interaction; ie isparasyte
 
 function tagFreelivingT(cursor) {
