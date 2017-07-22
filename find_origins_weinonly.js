@@ -27,6 +27,6 @@ function calculateOrigins(cursor) {
                                                     lossID: ${counter2}} in nodes_otl_weinonly`);
             counter2++;}
         }
-        console.log('Finished building origins. origins' + counter + '   ' + counter2);
+        console.log('Finished building origins weinonly. origins' + counter + '   ' + counter2);
     })
 }

@@ -1,154 +1,17 @@
 'use strict';
 
-var db = require('arangojs')();
+const db = require('arangojs')();
 
-// kingdom - phlyum - class - order - family - genus
+db.query(
+`
+FOR v,e IN 1..100 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub
 
-async function counting() {
-    
-    let kingdomcount = await db.query(`
-    FOR v,e IN 1..100 outbound 'nodes_otl_sub/304358' edges_otl_sub
-    filter v.rank == 'kingdom'
-    RETURN v`);
+    LET paras = count(for x IN 1..100 OUTBOUND v edges_otl_sub
+                FILTER x.parasite == 1 RETURN v) 
 
-    Object.keys(kingdomcount._result).forEach(async function (key) {
-        let countp = await db.query(`
-        return count(
-        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
-        FILTER v.parasite == 1
-        RETURN v)`);
-        let countf = await db.query(`
-        return count(
-        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
-        FILTER v.freeliving == 1
-        RETURN v)`);
-        db.query(`
-        UPDATE "${kingdomcount._result[key]._key}" WITH {
-        nr_parasites: ${countp._result},
-        nr_freeliving: ${countf._result}
-        } IN nodes_otl_sub`)
-        //console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
+    LET frees = count(for x IN 1..100 OUTBOUND v edges_otl_sub
+                FILTER x.freeliving == 1 RETURN v)
 
-        let phyllacount = await db.query(`
-        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${kingdomcount._result[key]._key}' edges_otl_sub
-        filter v.rank == 'phylum'
-        RETURN v`);
-
-        Object.keys(phyllacount._result).forEach(async function (key) {
-            let countp = await db.query(`
-            return count(
-            FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
-            FILTER v.parasite == 1
-            RETURN v)`);
-            let countf = await db.query(`
-            return count(
-            FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
-            FILTER v.freeliving == 1
-            RETURN v)`);
-            db.query(`
-            UPDATE "${phyllacount._result[key]._key}" WITH {
-            nr_parasites: ${countp._result},
-            nr_freeliving: ${countf._result}
-            } IN nodes_otl_sub`)
-            //console.log(phyllacount._result[key].name, phyllacount._result[key]._key, countp._result, countf._result); // phylla
-
-            let classcount = await db.query(`
-            FOR v,e IN 1..100 outbound 'nodes_otl_sub/${phyllacount._result[key]._key}' edges_otl_sub
-            filter v.rank == 'class'
-            RETURN v`);
-
-            Object.keys(classcount._result).forEach(async function (key) {
-                let countp = await db.query(`
-                return count(
-                FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
-                FILTER v.parasite == 1
-                RETURN v)`);
-                let countf = await db.query(`
-                return count(
-                FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
-                FILTER v.freeliving == 1
-                RETURN v)`);
-                db.query(`
-                UPDATE "${classcount._result[key]._key}" WITH {
-                nr_parasites: ${countp._result},
-                nr_freeliving: ${countf._result}
-                } IN nodes_otl_sub`)
-                //console.log(classcount._result[key].name, classcount._result[key]._key, countp._result, countf._result); // class
-
-                let ordercount = await db.query(`
-                FOR v,e IN 1..100 outbound 'nodes_otl_sub/${classcount._result[key]._key}' edges_otl_sub
-                filter v.rank == 'order'
-                RETURN v`);
-
-                Object.keys(ordercount._result).forEach(async function (key) {
-                    let countp = await db.query(`
-                    return count(
-                    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
-                    FILTER v.parasite == 1
-                    RETURN v)`);
-                    let countf = await db.query(`
-                    return count(
-                    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
-                    FILTER v.freeliving == 1
-                    RETURN v)`);
-                    db.query(`
-                    UPDATE "${ordercount._result[key]._key}" WITH {
-                    nr_parasites: ${countp._result},
-                    nr_freeliving: ${countf._result}
-                    } IN nodes_otl_sub`)
-                    //console.log(ordercount._result[key].name, ordercount._result[key]._key, countp._result, countf._result); // order
-
-                    let familycount = await db.query(`
-                    FOR v,e IN 1..100 outbound 'nodes_otl_sub/${ordercount._result[key]._key}' edges_otl_sub
-                    filter v.rank == 'family'
-                    RETURN v`);
-
-                    Object.keys(familycount._result).forEach(async function (key) {
-                        let countp = await db.query(`
-                        return count(
-                        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
-                        FILTER v.parasite == 1
-                        RETURN v)`);
-                        let countf = await db.query(`
-                        return count(
-                        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
-                        FILTER v.freeliving == 1
-                        RETURN v)`);
-                        db.query(`
-                        UPDATE "${familycount._result[key]._key}" WITH {
-                        nr_parasites: ${countp._result},
-                        nr_freeliving: ${countf._result}
-                        } IN nodes_otl_sub`)
-                        //console.log(familycount._result[key].name, familycount._result[key]._key, countp._result, countf._result); // family
-
-                        let genuscount = await db.query(`
-                        FOR v,e IN 1..100 outbound 'nodes_otl_sub/${familycount._result[key]._key}' edges_otl_sub
-                        filter v.rank == 'family'
-                        RETURN v`);
-
-                        Object.keys(genuscount._result).forEach(async function (key) {
-                            let countp = await db.query(`
-                            return count(
-                            FOR v,e IN 1..100 outbound 'nodes_otl_sub/${genuscount._result[key]._key}' edges_otl_sub
-                            FILTER v.parasite == 1
-                            RETURN v)`);
-                            let countf = await db.query(`
-                            return count(
-                            FOR v,e IN 1..100 outbound 'nodes_otl_sub/${genuscount._result[key]._key}' edges_otl_sub
-                            FILTER v.freeliving == 1
-                            RETURN v)`);
-                            db.query(`
-                            UPDATE "${genuscount._result[key]._key}" WITH {
-                            nr_parasites: ${countp._result},
-                            nr_freeliving: ${countf._result}
-                            } IN nodes_otl_sub`)
-                            //console.log(genuscount._result[key].name, genuscount._result[key]._key, countp._result, countf._result); // genus
-                        })
-                    })
-                })
-            })
-        })
-    })
-    console.log("finished tagging counts");
-}
-counting();
+    UPDATE v WITH { nr_parasites_new: paras,
+                    nr_freeliving_new: frees } in nodes_otl_sub
+`);

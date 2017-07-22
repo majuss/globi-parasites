@@ -1,6 +1,13 @@
 # Paper Notes
 
 ### The Origins of Parasitism in the Platyhelminthes: a Summary Interpreted on the Basis of Recent Literature - Rohde 1997
+- Wie Plattwürmer Mechanismen entwickelt haben um den Host anzugreifen und das Immunsystem zu umgehen
+- very low number of symbiosis, almost all are parasites mainly on vertebrates
+- a lot of parasites are evolutionary trapped inside the ecological niche
+- they evolve in a single lineage until they are trapped on the local optimum (host species)
+- they can long jump to other hosts (other optima) only with increasing delays and ultimate stasis
+- fitness landscape -> going up the hill and stay their
+- P are not trapped permanentaly
 
 ### The evolution of parasitism in Nematoda - Blaxter 2014
 - genomes of free-living organisms also need to get sequenced

@@ -318,3 +318,61 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
 //FOR v,e IN 1..100 outbound 'otl_parasites_nodes_nowein/304358' otl_parasites_edges_nowein
 //    filter v.rank == 'kingdom'
 //    RETURN v
+
+//FOR doc in otl_parasites_edges_nowein
+//UPDATE doc WITH {
+//_from: (SUBSTITUTE( doc._from, "otl_parasites_nodes", "otl_parasites_nodes_nowein" )),
+//_to: (SUBSTITUTE( doc._to, "otl_parasites_nodes", "otl_parasites_nodes_nowein" )) }
+//IN otl_parasites_edges_nowein
+
+
+//RETURN COUNT(
+//FOR doc IN interaction_tsv
+////FOR doc IN nodes_otl
+//FILTER doc.parasite == 1
+//RETURN distinct doc.pname)
+
+//for doc in nodes_otl
+//filter doc._id == "nodes_otl/304358"
+//return doc
+
+//FOR doc IN euk_nodes
+//FILTER doc.pi == null
+//return doc
+
+
+//
+//FOR v,e IN 0..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//INSERT v IN euk_nodes OPTIONS { ignoreErrors: true }
+//INSERT e IN euk_edges OPTIONS { ignoreErrors: true }
+//return v
+
+//FOR doc in euk_edges UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl", "euk_nodes" )), _to: (SUBSTITUTE( doc._to, "nodes_otl", "euk_nodes" )) } IN euk_edges 
+
+//For v,e in INBOUND 'euk_nodes/691846' euk_edges
+//return v
+
+//FOR doc IN interaction_tsv
+//FILTER doc.sourceTaxonName == "Balaenopteridae"
+//return doc
+
+
+//FOR doc in interaction_tsv
+//filter contains(doc, 'Armor/2433/98(H1N2))')
+//FILTER doc.targetTaxonName == "Armor/2433/98(H1N2))"
+//Return doc
+
+//FOR doc in nodes_otl_sub
+//FILTER doc.name == "Metazoa"
+//RETURN doc
+
+
+//FOR doc in edges_otl_weinonly UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_weinonly" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_weinonly" )) } IN edges_otl_weinonly
+//FOR doc in edges_otl_nowein UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_nowein" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_nowein" )) } IN edges_otl_nowein
+
+
+
+
+//FOR doc in nodes_otl_weinonly
+//FILTER doc.weinstein == 1
+//return doc

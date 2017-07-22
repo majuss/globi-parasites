@@ -42,4 +42,3 @@ function writeNewRankPath(ott) {
 
 }
 return;
-

@@ -66,7 +66,7 @@ node build_freeliving_source.js
 node build_freeliving_target.js
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_weinonly");' 
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_weinonly");'
-#arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_weinonly UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, 'nodes_otl_sub', 'nodes_otl_weinonly' )), _to: (SUBSTITUTE( doc._to, 'nodes_otl_sub', 'nodes_otl_weinonly' )) } IN edges_otl_weinonly")'
+arangosh --server.authentication false --javascript.execute-string 'db._query(`FOR doc in edges_otl_weinonly UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_weinonly" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_weinonly" )) } IN edges_otl_weinonly`)'
 node build_parasites_source.js
 node build_parasites_target.js
 wait
@@ -75,9 +75,9 @@ arangosh --server.authentication false --javascript.execute-string 'db._query("F
 wait
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_nowein");' 
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_nowein");'
-#arangosh --server.authentication false --javascript.execute-string "db._query("FOR doc in edges_otl_nowein UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, 'nodes_otl_sub', 'nodes_otl_nowein' )), _to: (SUBSTITUTE( doc._to, 'nodes_otl_sub', 'nodes_otl_nowein' )) } IN edges_otl_nowein")"
+arangosh --server.authentication false --javascript.execute-string 'db._query(`FOR doc in edges_otl_nowein UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_nowein" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_nowein" )) } IN edges_otl_nowein`)'
 echo "$(tput setaf 1)$(tput setab 7)------- Tagging tree and creating noWein done (5/8) --------$(tput sgr 0)" 1>&3
-arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --create-collection true --server.authentication false 
+arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --create-collection true --server.authentication false
 arangoimp --file weinstein/weinstein_noOTT.tsv --type tsv --collection weinstein_noott --create-collection true --server.authentication false 
 node weinstein/import_weinstein.js 
 node weinstein/import_weinstein_noott.js

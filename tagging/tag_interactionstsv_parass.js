@@ -10,8 +10,7 @@ db.query(`for doc in interaction_tsv
           doc.interactionTypeName == "ectoParasitoid" ||
           doc.interactionTypeName == "endoparasiteOf" ||
           doc.interactionTypeName == "parasitoidOf" ||
-          doc.interactionTypeName == "endoparasitoidOf" ||
-          doc.interactionTypeName == "pathogenOf"
+          doc.interactionTypeName == "endoparasitoidOf"
           return doc`, {}, { ttl: 1000 * 3600 }).then(tagParasS); //filter for interaction; ie isparasyte
 
 function tagParasS(cursor) {
@@ -25,3 +24,4 @@ function tagParasS(cursor) {
     });
 }
 
+//          doc.interactionTypeName == "pathogenOf"

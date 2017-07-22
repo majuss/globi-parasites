@@ -6,7 +6,7 @@ const fs = require('fs');
 async function pathcalc() {
     let alllengths = {};
 
-    var leafs = await db.query(`
+    let leafs = await db.query(`
         FOR node IN nodes_otl_sub
         //limit 20000
         FILTER 0 == length(
@@ -14,14 +14,18 @@ async function pathcalc() {
         RETURN v)
         RETURN node._id
         `);
-    const keys = Object.keys(leafs._result)
     
-    for(const key of keys) {
+    leafs = await leafs.all();
+
+    //const keys = Object.keys(leafs)
+    
+
+    for(const key of leafs) {
 
     // await keys.forEach(async function (key) {
         let pathlength = await db.query(`
         RETURN COUNT(
-        FOR v,e IN INBOUND SHORTEST_PATH '${leafs._result[key]}' TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e
+        FOR v,e IN INBOUND SHORTEST_PATH '${key}' TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e
         )`);
         pathlength = await pathlength.all();
 
@@ -41,6 +45,10 @@ async function x() {
     console.log(res);
 }
 x();
+
+
+
+
 
 return;
 

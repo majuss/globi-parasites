@@ -68,6 +68,5 @@ db._txn({
         // console.log(status);
         body = JSON.parse(body);
         console.log(body);
-        console.log(status);
         console.log("Finished write PI");
 });
