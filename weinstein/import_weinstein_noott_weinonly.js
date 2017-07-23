@@ -32,9 +32,9 @@ function testAvailable(cursor) {
     });
 }
 
-function writeNewRankPath(ott, dok) {
+async function writeNewRankPath(ott, dok) {
 
-    db.query(`
+    await db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return e)
     filter doc
     insert merge(doc, {_id:concat('edges_otl_weinonly/', doc._key),
@@ -43,7 +43,7 @@ function writeNewRankPath(ott, dok) {
 
 
 
-    db.query(`
+    await db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
     INSERT merge(doc, { _id:concat('nodes_otl_weinonly/', doc._key), parasite: 0, weinstein: 1 }) in nodes_otl_weinonly OPTIONS { ignoreErrors: true }`);

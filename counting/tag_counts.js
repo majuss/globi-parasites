@@ -24,9 +24,6 @@ FOR v,e IN 1..100 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub
     LET loss_to = count(for x IN 1..100 OUTBOUND v edges_otl_sub
                 FILTER x.loss_to == 1 RETURN v)
 
-    LET loss_to = count(for x IN 1..100 OUTBOUND v edges_otl_sub
-                FILTER x.loss_to == 1 RETURN v)
-
     LET cross = count(for x IN 1..100 OUTBOUND v edges_otl_sub
                 FILTER x.weinstein == 1 && x.globi == 1 RETURN v)
 

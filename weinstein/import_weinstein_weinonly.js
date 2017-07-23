@@ -19,8 +19,8 @@ function testAvailable(cursor) {
     });
 }
 
-function writeNewRankPath(ott) {
-    db.query(`
+async function writeNewRankPath(ott) {
+    await db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl RETURN e)
     filter doc
 
@@ -28,7 +28,7 @@ function writeNewRankPath(ott) {
                        _from:concat('nodes_otl_weinonly/', SPLIT(doc._from, '/')[1] ),
                        _to:concat('nodes_otl_weinonly/',   SPLIT(doc._to,   '/')[1] )}) in edges_otl_weinonly OPTIONS { ignoreErrors: true }`);
 
-    db.query(`
+    await db.query(`
     for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
 

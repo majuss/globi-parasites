@@ -81,10 +81,6 @@ node weinstein/import_weinstein_noott.js
 node weinstein/import_weinstein_weinonly.js 
 node weinstein/import_weinstein_noott_weinonly.js
 echo "$(tput setaf 1)$(tput setab 7)------- Done importing weinstein2016 (6/8) --------$(tput sgr 0)" 1>&3
-node counting/tag_counts.js
-node counting/generate_counts.js 
-node counting/phylla_count_parasites.js
-node counting/phylla_count_freeliving.js
 nohit=$(wc -l weinstein/weinstein_nohit.tsv | awk '{print $1}')
 arangosh --server.authentication false --javascript.execute-string "db._update('counts/table', {'no Hits for Weinstein': $nohit})"
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating counts (7/8) --------$(tput sgr 0)" 1>&3
@@ -100,10 +96,8 @@ node find_origins.js &
 node find_origins_nowein.js &
 node find_origins_weinonly.js &
 wait
-node counting/tag_originsFrom_counts.js &
-node counting/tag_originsFrom_counts_nowein.js &
-node counting/tag_originsFrom_counts_weinonly.js &
-wait
+node counting/tag_counts.js
+node analysis/find_shortpathes.js
 rm -rf dump
 arangodump --collection nodes_otl_sub --collection edges_otl_sub --output-directory "dump" --server.authentication false
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (8/8) --------$(tput sgr 0)" 1>&3

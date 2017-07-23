@@ -42,8 +42,8 @@ async function pathcalc() {
 async function x() {
 
     const res = await pathcalc();
-    console.log(res);
-    fs.writeFileSync("pathes.txt", res);
+    //console.log(res);
+    fs.writeFileSync("pathes.txt", JSON.stringify(res));
 }
 x();
 
