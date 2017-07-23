@@ -21,35 +21,32 @@ sed -i '27272s/kingdom/subkingdom/' taxonomy.tsv #correction rank of Chloroplast
 wait
 echo "$(tput setaf 1)$(tput setab 7)------- Tree and Interaction-data downloaded (2/8) --------$(tput sgr 0)" 1>&3
 #Initializing the collections
-arangosh --server.authentication false --javascript.execute-string 'db._drop("interaction_tsv");' 
+arangosh --server.authentication false --javascript.execute-string 'db._drop("interaction_tsv");
+                                                                    db._drop("nodes_otl");
+                                                                    db._drop("edges_otl");
+                                                                    db._drop("nodes_otl_bak");
+                                                                    db._drop("edges_otl_bak");
+                                                                    db._drop("counts");
+                                                                    db._drop("nodes_otl_sub");
+                                                                    db._drop("edges_otl_sub");
+                                                                    db._drop("nodes_otl_nowein");
+                                                                    db._drop("edges_otl_nowein");
+                                                                    db._drop("weinstein");
+                                                                    db._drop("weinstein_noott");
+                                                                    db._drop("nodes_otl_weinonly");
+                                                                    db._drop("edges_otl_weinonly");
+                                                                    db._createEdgeCollection("edges_otl");
+                                                                    db._create("nodes_otl");
+                                                                    db._createEdgeCollection("edges_otl_bak");
+                                                                    db._create("nodes_otl_bak");
+                                                                    db._create("counts");
+                                                                    db._create("nodes_otl_sub");
+                                                                    db._createEdgeCollection("edges_otl_sub");
+                                                                    db._createEdgeCollection("edges_otl_nowein");
+                                                                    db._create("nodes_otl_nowein");
+                                                                    db._createEdgeCollection("edges_otl_weinonly");
+                                                                    db._create("nodes_otl_weinonly");' 
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true --server.authentication false
-arangosh --server.authentication false --javascript.execute-string 'db._drop("nodes_otl"); ' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("edges_otl");'
-arangosh --server.authentication false --javascript.execute-string 'db._drop("nodes_otl_bak");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("edges_otl_bak");' 
-arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("edges_otl");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("nodes_otl");' 
-arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("edges_otl_bak");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("nodes_otl_bak");'
-arangosh --server.authentication false --javascript.execute-string 'db._drop("counts");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("counts");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("nodes_otl_sub");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("nodes_otl_sub");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("edges_otl_sub");' 
-arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("edges_otl_sub");' 
-#excluded Weinstein
-arangosh --server.authentication false --javascript.execute-string 'db._drop("nodes_otl_nowein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("edges_otl_nowein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("edges_otl_nowein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("nodes_otl_nowein");'
-#drop Weinstein sub-collections
-arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("weinstein_noott");'
-#Weinstein only + FL
-arangosh --server.authentication false --javascript.execute-string 'db._drop("nodes_otl_weinonly");' 
-arangosh --server.authentication false --javascript.execute-string 'db._drop("edges_otl_weinonly");' 
-arangosh --server.authentication false --javascript.execute-string 'db._createEdgeCollection("edges_otl_weinonly");' 
-arangosh --server.authentication false --javascript.execute-string 'db._create("nodes_otl_weinonly");'
 wait
 echo "$(tput setaf 1)$(tput setab 7)------- Interactions imported and collections initialized (3/8) --------$(tput sgr 0)" 1>&3
 cd ..
@@ -64,17 +61,17 @@ wait
 echo "$(tput setaf 1)$(tput setab 7)------- Interaction entries tagged; Weinstein2016 data created; OTL Tree imported (4/8) --------$(tput sgr 0)" 1>&3
 node build_freeliving_source.js
 node build_freeliving_target.js
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_weinonly");' 
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_weinonly");'
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_weinonly"); 
+                                                                    db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_weinonly");'
 arangosh --server.authentication false --javascript.execute-string 'db._query(`FOR doc in edges_otl_weinonly UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_weinonly" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_weinonly" )) } IN edges_otl_weinonly`)'
 node build_parasites_source.js
 node build_parasites_target.js
 wait
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_bak");' 
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_bak");' 
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_bak");
+                                                                    db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_bak");' 
 wait
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_nowein");' 
-arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_nowein");'
+arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl_sub INSERT doc IN nodes_otl_nowein"); 
+                                                                    db._query("FOR doc in edges_otl_sub INSERT doc IN edges_otl_nowein");'
 arangosh --server.authentication false --javascript.execute-string 'db._query(`FOR doc in edges_otl_nowein UPDATE doc WITH {_from: (SUBSTITUTE( doc._from, "nodes_otl_sub", "nodes_otl_nowein" )), _to: (SUBSTITUTE( doc._to, "nodes_otl_sub", "nodes_otl_nowein" )) } IN edges_otl_nowein`)'
 echo "$(tput setaf 1)$(tput setab 7)------- Tagging tree and creating noWein done (5/8) --------$(tput sgr 0)" 1>&3
 arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --create-collection true --server.authentication false

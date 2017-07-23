@@ -21,7 +21,7 @@ function testAvailable(cursor) {
 
 function writeNewRankPath(ott) {
     db.query(`
-    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl_weinonly/304358' TO 'nodes_otl_weinonly/${ott}' edges_otl_weinonly return e)
+    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl RETURN e)
     filter doc
 
     insert merge(doc, {_id:concat('edges_otl_weinonly/', doc._key),
@@ -29,7 +29,7 @@ function writeNewRankPath(ott) {
                        _to:concat('nodes_otl_weinonly/',   SPLIT(doc._to,   '/')[1] )}) in edges_otl_weinonly OPTIONS { ignoreErrors: true }`);
 
     db.query(`
-    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl_weinonly/304358' TO 'nodes_otl_weinonly/${ott}' edges_otl_weinonly return v)
+    for doc in (FOR v,e IN OUTBOUND SHORTEST_PATH 'nodes_otl/304358' TO 'nodes_otl/${ott}' edges_otl return v)
     filter doc
 
     UPSERT { _key: '${ott}' }
