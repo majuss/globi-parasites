@@ -28,7 +28,7 @@ parasitic interaction (source)|parasitic interaction (target)| freeliving intera
 **ectoParasitoid**(61)| | |**parasitoidOf**|| **guestOf**(141)
 **pathogenOf**| | |**endoparasitoidOf**(1462)|**vectorOf**| **livesInsideOf**(583)
  | | |**ectoParasitoid**(61)|**dispersalVectorOf**|**adjacentTo**
- | | |**pathogenOf**| |
+ | | | | **pathogenOf** |
 ## Raw interaction type IDs and their definitions
 
 Interaction | ID | Definition

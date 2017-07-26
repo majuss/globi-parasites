@@ -70,6 +70,8 @@
 - discussion
 
 ### Kinetoplastid Phylogenomics Reveals the Evolutionary Innovations Associated with the Origins of Parasitism - Jackson 2016
+- cell surface adaption of prior free-living taxa to parasites
+- understanding the reason for the surface change empower scientists to react better to constanly evolving pathogenes
 
 ### Multiple origins of parasitism in lice - Johnson 2004
 

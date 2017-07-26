@@ -55,13 +55,13 @@ let noott_freeliving_d = await db.query(`
 return count(
     for doc in interaction_tsv
     filter doc.freeliving == 1 && !contains(doc.sourceTaxonIds, "OTT:")
-    return doc.fname)`);
+    return distinct doc.fname)`);
 
 let noott_freeliving_nd = await db.query(`
 return count(
     for doc in interaction_tsv
     filter doc.freeliving == 1 && !contains(doc.sourceTaxonIds, "OTT:")
-    return distinct doc.fname)`);
+    return doc.fname)`);
 
 let weinstein = await db.query(`
 return count(
@@ -149,6 +149,9 @@ FOR v,e IN 1..100 outbound 'nodes_otl_sub/5246039' edges_otl_sub
 
 let percent_noott_parasites_nd = ((100 / parasites_interaction_nd._result) * noott_parasites_nd._result).toFixed(2);
 let percent_noott_parasites_d = ((100 / parasites_interaction_d._result) * noott_parasites_d._result).toFixed(2);
+let percent_noott_freeliving_nd = ((100 / freeliving_interaction_nd._result) * noott_freeliving_nd._result).toFixed(2);
+let percent_noott_freeliving_d = ((100 / freeliving_interaction_d._result) * noott_freeliving_d._result).toFixed(2);
+
 
 
 db.query(`
@@ -159,6 +162,8 @@ INSERT {    _key: 'table',
             'Interaction Parasites (distinct)': ${parasites_interaction_d._result},
             'No OTT-ID Parasites (nondistinct)': '${noott_parasites_nd._result} (${percent_noott_parasites_nd}%)',
             'No OTT-ID Parasites (distinct)': '${noott_parasites_d._result} (${percent_noott_parasites_d}%)',
+            'No OTT-ID freeliving (nondistinct)': '${noott_freeliving_nd._result} (${percent_noott_freeliving_nd}%)',
+            'No OTT-ID freeliving (distinct)': '${noott_freeliving_d._result} (${percent_noott_freeliving_d}%)',
             'Interaction Freeliving (notdistinct)': ${freeliving_interaction_nd._result },
             'Interaction Freeliving (distinct)': ${freeliving_interaction_d._result },
             'Weinstein Parasites': ${weinstein._result},

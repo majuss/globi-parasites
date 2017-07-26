@@ -72,3 +72,18 @@ Freeliving nondistinct (source) | 1402317
 Freeliving Distinct (ssource) | 36225
 Freeliving nondistinct (target) | 180556
 Freeliving Distinct (target) | 19654
+
+
+## Get massive Table for Metazoa
+
+FOR v,e,p  IN 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
+sort v.name asc
+filter v.rank == "phylum" || v.name == "Sipucula"
+return { name: v.name,
+nr_of_parasites: v.nr_parasites,
+nr_of_freeliving: v.nr_freeliving,
+nr_crosshit_freepara: v.nr_crosshits_flp,
+nr_origins: v.nr_origins_from,
+nr_losses: v.nr_loss_from,
+nr_crosshits: v.nr_cross_hits_with_weinstein,
+weinstein: v.nr_weinstein }
