@@ -59,7 +59,7 @@ const convert = () => {
     } // while
     
     piPoint5s = db._query(`
-        FOR node IN nodes_otl_sub     //look for any node, if hes got an outbound path
+        FOR node IN nodes_otl_sub
         FILTER node.pi == 0.5
         RETURN node._id`).toArray();
 

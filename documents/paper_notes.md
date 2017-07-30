@@ -17,7 +17,6 @@
 - origin of nematoda was not a parasite
 - "Independent origins of the parasitic habit can be validated by molecular phylogenetic placement of parasitic taxa and their free-living relatives (Blaxter et al. 1998; Dorris et al. 1999). With the current available molecular data we can define three origins of plant parasitism, 10 of parasitism of a wide range of non-vertebrates and five of parasitism of vertebrate hosts across the three subclasses (Fig. 1 and Table 1). Many additional events of acquisition of parasitic lifestyles could be proposed. For example, Sudhaus has suggested at least 20 independent events of acquisition of parasitism of insects in Nematoda (Sudhaus, 2008)."
 - human parasites are overrepresented
-- 
 
 ### Synthesis of phylogeny and taxonomy into a comprehensive tree of life - Hinchliff 2015
 - when phylogenetic data is missing, taxonomy was used
@@ -90,12 +89,25 @@
 ### The Many Roads to Parasitism: A Tale of Convergence - Robert Poulin 2011
 
 ### Evolution of parasitism along convergent lines: from ecology to genomics - Robert Poulin 2013
+- "eukaryotic parasite lineages have all converged toward only six general parasitic strategies: parasitoid, parasitic castrator, directly transmitted parasite, trophically transmitted parasite, vector-transmitted parasite or micropredator"
+- some genetic parallelism in unrelated taxa when it comes to the question of the transit to parasitism
+- maybe the most often life history strategy change in evolution!
+- red algae 100 changes
+- parasites are not morphologically simplified versions of free-living relatives
+- eimeria = protist
+- classification of parasites into 6 groups - as endpoints of ecvolution
+- "Just as the evolution of parasitism appears inevi- table, having occurred repeatedly and independently in all major lineages of unicellular and multicellular organisms, their subsequent convergence toward one of the above strategies also seems inescapable (see Poulin, 2011, for further evidence and discussion)"
+- scientists think, if a organism looses a morphological trait its genome is getting simpler
+- "For instance, approximately 40% of genes in the Giardia genome have undergone gene duplication, with the majority of these involved in evading the host’s immune response (Sun et al. 2010"
 
 ### THE ORIGINS OF PARASITISM IN THE PROTISTS - J. R. Baker 1994
 
 ### EVOLUTION OF INSECT PARASITISM IN RHABDITID AND DIPLOGASTRID NEMATODES - Walter Sudhaus 2008
 
 ### THE ORIGINS OF PARASITISM IN THE PLATYHELMINTHES - Rohde 1994
+
+### A general consumer-resource population model - Lafferty 2015
+- 
 
 ### Independent origins of parasitism in Animalia - Weinstein 2016
 - 223 origins in Metazoa/Animalia

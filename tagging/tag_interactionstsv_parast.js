@@ -5,6 +5,7 @@ const db = require('arangojs')();
 
 db.query(`for doc in interaction_tsv
           filter doc.interactionTypeName == "hasParasite"
+          fitler doc.interactionTypeName == "hasPathogen"
           return doc`, {}, { ttl: 1000 * 3600 }).then(tagParasT); //filter for interaction; ie isparasyte
 
 function tagParasT(cursor) {
