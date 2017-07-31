@@ -57,6 +57,7 @@
 - "Recent work by Sures (52, 59) and colleagues has shown that parasitic helminths may play a substantial role in concentrating and ultimately removing heavy metals and other pollutants from their hosts"
 - 3% animal biomass -> 30-50% pollunt mass
 - if parasite is lost, host is getting more pollunts
+
 ### Parasites in food webs: the ultimate missing links - Lafferty 2008
 
 
@@ -81,6 +82,7 @@
 - apicomplexa single origin (rayner & keeling 2014)
 - witness the routine use of Caenorhabditis elegans as a free-living comparator for all parasitic nematodes
 - not only the parasitic genomes are missing, also the freeliving...
+
 ### Parasitism, the Diversity of Life, and Paleoparasitology - Araújo 2003
 
 ### Factors mediating plastid dependency and the origins of parasitism in apicomplexans and their close relatives - Janouškoveca 2014
@@ -101,6 +103,9 @@
 - "For instance, approximately 40% of genes in the Giardia genome have undergone gene duplication, with the majority of these involved in evading the host’s immune response (Sun et al. 2010"
 
 ### THE ORIGINS OF PARASITISM IN THE PROTISTS - J. R. Baker 1994
+- "Although it seems clear that a free-living existence must have preceded parasitism as a life-style"
+- apicomplexa became parasitic -> the got eaten by accident and got used to the life in ingestions tissues
+- "There are three major routes by which an endoparasitic life-style could be achieved: inges- tion and subsequent adaptation of free-living forms, deeper penetration of ectoparasitic forms, and devel- opment through a facultatively parasitic phase to one of obligate parasitism. "
 
 ### EVOLUTION OF INSECT PARASITISM IN RHABDITID AND DIPLOGASTRID NEMATODES - Walter Sudhaus 2008
 

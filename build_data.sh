@@ -10,9 +10,9 @@ echo "$(tput setaf 1)$(tput setab 7)------- Node packages installed (1/8) ------
 rm -rf data
 mkdir data
 cd data
-if wget -q https://s3.amazonaws.com/globi/snapshot/target/data/tsv/interactions.tsv.gz -nv; then echo "DL succesful"; else echo "GLoBI DL-link broken" 1>&3; exit 1;  fi
+if wget -q https://s3.amazonaws.com/globi/snapshot/target/data/tsv/interactions.tsv.gz -nv; then echo "GLoBI DL succesful"; else echo "GLoBI DL-link broken" 1>&3; exit 1;  fi
 gunzip interactions.tsv.gz
-if wget -q http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz -nv; then echo "DL succesful"; else echo "OTL DL-link broken" 1>&3; exit 1;  fi
+if wget -q http://files.opentreeoflife.org/ott/ott3.0/ott3.0.tgz -nv; then echo "OTT DL succesful"; else echo "OTL DL-link broken" 1>&3; exit 1;  fi
 tar -xf ott3.0.tgz 
 rm ott3.0.tgz 
 mv ott/taxonomy.tsv . 
@@ -69,8 +69,6 @@ echo "$(tput setaf 1)$(tput setab 7)------- Tagging tree and creating noWein don
 arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --create-collection true --server.authentication false
 arangoimp --file weinstein/weinstein_manual.tsv --type tsv --collection weinstein --create-collection false --server.authentication false 
 echo "$(tput setaf 1)$(tput setab 7)------- Done importing weinstein2016 (6/8) --------$(tput sgr 0)" 1>&3
-nohit=$(wc -l weinstein/weinstein_nohit.tsv | awk '{print $1}')
-arangosh --server.authentication false --javascript.execute-string "db._update('counts/table', {'no Hits for Weinstein': $nohit})"
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating counts (7/8) --------$(tput sgr 0)" 1>&3
 node write_pis.js &
 wait
