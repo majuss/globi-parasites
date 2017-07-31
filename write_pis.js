@@ -55,7 +55,7 @@ update doc WITH { pi: 0.55 } in nodes_otl_sub`);
 
 db._query(`
 FOR doc IN nodes_otl_sub
-FILTER doc.rank == 'phylum' && doc.rank == 'subkingdom' && doc.rank == 'kingdom' && doc.rank == 'domain' && doc.rank == 'infrakingdom' && doc.rank == 'superphylum' && doc.rank == 'infraphylum' && doc.rank == 'subphylum'
+FILTER doc.rank == 'phylum' || doc.rank == 'subkingdom' || doc.rank == 'kingdom' || doc.rank == 'domain' || doc.rank == 'infrakingdom' || doc.rank == 'superphylum' || doc.rank == 'infraphylum' || doc.rank == 'subphylum'
 UPDATE doc WITH {pi: 0} IN nodes_otl_sub`);
 }
 

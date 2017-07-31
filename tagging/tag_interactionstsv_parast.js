@@ -18,5 +18,3 @@ function tagParasT(cursor) {
         tagParasT(cursor);
     });
 }
-
-//          doc.interactionTypeName == "hasPathogen" ||

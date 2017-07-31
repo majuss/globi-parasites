@@ -3,7 +3,7 @@ const db = require('arangojs')();
 
 //tag the whole tree with origins and losses
 
-db.query(`  FOR doc IN nodes_otl
+db.query(`  FOR doc IN nodes_otl_sub
             FILTER doc.origin_to == 1
             return doc`, {}, { ttl: 1000 * 3600 }).then(tagorigins);
 
@@ -16,7 +16,7 @@ function tagorigins(cursor) {
     });
 }
 
-db.query(`  FOR doc IN nodes_otl
+db.query(`  FOR doc IN nodes_otl_sub
             FILTER doc.loss_to == 1
             return doc`, {}, { ttl: 1000 * 3600 }).then(tagloss);
 
