@@ -376,3 +376,176 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
 //FOR doc in nodes_otl_weinonly
 //FILTER doc.weinstein == 1
 //return doc
+
+//
+//
+////FOR doc in weinstein UPDATE doc WITH { _key: doc.sourceTaxonId } IN weinstein
+////return count(
+////for doc in nodes_otl_sub
+////filter doc.globi == 1
+////return doc)
+////for v in nodes_otl_sub
+//
+////FOR v,e,p  IN 1..100 OUTBOUND 'nodes_otl/691846' edges_otl
+////filter v.rank == "phylum"
+//
+////filter v.name == "Cycliophora" || v.name == "Entoprocta" || v.name == "Gastrotricha" || v.name == "Gnathostomulida" || v.name == "Kinorhyncha" || v.name == "Loricifera" ||
+////v.name == "Micrognathozoa" || v.name == "Onychophora" || v.name == "Phoronida" || v.name == "Sipuncula" ||  v.name == "Placozoa"
+//
+////return v
+//
+////sort v.name asc
+////filter v.rank == "phylum" || v.name == "Sipucula"
+////filter doc.parasite == 1 && doc.pi != 1 //|| doc.pi != 1
+////return { name: v.name,
+////nr_of_parasites: v.nr_parasites,
+////nr_of_freeliving: v.nr_freeliving,
+////nr_crosshit_freepara: v.nr_crosshits_flp,
+////nr_origins: v.nr_origins_from,
+////nr_losses: v.nr_loss_from,
+////nr_crosshits: v.nr_cross_hits_with_weinstein,
+////weinstein: v.nr_weinstein }
+////filter v.weinstein == 1
+////return v
+////return doc
+//
+//
+////FOR v,e,p  IN 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
+////FILTER v.origin_from == 1
+////Return { name: v.name, Taxa: v.nr_underlying_taxa }
+//
+////FOR v,e,p  IN 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
+////sort v.name asc
+////filter v.rank == "phylum" || v.name == "Sipucula"
+////return { name: v.name,
+////nr_of_parasites: v.nr_parasites,
+////nr_of_freeliving: v.nr_freeliving,
+////nr_crosshit_freepara: v.nr_crosshits_flp,
+////nr_origins: v.nr_origins_from,
+////nr_losses: v.nr_loss_from,
+////nr_crosshits: v.nr_cross_hits_with_weinstein,
+////weinstein: v.nr_weinstein }
+//
+//
+//
+////FOR doc IN nodes_otl
+////filter contains(doc, 'Teredini')
+////return doc
+//
+////FOR doc IN nodes_otl
+////FILTER CONTAINS(doc, 'Syllidae')
+////RETURN { name: doc.name, id: doc._key, rank: doc.rank }
+////return count(
+////FOR doc in nodes_otl
+////FILTER doc.origin == 1 
+////return doc)
+//
+//FOR node IN nodes_otl     //look for any node, if hes got an outbound path
+//        filter node.rank != "species" || node.rank != 'genus' || node.rank != 'subspecies' || node.rank != 'forma' || node.rank != 'species subgroup' || node.rank != 'species group'
+//
+//        FILTER 0 == length(
+//        FOR v,e,p IN OUTBOUND node._id edges_otl
+//        RETURN v)
+//        RETURN node.rank
+
+
+
+
+//return count(
+//FOR doc in nodes_otl
+//filter doc.freeliving == 1
+//return doc)
+
+
+//return [count(
+//FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//filter v.parasite == 1
+//return v),
+//count(
+//FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//filter v.freeliving == 1
+//return v),
+//count(
+//FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//filter v.origin == 1
+//return v),
+//count(
+//FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//filter v.loss == 1
+//return v),
+//count(
+//FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//filter v.freeliving != 1 && v.parasite != 1
+//return v)]
+
+//for v in any 'nodes_otl/5155120' edges_otl
+//return v
+
+
+//FOR v,e IN  OUTBOUND 'nodes_otl/878953' edges_otl
+//
+//    filter v._key == '4737162'
+//    LET parent = first_document((FOR parent IN INBOUND v edges_otl RETURN parent)[0], {})
+//
+//
+//    let doc = (v.origin == 1 || parent.parasite == 1) ? {parasite:1} : 
+//              (v.loss == 1   || parent.freeliving == 1) ? {freeliving:1} : {}
+//
+////    UPDATE v WITH doc IN nodes_otl
+////    
+//    return [doc, v, parent]
+
+
+
+
+//FOR v,e IN 0..100 INBOUND 'nodes_otl_sub/5349342' edges_otl_sub
+//return v
+
+
+//FOR doc in nodes_otl_bak
+//INSERT doc IN nodes_otl
+
+//FOR v,e in 0..2 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub FILTER v.pi >= 0.5 RETURN v
+//
+
+
+
+
+//let leafids=
+//(FOR node IN nodes_otl_sub
+//FILTER 0 == length(
+//FOR v,e,p IN OUTBOUND node._id edges_otl_sub
+//RETURN v)
+//RETURN node._id)
+//
+//for leafid in leafids
+//
+//    filter 7 <= length(FOR v,e IN INBOUND SHORTEST_PATH leafid TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e)
+//    limit 1
+//    UPDATE {_key:SPLIT(leafid, '/')[1]} WITH {foo:'bar'} IN nodes_otl_sub
+//    return NEW
+
+//RETURN COUNT(
+//LET leafids=
+//(FOR node IN nodes_otl_sub
+//FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id edges_otl_sub RETURN v)
+//RETURN node._id)
+//
+//FOR leafid in leafids
+//
+//    FILTER 20 <= LENGTH(FOR v,e IN INBOUND SHORTEST_PATH leafid TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e)
+//        UPDATE {_key:SPLIT(leafid, '/')[1]} WITH {foo:'bar'} IN nodes_otl_sub
+//    RETURN NEW)
+
+//return count(
+//LET leafids=
+//(FOR node IN nodes_otl_sub
+//FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id edges_otl_sub RETURN v)
+//FILTER node.freeliving == 1
+//RETURN node._id)
+//
+//FOR leafid in leafids
+//
+//    FILTER 13 >= LENGTH(FOR v,e IN INBOUND SHORTEST_PATH leafid TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e)
+//    UPDATE {_key:SPLIT(leafid, '/')[1]} WITH {foo:'bar2'} IN nodes_otl_sub
+//    RETURN NEW)

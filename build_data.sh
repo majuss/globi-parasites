@@ -41,7 +41,8 @@ arangosh --server.authentication false --javascript.execute-string 'db._drop("in
                                                                     db._create("nodes_otl_bak");
                                                                     db._create("counts");
                                                                     db._create("nodes_otl_sub");
-                                                                    db._createEdgeCollection("edges_otl_sub");'
+                                                                    db._createEdgeCollection("edges_otl_sub");
+                                                                    db._create("nodes_otl_metazoa")'
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true --server.authentication false
 wait
 echo "$(tput setaf 1)$(tput setab 7)------- Interactions imported and collections initialized (3/8) --------$(tput sgr 0)" 1>&3
@@ -70,17 +71,13 @@ arangoimp --file weinstein/weinstein.tsv --type tsv --collection weinstein --cre
 arangoimp --file weinstein/weinstein_manual.tsv --type tsv --collection weinstein --create-collection false --server.authentication false 
 echo "$(tput setaf 1)$(tput setab 7)------- Done importing weinstein2016 (6/8) --------$(tput sgr 0)" 1>&3
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating counts (7/8) --------$(tput sgr 0)" 1>&3
-node write_pis.js &
-wait
-node taxonomic_majority_censoring.js &
-wait
-node find_origins.js &
-wait
-node counting/tag_counts.js
-node analysis/find_shortpathes.js
+node write_pis.js
+node taxonomic_majority_censoring.js
+node find_origins.js
+#node counting/tag_counts.js
+#node analysis/find_shortpathes.js
 node tagging/tag_origins_toTree.js
-rm -rf dump
-arangodump --collection nodes_otl_sub --collection edges_otl_sub --output-directory "dump" --server.authentication false
+node tagging/tag_ott_pfl.js
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (8/8) --------$(tput sgr 0)" 1>&3
 end=$(date +%s)
 runtime=$(((end-start)/60))
