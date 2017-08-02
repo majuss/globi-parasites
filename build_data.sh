@@ -74,10 +74,13 @@ echo "$(tput setaf 1)$(tput setab 7)------- Done generating counts (7/8) -------
 node write_pis.js
 node taxonomic_majority_censoring.js
 node find_origins.js
-#node counting/tag_counts.js
-#node analysis/find_shortpathes.js
 node tagging/tag_origins_toTree.js
+arangosh --server.authentication false --javascript.execute-string 'db._query(`UPDATE "304358" with {freeliving:1, freelivingw:1} in nodes_otl`);'
 node tagging/tag_ott_pfl.js
+node tagging/tag_ott_pfl_wein.js
+node counting/generate_counts.js
+node weinstein/import_origin_counts.js
+node counting/tag_counts_fulltree.js
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (8/8) --------$(tput sgr 0)" 1>&3
 end=$(date +%s)
 runtime=$(((end-start)/60))

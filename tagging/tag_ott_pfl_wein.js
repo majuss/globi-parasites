@@ -1,17 +1,3 @@
-/*
-
-`FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
-
-    LET parent = first_document((FOR parent IN INBOUND v edges_otl RETURN parent)[0], {})
-
-
-    let doc = (v.origin == 1 || parent.parasite == 1) ? {parasite:1} : 
-              (v.loss == 1   || parent.freeliving == 1) ? {freeliving:1} : {}
-
-    UPDATE v WITH doc IN nodes_otl`
-
-*/
-
 'use strict';
 
 const fastango3 = require('fastango3');
@@ -30,8 +16,8 @@ const convert = () => {
 
         for (const child of childs) {
             const upDoc = {};
-            if (child.origin == 1 || parent.parasite == 1 && child.loss == null) upDoc.parasite = 1;
-            else if (child.loss == 1 || parent.freeliving == 1) upDoc.freeliving = 1;
+            if (child.originw == 1 || parent.parasitew == 1 && child.lossw == null) upDoc.parasitew = 1;
+            else if (child.lossw == 1 || parent.freelivingw == 1) upDoc.freelivingw = 1;
 
             db._update(child._id, upDoc);
             childsToProcess.push(child._id);
@@ -49,5 +35,5 @@ db._txn({
         // console.log(status);
         body = JSON.parse(body);
         console.log(body);
-        console.log("Finished tagging parasites/freeliving on full tree");
+        console.log("Finished tagging weinstein parasites/freeliving on full tree");
     });

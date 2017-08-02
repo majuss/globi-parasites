@@ -1,7 +1,7 @@
 'use strict';
 const db = require('arangojs')();
 
-//tag the whole tree with origins and losses
+//tag the full tree with origins and losses
 
 db.query(`  FOR doc IN nodes_otl_sub
             FILTER doc.origin_to == 1
@@ -38,5 +38,31 @@ function tagwein(cursor) {
         try {await db.query(`UPDATE "${doc._key}" WITH { originw: 1 } IN nodes_otl`);
         } catch (e) { }
         tagwein(cursor);
+    });
+}
+
+db.query(`  FOR doc IN nodes_otl_sub
+            FILTER doc.origin_from == 1
+            return doc`, {}, { ttl: 1000 * 3600 }).then(tagoriginfrom);
+
+function tagoriginfrom(cursor) {
+    if (!cursor.hasNext()) { console.log('Finished tagging origins from'); return };
+    cursor.next().then(async doc => {
+        try {await db.query(`UPDATE "${doc._key}" WITH { origin_from: 1 } IN nodes_otl`);
+        } catch (e) { }
+        tagoriginfrom(cursor);
+    });
+}
+
+db.query(`  FOR doc IN nodes_otl_sub
+            FILTER doc.loss_from == 1
+            return doc`, {}, { ttl: 1000 * 3600 }).then(taglossfrom);
+
+function taglossfrom(cursor) {
+    if (!cursor.hasNext()) { console.log('Finished tagging losses from'); return };
+    cursor.next().then(async doc => {
+        try {await db.query(`UPDATE "${doc._key}" WITH { loss_from: 1 } IN nodes_otl`);
+        } catch (e) { }
+        taglossfrom(cursor);
     });
 }
