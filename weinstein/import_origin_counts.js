@@ -1,7 +1,7 @@
 'use-strict';
 const fs = require("fs");
 const db = require('arangojs')();
-let str = fs.readFileSync("weinstein_origins.tsv").toString('utf-8')//.split(",").map(Number);
+let str = fs.readFileSync("weinstein/weinstein_origins.tsv").toString('utf-8')//.split(",").map(Number);
 
 var x = str.split('\n');
 for (let i=0; i<x.length; i++) {

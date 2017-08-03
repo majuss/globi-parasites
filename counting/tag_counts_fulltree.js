@@ -13,7 +13,11 @@ LET origins_from = count(for x IN 1..100 OUTBOUND v edges_otl
 LET loss_from = count(for x IN 1..100 OUTBOUND v edges_otl
                 FILTER x.loss_from == 1 RETURN v)
 
+LET origins_to = count(for x IN 1..100 OUTBOUND v edges_otl
+                FILTER x.origin == 1 RETURN v) 
 
+LET origins_w = count(for x IN 1..100 OUTBOUND v edges_otl
+                FILTER x.originw == 1 RETURN v)
 
 LET leaf_paras = count(FOR node IN 1..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
@@ -41,6 +45,8 @@ UPDATE v WITH { nr_origins_from: origins_from,
                 nr_leaf_parasites_weinstein: leaf_parasw,
                 nr_leaf_freeliving: leaf_free,
                 nr_leaf_freeliving_weinstein: leaf_freew
+                nr_origins_from: origins_to,
+                nr_origins_toweinstein: origins_w
              } in nodes_otl
 
 
