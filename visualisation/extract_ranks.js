@@ -4,99 +4,104 @@ var db = require('arangojs')();
 
 db.query(`
 INSERT {
-        _key: '304358',
-        name: "Eukaryota",
-        rank: "domain"
+        _key: "691846",
+        name: "Metazoa",
+        rank: "Kingdom"
     } INTO rank_extract OPTIONS { ignoreErrors: true }`);
 
-// kingdom - phlyum - class - order - family - genus
+// phlyum - class - order - family - genus
 
 async function counting() {
-    
-    let kingdomcount = await db.query(`
-    FOR v,e IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
-    filter v.rank == 'kingdom'
-    INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
-    INSERT {
-    _from: "rank_extract/304358",
-    _to: concat('rank_extract/', v._key)
-    } INTO rank_extracte OPTIONS { ignoreErrors: true }
-    return v
-    `);
 
-   Object.keys(kingdomcount._result).forEach(async function (key) {
-        let phylla = await db.query(`
-        FOR v,e IN 1..100 outbound 'nodes_otl/${kingdomcount._result[key]._key}' edges_otl
+
+    let phylla = await db.query(`
+        FOR v,e IN 1..100 outbound 'nodes_otl/691846' edges_otl
         FILTER v.rank == 'phylum'
         INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
         INSERT {
-        _from: "rank_extract/${kingdomcount._result[key]._key}",
+        _from: "rank_extract/691846",
         _to: concat('rank_extract/', v._key)
         } INTO rank_extracte OPTIONS { ignoreErrors: true }
-        return v
+        return v._key
         `);
-            Object.keys(phylla._result).forEach(async function (key) {
-            let classs = await db.query(`
-            FOR v,e IN 1..100 outbound 'nodes_otl/${phylla._result[key]._key}' edges_otl
+
+    phylla = await phylla.all();
+
+    for (const key of phylla) {
+        let classs = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key}' edges_otl
             FILTER v.rank == 'class'
             INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
             INSERT {
-            _from: "rank_extract/${phylla._result[key]._key}",
+            _from: "rank_extract/${key}",
             _to: concat('rank_extract/', v._key)
             } INTO rank_extracte OPTIONS { ignoreErrors: true }
-            return v
+            return v._key
             `);
-                Object.keys(classs._result).forEach(async function (key) {
-                let order = await db.query(`
-                FOR v,e IN 1..100 outbound 'nodes_otl/${classs._result[key]._key}' edges_otl
-                FILTER v.rank == 'order'
-                INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
-                INSERT {
-                _from: "rank_extract/${classs._result[key]._key}",
-                _to: concat('rank_extract/', v._key)
-                } INTO rank_extracte OPTIONS { ignoreErrors: true }
-                return v
-                `);
-                    Object.keys(order._result).forEach(async function (key) {
-                    let family = await db.query(`
-                    FOR v,e IN 1..100 outbound 'nodes_otl/${order._result[key]._key}' edges_otl
-                    FILTER v.rank == 'family'
-                    INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
-                    INSERT {
-                    _from: "rank_extract/${order._result[key]._key}",
-                    _to: concat('rank_extract/', v._key)
-                    } INTO rank_extracte OPTIONS { ignoreErrors: true }
-                    return v
-                    `);
-                        Object.keys(family._result).forEach(async function (key) {
-                        let genus = await db.query(`
-                        FOR v,e IN 1..100 outbound 'nodes_otl/${family._result[key]._key}' edges_otl
-                        FILTER v.rank == 'genus'
-                        INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
-                        INSERT {
-                        _from: "rank_extract/${family._result[key]._key}",
-                        _to: concat('rank_extract/', v._key)
-                        } INTO rank_extracte OPTIONS { ignoreErrors: true }
-                        return v
-                        `);
-                            Object.keys(genus._result).forEach(async function (key) {
-                            let species = await db.query(`
-                            FOR v,e IN 1..100 outbound 'nodes_otl/${genus._result[key]._key}' edges_otl
-                            FILTER v.rank == 'species'
-                            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
-                            INSERT {
-                            _from: "rank_extract/${genus._result[key]._key}",
-                            _to: concat('rank_extract/', v._key)
-                            } INTO rank_extracte OPTIONS { ignoreErrors: true }
-                            return v
-                            `);
 
-                            })
-                        })
-                    })
-                })
-            })
-        //console.log(kingdomcount._result[key].name, kingdomcount._result[key]._key, countp._result, countf._result); // kingdoms 
-    })
+
+        classs = await classs.all();
+
+        for (const key2 of classs) {
+            let order = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key2}' edges_otl
+            FILTER v.rank == 'order'
+            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
+            INSERT {
+            _from: "rank_extract/${key2}",
+            _to: concat('rank_extract/', v._key)
+            } INTO rank_extracte OPTIONS { ignoreErrors: true }
+            return v._key
+            `);
+
+            order = await order.all();
+
+            for (const key3 of order) {
+                let family = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key3}' edges_otl
+            FILTER v.rank == 'family'
+            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
+            INSERT {
+            _from: "rank_extract/${key3}",
+            _to: concat('rank_extract/', v._key)
+            } INTO rank_extracte OPTIONS { ignoreErrors: true }
+            return v._key
+            `);
+
+                family = await family.all();
+
+
+                for (const key4 of family) {
+                    let genus = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key4}' edges_otl
+            FILTER v.rank == 'genus'
+            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
+            INSERT {
+            _from: "rank_extract/${key4}",
+            _to: concat('rank_extract/', v._key)
+            } INTO rank_extracte OPTIONS { ignoreErrors: true }
+            return v._key
+            `);
+
+                    genus = await genus.all();
+
+                    for (const key5 of genus) {
+                        let species = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key5}' edges_otl
+            FILTER v.rank == 'species'
+            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
+            INSERT {
+            _from: "rank_extract/${key5}",
+            _to: concat('rank_extract/', v._key)
+            } INTO rank_extracte OPTIONS { ignoreErrors: true }
+            return v._key
+            `);
+
+                        species = await species.all();
+                    }
+                }
+            }
+        }
+    }
 }
 counting();

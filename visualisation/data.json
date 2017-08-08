@@ -1,19 +1,22 @@
 {
-    "name": "TOPICS", "children": [{
+    "name": "TOPICS", "children": [
+    {
         "name": "Topic A",
         "children": [
-            {"name": "Sub A1", "size": 500, "text": "A story", "sentiment": 0.8, "source": "dictionary"},
-            {"name": "Sub A2", "size": 500, "text": "A note", "sentiment": 0.3, "source": "dictionary"}]
-    }, {
+            {"name": "Sub A1", "size": 1, "text": "A story", "sentiment": 0.8, "source": "dictionary"},
+            {"name": "Sub A2", "size": 1, "text": "A note", "sentiment": 0.3, "source": "dictionary"}]
+    },
+    {
         "name": "Topic B",
         "children": [
-            {"name": "Sub B1", "size": 500, "text": "A vignette", "sentiment": 0.5, "source": "newspaper"},
-            {"name": "Sub B2", "size": 300, "text": "A tall-tale", "sentiment": 0.2, "source": "friend"},
-            {"name": "Sub B3", "size": 400, "text": "A joke", "sentiment": 0.8, "source": "email"}]
-    }, {
+            {"name": "Sub B1", "size": 1, "text": "A vignette", "sentiment": 0.5, "source": "newspaper"},
+            {"name": "Sub B2", "size": 1, "text": "A tall-tale", "sentiment": 0.2, "source": "friend"},
+            {"name": "Sub B3", "size": 1, "text": "A joke", "sentiment": 0.8, "source": "email"}]
+    },
+    {
         "name": "Topic C",
         "children": [
-            {"name": "Sub A1", "size": 400, "text": "A narrative", "sentiment": 0.2, "source": "newspaper"},
-            {"name": "Sub A2", "size": 400, "text": "A chronology", "sentiment": 0.3, "source": "email"}]
+            {"name": "Sub A1", "size": 1, "text": "A narrative", "sentiment": 0.2, "source": "newspaper"},
+            {"name": "Sub A2", "size": 1, "text": "A chronology", "sentiment": 0.3, "source": "email"}]
     }]
 }

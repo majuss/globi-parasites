@@ -12,13 +12,15 @@ body {
 </style>
 <body>
     <svg></svg>
+    <div id="viz"></div>
+<a href="#" id="downloadID">Download</a>
 </body>
 
 <script>
 
     // Variables
-    var width = 500;
-    var height = 500;
+    var width = 8000;
+    var height = 8000;
     var radius = Math.min(width, height) / 2;
     var color = d3.scaleOrdinal(d3.schemeCategory20b);
 
@@ -34,7 +36,7 @@ body {
         .size([2 * Math.PI, radius]);
 
     // Get the data from our JSON file
-    d3.json("data2.json", function(error, nodeData) {
+    d3.json("treeee.json", function(error, nodeData) {
         if (error) throw error;
 
         // Find the root node of our data, and begin sizing process.
@@ -57,17 +59,16 @@ body {
             .enter().append('g').attr("class", "node").append('path')
             .attr("display", function (d) { return d.depth ? null : "none"; })
             .attr("d", arc)
-            .style('stroke', '#fff')
+            .style('stroke', '#fff') //white lines in between
             .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
 
 
         // Populate the <text> elements with our data-driven titles.
         g.selectAll(".node")
             .append("text")
-            .attr("transform", function(d) {
-                return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
-            .attr("dx", "-20") // radius margin
-            .attr("dy", ".5em") // rotation align
+            .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
+            .attr("dx", "-50") // radius margin
+            .attr("dy", ".10em") // rotation align
             .text(function(d) { return d.parent ? d.data.name : "" });
 
     });
@@ -82,8 +83,9 @@ body {
         var angle = (d.x0 + d.x1) / Math.PI * 90;
 
         // Avoid upside-down labels
-        return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
-        //return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
+        //return (angle < 120 || angle > 270) ? angle : angle + 180;  // labels as rims
+        return (angle < 180) ? angle - 90 : angle + 90;  // labels as spokes
     }
+    
 
 </script>
