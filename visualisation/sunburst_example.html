@@ -15,16 +15,16 @@ body {
 <script>
     // JSON data
     var nodeData = {
-        "name": "TOPICS", "children": [{
+        "name": "TOPICS", "color": "#25F15A", "children": [{
             "name": "Topic A",
-            "children": [{"name": "Sub A1", "size": 4}, {"name": "Sub A2", "size": 4}]
+            "children": [{"name": "Sub A1", "size": 4, "color": "#F14925"}, {"name": "Sub A2", "size": 4, "color": "#25F15A"}]
         }, {
             "name": "Topic B",
-            "children": [{"name": "Sub B1", "size": 3}, {"name": "Sub B2", "size": 3}, {
-                "name": "Sub B3", "size": 3}]
+            "children": [{"name": "Sub B1", "size": 3, "color": "#25F15A"}, {"name": "Sub B2", "size": 3, "color": "#25F15A"}, {
+                "name": "Sub B3", "size": 3, "color": "#25F15A"}]
         }, {
             "name": "Topic C",
-            "children": [{"name": "Sub A1", "size": 4}, {"name": "Sub A2", "size": 4}]
+            "children": [{"name": "Sub A1", "size": 4, "color": "#2535F1"}, {"name": "Sub A2", "size": 4, "color": "#25F15A"}]
         }]
     };
 
@@ -64,5 +64,8 @@ body {
         .attr("display", function (d) { return d.depth ? null : "none"; })
         .attr("d", arc)
         .style('stroke', '#fff')
-        .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+        //.style("fill", function (d) {return d.children.color});
+        .style("fill", function (d) {return d.data.color});
+
+        console.log(g)
 </script>

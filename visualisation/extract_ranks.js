@@ -70,7 +70,7 @@ async function counting() {
 
                 family = await family.all();
 
-
+/*
                 for (const key4 of family) {
                     let genus = await db.query(`
             FOR v,e IN 1..100 outbound 'nodes_otl/${key4}' edges_otl
@@ -99,7 +99,7 @@ async function counting() {
 
                         species = await species.all();
                     }
-                }
+                }*/
             }
         }
     }

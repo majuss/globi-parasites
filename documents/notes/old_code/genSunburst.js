@@ -22,6 +22,8 @@ const convert = () => {
 
         for(const childId of childIds) {
             const obj = {};
+            tree.children.color = 1;
+            tree.children.color.push(obj);
             tree.children.push(obj);
             buildTree(childId, obj);
         }
@@ -38,7 +40,6 @@ db._txn({
     collections: {
         read:['rank_extract']
     }}, convert, (status, headers, body) => {
-        // console.log(status);
         body = JSON.parse(body);
         fs.writeFileSync('treeee.json', JSON.stringify(body.result, false, 2));
         console.log("Finished tagging weinstein parasites/freeliving on full tree");

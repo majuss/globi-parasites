@@ -5,8 +5,8 @@ graph [fontname = "helvetica"];
 node [fontname = "helvetica"];
 edge [fontname = "helvetica"];    
 
-Homo [label=<<B>Homo</B><br/>rank: genus>, xlabel="node"];
-sapiens [label=<<B>Homo sapiens</B><br/>rank: species>, xlabel="node"];
+Homo [label=<<B>Homo</B><br/>rank: genus>, xlabel="from-node"];
+sapiens [label=<<B>Homo sapiens</B><br/>rank: species>, xlabel="to-node"];
 
 Homo -> sapiens [ label="edge" ];
 }

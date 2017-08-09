@@ -60,7 +60,8 @@ body {
             .attr("display", function (d) { return d.depth ? null : "none"; })
             .attr("d", arc)
             .style('stroke', '#fff') //white lines in between
-            .style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+            //.style("fill", function (d) { return color((d.children ? d : d.parent).data.name); });
+            .style("fill", function (d) {return d.data.color});
 
 
         // Populate the <text> elements with our data-driven titles.
