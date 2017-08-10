@@ -42,7 +42,7 @@ arangosh --server.authentication false --javascript.execute-string 'db._drop("in
                                                                     db._create("counts");
                                                                     db._create("nodes_otl_sub");
                                                                     db._createEdgeCollection("edges_otl_sub");
-                                                                    db._create("nodes_otl_metazoa")'
+                                                                    //db._create("nodes_otl_metazoa")'
 #dropping and creating all nec. collections inside arangoDB
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true --server.authentication false #import interactions.tsv into arangoDB
 wait
