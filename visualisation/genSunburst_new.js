@@ -27,9 +27,10 @@ const convert = () => {
             buildTree(childId._id, obj);
         }
 
-        //tree.color = "dsfdsfsd";
+        
         if (0 === tree.children.length) {
             tree.size = 1;
+            tree.color = node.color;
         }
     }
 

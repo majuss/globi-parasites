@@ -116,6 +116,14 @@ FILTER doc.rank == 'phylum' || doc.rank == 'subkingdom' || doc.rank == 'kingdom'
 UPDATE doc WITH {pi: 0} IN nodes_otl_sub`);
 }
 
+//assign high ranks freeliving based on outbound level of euk Root (outbound til phylla)
+
+db._query(`
+FOR doc in 0..3 OUTBOUND nodes_otl/304358 edges_otl_sub
+UPDATE doc WITH {pi: 0} IN nodes_otl_sub
+`)
+
+
     db._txn({
 
         collections: {
