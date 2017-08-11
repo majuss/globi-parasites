@@ -119,7 +119,7 @@ UPDATE doc WITH {pi: 0} IN nodes_otl_sub`);
     //assign high ranks freeliving based on outbound level of euk Root (outbound til phylla)
 
     db._query(`
-FOR doc in 0..5 OUTBOUND nodes_otl_sub/304358 edges_otl_sub
+FOR doc IN 0..5 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub
 UPDATE doc WITH {pi: 0} IN nodes_otl_sub
 `)
 }

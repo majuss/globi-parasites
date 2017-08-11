@@ -21,12 +21,12 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasitew == 1 && freeliving == 1
+    FILTER node.parasitew == 1 && node.freeliving == 1
     RETURN node._id)
 
 LET leaf_freecross = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
@@ -75,12 +75,12 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasitew == 1 && freeliving == 1
+    FILTER node.parasitew == 1 && node.freeliving == 1
     RETURN node._id)
 
 LET leaf_freecross = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
@@ -123,12 +123,12 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasitew == 1 && freeliving == 1
+    FILTER node.parasitew == 1 && node.freeliving == 1
     RETURN node._id)
 
 LET leaf_freecross = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
@@ -171,12 +171,12 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasitew == 1 && freeliving == 1
+    FILTER node.parasitew == 1 && node.freeliving == 1
     RETURN node._id)
 
 LET leaf_freecross = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
@@ -219,12 +219,12 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasitew == 1 && freeliving == 1
+    FILTER node.parasitew == 1 && node.freeliving == 1
     RETURN node._id)
 
 LET leaf_freecross = count(FOR node IN 0..100 OUTBOUND v._id edges_otl

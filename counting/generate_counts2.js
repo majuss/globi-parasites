@@ -27,16 +27,18 @@ let table1 = await db.query(`
     leafs_parasites: v.nr_leaf_parasites,
     leafs_parasites_weinstein: v.nr_leaf_parasites_weinstein,
     cross_count_paraleafs: v.nr_cross_paras_leafs,
-    cross_count_freeleafs: v.nr_cross_free_leafs
+    cross_count_freeleafs: v.nr_cross_free_leafs,
+    sum_leafs: v.sum_leafs
     }
     `)
+    table1 = await table1.all()
 //on fulltree 1: freeliving && freelivingw; 2: freeliving && parasitew; 3: parasite && parasitew; 4: parasite && freelivingw
 
 db.query(`
-INSERT {    _key: 'table2',
+INSERT {    _key: 'table3'
          } in counts`);
 
-fs.writeFileSync('analysis/generated_tables/extrapolated_table.json', JSON.stringify(table1.all(), false, 2));
+fs.writeFileSync('extrapolated_table.json', JSON.stringify(table1, false, 2));
 
         }
 
