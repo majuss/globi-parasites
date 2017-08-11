@@ -4,7 +4,7 @@ const db = require('arangojs')();
 //tag parasites source
 
 db.query(`for doc in interaction_tsv
-          filterdoc.interactionTypeName == "parasiteOf" ||
+          FILTER doc.interactionTypeName == "parasiteOf" ||
           doc.interactionTypeName == "ectoParasiteOf" ||
           doc.interactionTypeName == "kleptoparasiteOf" ||
           doc.interactionTypeName == "ectoParasitoid" ||

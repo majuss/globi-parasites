@@ -84,10 +84,11 @@ node tagging/tag_ott_pfl_wein.js        #tag fl/p according to weinstein origins
 node counting/generate_counts.js        #generate a table inside collection counts
 node weinstein/import_origin_counts.js  #importing _from origin counts per phylum from weinstein paper
 node counting/tag_counts_fulltree.js    #tagging underlying counts to phylum - family
+###
 node counting/generate_counts2.js       #write table to disk about nr of extrapolated taxa
 node analysis/find_shortpathes.js       #get table of path lengthes written to disc
 node visualisation/extract_ranks.js     #extracting a subset for metazoa sunburst
-node visualisation/colorose_extract.js  #colorise the extract for sunburst
+node visualisation/coloroie_extract.js  #colorise the extract for sunburst
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (8/8) --------$(tput sgr 0)" 1>&3
 end=$(date +%s)                         #get end-date
 runtime=$(((end-start)/60))             #calculate runtime
