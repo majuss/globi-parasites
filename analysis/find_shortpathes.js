@@ -43,7 +43,7 @@ async function x() {
 
     const res = await pathcalc();
     //console.log(res);
-    fs.writeFileSync("pathes.txt", JSON.stringify(res));
+    fs.writeFileSync("analysis/generated_tables/pathes.txt", JSON.stringify(res));
 }
 x();
 

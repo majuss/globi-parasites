@@ -11,7 +11,7 @@ let origins_family = await db.query(`
     RETURN node.nr_origins_from)
     return SUM(summe)
     `)
-
+origins_family = await origins_family.all();
 
 let table1 = await db.query(`
     FOR v,e in 1..100 OUTBOUND 'nodes_otl/691846' edges_otl
@@ -35,7 +35,8 @@ let table1 = await db.query(`
 //on fulltree 1: freeliving && freelivingw; 2: freeliving && parasitew; 3: parasite && parasitew; 4: parasite && freelivingw
 
 db.query(`
-INSERT {    _key: 'table3'
+INSERT {    _key: 'table3',
+            origins_underOn_family: ${origins_family}
          } in counts`);
 
 fs.writeFileSync('extrapolated_table.json', JSON.stringify(table1, false, 2));
