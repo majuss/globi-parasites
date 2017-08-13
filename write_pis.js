@@ -122,6 +122,22 @@ UPDATE doc WITH {pi: 0} IN nodes_otl_sub`);
 FOR doc IN 0..5 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub
 UPDATE doc WITH {pi: 0} IN nodes_otl_sub
 `)
+
+
+
+
+    let phylla = db._query(`
+FOR doc IN OUTBOUND 'nodes_otl/691846' edges_otl
+FILTER doc.rank == "phylum"
+RETURN doc._id
+`)
+
+    for (const node of phylla) {
+        db._query(`
+    FOR v IN INBOUND SHORTEST_PATH '${node._id}' TO 'nodes_otl_sub/304358' edges_otl_sub
+    UPDATE v WITH { pi: 0 } IN nodes_otl_sub
+    `)
+    }
 }
 
 db._txn({

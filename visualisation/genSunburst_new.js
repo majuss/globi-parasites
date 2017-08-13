@@ -3,6 +3,7 @@
 const fs = require('fs');
 const fastango3 = require('fastango3');
 const db = fastango3('http://127.0.0.1:8529');
+const bfj = require('bfj');
 
 const convert = () => {
     const db = require('@arangodb').db;
@@ -42,6 +43,14 @@ db._txn({
         read:['rank_extract']
     }}, convert, (status, headers, body) => {
         body = JSON.parse(body);
-        fs.writeFileSync('treeee.json', JSON.stringify(body.result, false, 2));
-        console.log("Finished tagging weinstein parasites/freeliving on full tree");
+
+
+        /* bfj.write('tree.json', body.result)
+        .then(() => {
+            console.log("Finished generating sunburst tree");
+          });
+ */
+        //fs.writeFileSync('treeee.json', JSON.stringify(body.result, false, 2));
+        
     });
+

@@ -43,27 +43,9 @@ async function x() {
 
     const res = await pathcalc();
     //console.log(res);
-    fs.writeFileSync("analysis/generated_tables/pathes.txt", JSON.stringify(res));
+    fs.writeFileSync("analysis/generated_tables/pathes.csv", JSON.stringify(res));
+    console.log("finished writing path lengthes")
 }
 x();
 
-
-
-
-
 return;
-
-async function calc(leafs, alllengths) {
-
-}
-
-async function printarray(alllengths) {
-    await pathcalc();
-    console.log(alllengths);
-    var file = fs.createWriteStream('array.txt');
-    file.on('error', function (err) { /* error handling */ });
-    alllengths.forEach(function (v) { file.write(v.join(', ') + '\n'); });
-    file.end();
-}
-
-pathcalc();

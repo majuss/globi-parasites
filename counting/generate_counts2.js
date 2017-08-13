@@ -39,10 +39,10 @@ INSERT {    _key: 'table3',
             origins_underOn_family: ${origins_family}
          } in counts`);
 
-fs.writeFileSync('extrapolated_table.json', JSON.stringify(table1, false, 2));
+fs.writeFileSync('analysis/generated_tables/extrapolated_table.json', JSON.stringify(table1, false, 2));
 
         }
-
+        console.log("finished counts2")
 counting();
 
 

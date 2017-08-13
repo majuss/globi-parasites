@@ -88,9 +88,13 @@ node counting/tag_counts_fulltree.js    #tagging underlying counts to phylum - f
 node counting/generate_counts2.js       #write table to disk about nr of extrapolated taxa
 node analysis/find_shortpathes.js       #get table of path lengthes written to disc
 node visualisation/extract_ranks.js     #extracting a subset for metazoa sunburst
-node visualisation/coloroie_extract.js  #colorise the extract for sunburst
+node visualisation/colorise_extract.js  #colorise the extract for sunburst
 echo "$(tput setaf 1)$(tput setab 7)------- Done generating PIs, calculating origins and tag origin counts (8/8) --------$(tput sgr 0)" 1>&3
 end=$(date +%s)                         #get end-date
 runtime=$(((end-start)/60))             #calculate runtime
 echo "$runtime minutes" 
 echo "$(tput setaf 1)$(tput setab 7)This run took $runtime minutes$(tput sgr 0)" 1>&3
+
+
+#nodes for vis: save website as .html and jage es durch awk '/<svg/,/svg>/' sunburst.html > sunburst.svg
+#dann durch inkscape: inkscape -z -e sunburst.png -w 10000 -h 10000 sunburst.svg

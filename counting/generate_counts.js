@@ -300,5 +300,6 @@ INSERT {    _key: 'table',
             'Crosses leafs in Metazoa': ${await crossCountLeafsMeta},
             'Crosses in Metazoa': ${await crossCountMeta}
          } in counts`);
+            console.log("Finished counts1")
 }
 counting();
