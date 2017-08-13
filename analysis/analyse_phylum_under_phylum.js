@@ -25,7 +25,7 @@ phylla = await phylla.all();
     //result = JSON.stringify(result, false, 2)
     try{
 
-    output.push('"Phylum: ' + result[0].name + ' is before: ' + node.name + '"')
+    output.push('Phylum: ' + result[0].name + ' is before: ' + node.name)
 
     //console.log("Phylum:", result[0].name, 'is before:', node.name);
     
