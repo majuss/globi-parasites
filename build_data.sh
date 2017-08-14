@@ -5,7 +5,7 @@ echo "Logifle written to: build_data.log"
 exec 3>&1 1>>build_data.log 2>&1            #write stdout 1,2 to logfile 3 to console
 echo $(date)
 start=$(date +%s)                           #get starting date
-npm i arangojs fastango3                    #install js packages
+npm i arangojs fastango3 bfj jsonexport     #install js packages
 echo "$(tput setaf 1)$(tput setab 7)------- Node packages installed (1/8) --------$(tput sgr 0)" 1>&3
 rm -rf data                                 #delete preexisting data dir
 mkdir data                                  #make data dir

@@ -67,7 +67,7 @@ async function counting() {
             } INTO rank_extracte OPTIONS { ignoreErrors: true }
             return v._key
             `);
-
+            /*
                 family = await family.all();
 
 
@@ -99,10 +99,17 @@ async function counting() {
 
                         species = await species.all();
                     }
-                }
-            console.log("finished extracting metazoa ranks");
+                }*/
             }
         }
     }
+    console.log("finished extracting metazoa ranks");
+    db.query(`
+    FOR node in rank_extract
+    
+    FILTER node.rank == "phylum"
+    FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id edges_otl_sub RETURN v)
+    REMOVE node IN rank_extract
+    `)
 }
 counting();

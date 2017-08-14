@@ -76,14 +76,34 @@ Freeliving Distinct (target) | 19654
 
 ## Get massive Table for Metazoa
 
-FOR v,e,p  IN 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
-sort v.name asc
-filter v.rank == "phylum" || v.name == "Sipucula"
-return { name: v.name,
-nr_of_parasites: v.nr_parasites,
-nr_of_freeliving: v.nr_freeliving,
-nr_crosshit_freepara: v.nr_crosshits_flp,
-nr_origins: v.nr_origins_from,
-nr_losses: v.nr_loss_from,
-nr_crosshits: v.nr_cross_hits_with_weinstein,
-weinstein: v.nr_weinstein }
+//FOR v,e in 1..100 OUTBOUND 'nodes_otl/691846' edges_otl
+//filter v.rank == "phylum" || v.name == "Sipucula"
+//SORT v.name asc
+//RETURN { name: v.name,
+//origins: v.nr_origins_from,
+//weinstein_origins: v.nr_originw_from,
+//losses: v.nr_losses_from,
+//leafs_parasites: v.nr_leaf_parasites,
+//leafs_parasites_weinstein: v.nr_leaf_parasites_weinstein,
+//leafs_freeliving: v.nr_leaf_freeliving,
+//leafs_freeliving_weinstein: v.nr_leaf_freeliving_weinstein,
+//to_origins: v.nr_origins_to,
+//to_origins_wein: v.nr_origins_toweinstein,
+//cross_count_paraleafs: v.nr_cross_paras_leafs,
+//cross_count_freeleafs: v.nr_cross_free_leafs
+//}
+
+## Get table to look at correlation between input data and nr of origins
+
+FOR doc,e in 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
+FILTER doc.rank == "phylum"
+SORT doc.name asc
+RETURN {
+name: doc.name,
+nr_of_parasites: doc.nr_parasites,
+nr_leaf_parasites: doc.nr_leaf_parasites,
+nr_freeliving: doc.nr_freeliving,
+nr_sum_leafs: doc.sum_leafs,
+nr_from_origins: doc.nr_from_origins
+}
+

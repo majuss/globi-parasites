@@ -16,11 +16,8 @@ bash build_data.sh
 # ToDo's
 
 **Currently working on:**
-- show correlation between parasitism/freeliving count (subtree) and number of origins
 - look into origins of fungi and plants (per phyllum; check sum
 - taxaNum of every child
-- phylum under phlyum -> outbound filter v.rank == "phylum"
-- better PI assignment -> outbound 0..3 == 0
 - run pipeline with PI = 0.99
 
 ### Notes

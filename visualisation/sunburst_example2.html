@@ -54,12 +54,13 @@ body {
             //.style("fill", function (d) { return color((d.children ? d : d.parent).data.name); }); //old non responsive colors
             .style("fill", function (d) {return d.data.color});
         // Populate the <text> elements with our data-driven titles.
-/*         g.selectAll(".node")
+         g.selectAll(".node")
             .append("text")
+            .style("font-size", "36px")
             .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")rotate(" + computeTextRotation(d) + ")"; })
             .attr("dx", "-50") // radius margin
             .attr("dy", ".10em") // rotation align
-            .text(function(d) { return d.parent ? d.data.name : "" }); */
+            .text(function(d) { return d.parent ? d.data.name : "" }); 
     });
     /**
      * Calculate the correct distance to rotate each label based on its location in the sunburst.
