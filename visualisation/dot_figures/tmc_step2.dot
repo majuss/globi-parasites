@@ -1,0 +1,19 @@
+digraph G {
+
+graph [fontname = "helvetica"];
+node [fontname = "helvetica"];
+edge [fontname = "helvetica"];    
+    
+ClassA [label=<<B>Class A</B><br/>free-living = PI: 0.4978>, style=filled, color=green]
+FamilyA [label=<<B>Family A</B><br/>no data = PI: 0.5458>, style=filled, color=red]
+GenusA [label=<<B>Genus A</B><br/>parasite = PI: 0.6375>, style=filled, color=red]
+GenusB [label=<<B>Genus B</B><br/>no data = PI: 0.5>, style=filled]
+SpeciesA [label=<<B>Species A</B><br/>parasite = PI: 1>, style=filled, color=red]
+SpeciesB [label=<<B>Species B</B><br/>parasite = PI: 1>, style=filled, color=red]
+SpeciesC [label=<<B>Species C</B><br/>freeliving = PI: 0>, style=filled, color=green]
+SpeciesD [label=<<B>Species D</B><br/>freeliving = PI: 0>, style=filled, color=green]
+SpeciesE [label=<<B>Species E</B><br/>parasite = PI: 1>, style=filled, color=red]
+
+ClassA -> FamilyA -> GenusA -> SpeciesA, SpeciesB, SpeciesC
+FamilyA -> GenusB -> SpeciesD, SpeciesE
+}

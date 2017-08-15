@@ -4,6 +4,9 @@ const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
 const instream = fs.createReadStream('data/taxonomy.tsv');
 
+const collectione = db.edgeCollection('edges_otl')
+const collectionebak = db.edgeCollection('edges_otl_bak')
+
 const bufs = [];
 
 instream.on('data', async function(d) {
@@ -18,6 +21,11 @@ instream.on('end', () => {
 });
 
 async function readNames() {
+    await collectione.drop();
+    await collectionebak.drop();
+    await collectione.create()
+    await collectionebak.create()
+
     const b = Buffer.concat(bufs);
 
     let start = 0;

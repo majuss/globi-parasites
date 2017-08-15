@@ -22,28 +22,11 @@ wait
 echo "$(tput setaf 1)$(tput setab 7)------- Tree and Interaction-data downloaded (2/8) --------$(tput sgr 0)" 1>&3
 #Initializing the collections
 arangosh --server.authentication false --javascript.execute-string 'db._drop("interaction_tsv");
-                                                                    db._drop("nodes_otl");
-                                                                    db._drop("edges_otl");
-                                                                    db._drop("nodes_otl_bak");
-                                                                    db._drop("edges_otl_bak");
                                                                     db._drop("counts");
-                                                                    db._drop("nodes_otl_sub");
-                                                                    db._drop("edges_otl_sub");
                                                                     db._drop("weinstein");
                                                                     db._drop("weinstein_noott");
-                                                                    db._drop("nodes_otl_sub_bak");
-                                                                    db._drop("edges_otl_sub_bak");
-                                                                    db._createEdgeCollection("edges_otl");
-                                                                    db._create("nodes_otl");
-                                                                    db._createEdgeCollection("edges_otl_bak");
-                                                                    db._createEdgeCollection("edges_otl_sub_bak");
-                                                                    db._create("nodes_otl_sub_bak");
-                                                                    db._create("nodes_otl_bak");
-                                                                    db._create("counts");
-                                                                    db._create("nodes_otl_sub");
-                                                                    db._createEdgeCollection("edges_otl_sub");
-                                                                    //db._create("nodes_otl_metazoa")'
-#dropping and creating all nec. collections inside arangoDB
+                                                                    db._create("counts");'
+#dropping and creating all nec. collections inside arangoDB (moved partially into the js modules)
 arangoimp --file interactions.tsv --type tsv --collection interaction_tsv --create-collection true --server.authentication false #import interactions.tsv into arangoDB
 wait
 echo "$(tput setaf 1)$(tput setab 7)------- Interactions imported and collections initialized (3/8) --------$(tput sgr 0)" 1>&3

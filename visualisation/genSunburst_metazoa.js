@@ -30,7 +30,7 @@ const convert = () => {
 
         
         if (0 === tree.children.length) {
-            tree.size = 1;
+            tree.size = node.size;
             tree.color = node.color;
         }
     }

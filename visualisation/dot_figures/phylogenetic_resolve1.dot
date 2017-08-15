@@ -1,0 +1,17 @@
+digraph G {
+
+graph [fontname = "helvetica"];
+node [fontname = "helvetica"];
+edge [fontname = "helvetica"];    
+    
+
+FamilyA [label=<<B>Family A</B><br/>>, style=filled, color=green]
+GenusA [label=<<B>Genus A</B><br/>>, style=filled, color=red]
+GenusB [label=<<B>Genus B</B><br/>>, style=filled, color=red]
+GenusC [label=<<B>Genus C</B><br/>>, style=filled color=green]
+
+
+FamilyA -> GenusA [arrowhead=none,headlabel = "origin", labeldistance=1.5,labelangle=70]
+FamilyA -> GenusB [arrowhead=none,headlabel = "origin", labeldistance=2.5,labelangle=70]
+FamilyA -> GenusC [arrowhead=none,headlabel = "", labeldistance=2.5,labelangle=20]
+}

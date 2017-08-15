@@ -549,3 +549,149 @@ FOR v,e IN 1..100 outbound 'otl_parasites_nodes/304358' otl_parasites_edges
 //    FILTER 13 >= LENGTH(FOR v,e IN INBOUND SHORTEST_PATH leafid TO 'nodes_otl_sub/304358' edges_otl_sub RETURN e)
 //    UPDATE {_key:SPLIT(leafid, '/')[1]} WITH {foo:'bar2'} IN nodes_otl_sub
 //    RETURN NEW)
+
+//691846 Metazoa; Fungi 352914; 5268475 Plants 
+
+//For node in nodes_otl
+//filter node.name =="Foraminifera"
+//return node
+
+
+//For node in nodes_otl
+//filter node.name =="Nematoda"
+//return node
+
+
+//let foraminifera = (For node in nodes_otl Filter node.name =="Foraminifera" Return node._key)
+//return foraminifera[0]
+
+//FOR v,e in INBOUND SHORTEST_PATH 'nodes_otl_sub/395057' TO 'nodes_otl_sub/304358' edges_otl_sub
+//return v
+
+//FOR v in nodes_otl_sub
+//filter v.originID == 2437
+//return v
+
+//FOR v in 1..1 OUTBOUND 'nodes_otl/304358' edges_otl
+//
+//filter v.rank != "species" && v.rank != "genus" && v.rank != "class" && v.rank != "order" && v.rank != "family" && v.rank != "phylum" 
+//return {name: v.name, id: v._id}
+
+
+//FOR v,e IN 0..100 OUTBOUND 'nodes_otl/352914' edges_otl
+//LIMIT 100
+//INSERT e IN extracte_fungi
+
+//let test=(FOR node IN 0..100 OUTBOUND 'nodes_otl/691846' edges_otl
+//filter node.rank =="family"
+//RETURN node.nr_origins_from)
+//return SUM(test)
+
+
+//FOR node in nodes_otl
+//filter node._id == "nodes_otl/5268475"
+//return node
+
+//FOR v,e in 0..1 OUTBOUND 'nodes_otl/5268475' edges_otl
+//FILTER v.rank != "genus" && v.rank != "species" && v.rank != "family" && v.rank != "class" && v.rank != "no rank"
+//COLLECT lol = v.nr_origins_from
+//
+//RETURN SUM(return lol)
+//RETURN v
+
+//FOR node in nodes_otl
+//FILTER node.originw == 1
+//FILTER 0 == LENGTH(FOR v, e IN INBOUND SHORTEST_PATH node._id TO 'nodes_otl/691846' edges_otl RETURN e)
+//RETURN node
+
+//FOR node in nodes_otl
+//FILTER contains(node.name, "Cryptochaetum")
+//RETURN node
+
+//FOR v,e in 0..100 INBOUND 'nodes_otl/4371598' edges_otl
+//RETURN v
+
+//UPDATE '304358' with {freeliving:1, freelivingw:1} in nodes_otl
+
+
+
+//FOR v,e in 1..100 OUTBOUND 'nodes_otl/691846' edges_otl
+//filter v.rank == "phylum" || v.name == "Sipucula"
+//SORT v.name asc
+//RETURN { name: v.name,
+//origins: v.nr_origins_from,
+//weinstein_origins: v.nr_originw_from,
+//losses: v.nr_losses_from,
+//leafs_parasites: v.nr_leaf_parasites,
+//leafs_parasites_weinstein: v.nr_leaf_parasites_weinstein,
+//leafs_freeliving: v.nr_leaf_freeliving,
+//leafs_freeliving_weinstein: v.nr_leaf_freeliving_weinstein,
+//to_origins: v.nr_origins_to,
+//to_origins_wein: v.nr_origins_toweinstein,
+//cross_count_paraleafs: v.nr_cross_paras_leafs,
+//cross_count_freeleafs: v.nr_cross_free_leafs
+//}
+
+//FOR node in nodes_otl
+//filter node.origin == 1
+//RETURN node
+
+//LET leaf_paras = count(FOR node IN nodes_otl
+//    FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
+//    FILTER node.parasite == 1
+//    RETURN node._id)
+//    return leaf_paras
+
+//FOR doc in interaction_tsv
+//filter contains(doc.sourceTaxonIds, 361838)
+//return doc
+
+//FOR doc in nodes_otl
+//filter doc.origin_from == 1
+//COLLECT rankeee = doc.rank with count into length
+// RETURN { 
+//    "rankeee" : rankeee, 
+//    "count" : length 
+//  }
+
+//FOR doc in nodes_otl
+//FILTER doc.name == "Fungi"
+//RETURN doc
+
+
+
+//FOR v,e in 0..5 OUTBOUND 'nodes_otl_sub/304358' edges_otl_sub
+//filter v.origin_to== 1
+//Return v
+
+//FOR doc IN 1..100 OUTBOUND 'nodes_otl/304358' edges_otl
+//FILTER doc.rank == "phylum"
+//RETURN doc
+
+
+//FOR doc,e in 1..100 OUTBOUND 'nodes_otl_sub/691846' edges_otl_sub
+//FILTER doc.rank == "phylum"
+//SORT doc.name asc
+//RETURN 
+//name: doc.name,
+//nr_of_parasites: doc.nr_parasites,
+//nr_leaf_parasites: doc.nr_leaf_parasites,
+//nr_freeliving: doc.nr_freeliving,
+//nr_sum_leafs: doc.sum_leafs,
+//nr_from_origins: doc.nr_from_origins
+//}
+
+//FOR doc IN rank_extract
+//RETURN {name: doc.name, size: doc.size}
+
+//    FOR doc in rank_extract
+//    FILTER doc.rank == "phylum"
+//    return doc._id
+
+// FOR node in rank_extract
+//    FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+//    RETURN node
+
+
+//FOR v,e IN INBOUND 'rank_extract/4146088' rank_extracte
+//REMOVE e IN rank_extracte

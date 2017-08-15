@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('arangojs')();
+const db = require('arangojs')();
 
 db.query(`
 FOR doc in rank_extract
@@ -30,8 +30,11 @@ UPDATE doc WITH {color: "#2C68F0"} in rank_extract //blue
 db.query(`
 FOR doc in rank_extract
 FILTER doc.rank == "family" || doc.rank == "order"
-UPDATE doc WITH { name: "null"} in rank_extract
+UPDATE doc WITH { name: null} in rank_extract
 `)
+
+
+correct_size();
 
 async function correct_size() {
     
@@ -39,29 +42,29 @@ async function correct_size() {
     let phylla = await db.query(`
     FOR doc in rank_extract
     FILTER doc.rank == "phylum"
-    return doc._id
+    return doc
     `) 
     phylla = await phylla.all();
     //console.log(phylla)
-    for(const id of phylla){
-        console.log(id)
+    for(const node of phylla){
+        //console.log(id)
         let count = await db.query(`
         RETURN COUNT(
-        FOR v IN 0..100 OUTBOUND '${id}' rank_extracte
-        FILTER v.rank == "family"
-        RETURN v)
+        FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
+        FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+        RETURN node)
         `)
         count = await count.all();
-        console.log(count);
-        let size = 1000 / count;
+        //console.log(count)
+
+        //console.log(count);
+        let size = await 1000 / count;
         console.log(size);
         db.query(`
-        FOR v IN 0..100 OUTBOUND '${id}' rank_extracte
-        FILTER v.rank == "family"
-        UPDATE v WITH {size: "${size}" } IN rank_extract
-        `) 
-    
+        FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
+        FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+        UPDATE node WITH {size: ${size} } IN rank_extract
+        `)
+        
     }
 }
-
-correct_size();

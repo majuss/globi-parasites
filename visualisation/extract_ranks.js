@@ -104,12 +104,40 @@ async function counting() {
         }
     }
     console.log("finished extracting metazoa ranks");
-    db.query(`
-    FOR node in rank_extract
     
-    FILTER node.rank == "phylum"
-    FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id edges_otl_sub RETURN v)
-    REMOVE node IN rank_extract
+    let nullphylla = await db.query(`
+    FOR node in rank_extract
+    FILTER 
+    node.rank == "phylum" && 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v) ||
+    node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte FILTER v.parasite == 1 || v.parasitew == 1 RETURN v)
+    RETURN node
     `)
+    nullphylla = await nullphylla.all();
+
+        for(const node of nullphylla){
+        db.query(`
+        FOR v,e IN INBOUND '${node._id}' rank_extracte
+        REMOVE e IN rank_extracte
+        `)
+        db.query(`
+        REMOVE '${node._key}' IN rank_extract`)
+        }
+    /*
+    let phylla = await db.query(`
+    FOR node in rank_extract
+    FILTER node.rank == "phylum"
+    RETURN node
+    `)
+    phylla = await phylla.all();
+    
+    for(const node of phylla){
+    db.query(`
+    FOR v,e IN OUTBOUND '${node._id}' rank_extracte
+    FILTER 0 = LENGTH(FOR v,e IN OUTBOUND '${node._id}' rank_extracte FILTER v.parasite == 1 || v.parasitew == 1 RETURN v)
+    REMOVE v IN rank_extract
+    REMOVE e IN rank_extracte
+    `)
+    }
+*/
 }
 counting();
