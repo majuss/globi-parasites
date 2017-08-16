@@ -1,6 +1,6 @@
 'use strict';
 
-var db = require('arangojs')();
+const db = require('arangojs')();
 
 db.query(`
 INSERT {

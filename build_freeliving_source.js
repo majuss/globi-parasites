@@ -5,14 +5,7 @@ const collectione = db.edgeCollection('edges_otl_sub')
 const collectionebak = db.edgeCollection('edges_otl_sub_bak')
 const collection = db.collection('nodes_otl_sub')
 const collectionbak = db.collection('nodes_otl_bak_sub')
-collectione.drop();
-collectionebak.drop();
-collection.drop();
-collectionbak.drop();
-collectione.create()
-collectionebak.create()
-collection.create()
-collectionbak.create()
+
 
 db.query(`for doc in interaction_tsv
           filter doc.freeliving == 1 && doc.directionF == 'source'

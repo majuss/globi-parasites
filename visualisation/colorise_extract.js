@@ -38,16 +38,14 @@ correct_size();
 
 async function correct_size() {
     
-    
     let phylla = await db.query(`
     FOR doc in rank_extract
     FILTER doc.rank == "phylum"
     return doc
     `) 
     phylla = await phylla.all();
-    //console.log(phylla)
+
     for(const node of phylla){
-        //console.log(id)
         let count = await db.query(`
         RETURN COUNT(
         FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
@@ -55,16 +53,18 @@ async function correct_size() {
         RETURN node)
         `)
         count = await count.all();
-        //console.log(count)
-
-        //console.log(count);
-        let size = await 1000 / count;
-        console.log(size);
-        db.query(`
-        FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
-        FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
-        UPDATE node WITH {size: ${size} } IN rank_extract
-        `)
-        
+        if(node.name == "Nematomorpha" || node.name == "Orthonectida" || node.name == "Acanthocephala"){ //manual size correction for phylla
+            let size = await 333 / count;
+            db.query(`
+            FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
+            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+            UPDATE node WITH {size: ${size} } IN rank_extract`)
+        }else{
+            let size = await 1000 / count;
+            db.query(`
+            FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
+            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+            UPDATE node WITH {size: ${size} } IN rank_extract`)
+        }
     }
 }

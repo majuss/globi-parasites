@@ -3,7 +3,7 @@
 const db = require('arangojs')();
 const ranks = ["phylum", "kingdom", "class", "order", "family"]
 
-for (var i = 0; i < ranks.length; i++) {
+for (let i = 0; i < ranks.length; i++) {
 
 db.query(
 `

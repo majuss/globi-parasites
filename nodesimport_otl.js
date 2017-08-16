@@ -3,6 +3,7 @@
 const fastango = require('fastango3')('http://127.0.0.1:8529');
 const fs       = require('fs');
 const instream = fs.createReadStream('data/taxonomy.tsv');
+const db       = require('arangojs')();
 
 const collection = db.collection('nodes_otl');
 const collectionbak = db.collection('nodes_otl_bak');
