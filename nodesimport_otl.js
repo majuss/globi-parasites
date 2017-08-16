@@ -5,9 +5,6 @@ const fs       = require('fs');
 const instream = fs.createReadStream('data/taxonomy.tsv');
 const db       = require('arangojs')();
 
-const collection = db.collection('nodes_otl');
-const collectionbak = db.collection('nodes_otl_bak');
-
 const bufs = [];
 
 instream.on('data', async function(d) {
@@ -22,10 +19,6 @@ instream.on('end', () => {
 });
 
 async function readNames() {
-    await collection.drop();
-    await collectionbak.drop();
-    await collection.create()
-    await collectionbak.create()
 
     const b = Buffer.concat(bufs);
 

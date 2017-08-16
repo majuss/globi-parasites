@@ -1,25 +1,12 @@
 'use strict';
 
 const db = require('arangojs')();
-const collectione = db.edgeCollection('edges_otl_sub')
-const collectionebak = db.edgeCollection('edges_otl_sub_bak')
-const collection = db.collection('nodes_otl_sub')
-const collectionbak = db.collection('nodes_otl_bak_sub')
-
 
 db.query(`for doc in interaction_tsv
           filter doc.freeliving == 1 && doc.directionF == 'source'
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
-async function testAvailable(cursor) {
-    await collectione.drop();
-    await collectionebak.drop();
-    await collection.drop();
-    await collectionbak.drop();
-    await collectione.create()
-    await collectionebak.create()
-    await collection.create()
-    await collectionbak.create()
+function testAvailable(cursor) {
 
     if (!cursor.hasNext()) { console.log('Finished building freeliving(source)'); return };
 

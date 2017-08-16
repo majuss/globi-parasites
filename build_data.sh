@@ -37,6 +37,7 @@ node tagging/tag_interactionstsv_freelivings.js                                 
 node tagging/tag_interactionstsv_parass.js                                                  #tag parasites (source) interaction entries in interacion_tsv
 node tagging/tag_interactionstsv_parast.js                                                  #tag parasites (target) interaction entries in interacion_tsv
 node tagging/tag_interactionstsv_freelivingt.js                                             #tag freeliving (target) interaction entries in interacion_tsv
+node create_cols.js                                                                         #create collections
 node edgesimport_otl.js &                                                                   #import OTT into edge collection
 node nodesimport_otl.js                                                                     #import OTT into nodes collection
 wait
@@ -67,7 +68,7 @@ node tagging/tag_ott_pfl_wein.js        #tag fl/p according to weinstein origins
 echo "$(tput setaf 1)$(tput setab 7)------- Finished extrapolating full-tree (7/8) --------$(tput sgr 0)" 1>&3 1>&2
 node counting/generate_counts.js        #generate a table inside collection counts
 node weinstein/import_origin_counts.js  #importing _from origin counts per phylum from weinstein paper
-node counting/tag_counts_fulltree.js    #tagging underlying counts to phylum - family
+node counting/tag_counts_fulltree_metazoa.js    #tagging underlying counts to phylum - family
 ###
 node counting/generate_counts2.js       #write table to disk about nr of extrapolated taxa
 node analysis/find_shortpathes.js       #get table of path lengthes written to disc
