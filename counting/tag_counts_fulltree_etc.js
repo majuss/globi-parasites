@@ -3,11 +3,10 @@
 const db = require('arangojs')();
 const kingdoms = [352914, 5268475, 5246039]
 
-for (var i = 0; i < kingdoms.length; i++) {
+for (let i = 0; i < kingdoms.length; i++) {
 
-db.query(
-`
-FOR v,e IN 0..100 OUTBOUND 'nodes_otl/${kingdom[i]}' edges_otl
+db.query(`
+FOR v,e IN 0..100 OUTBOUND 'nodes_otl/${kingdoms[i]}' edges_otl
 
 LET origins_from = count(for x IN 0..100 OUTBOUND v edges_otl
 FILTER x.origin_from == 1 RETURN v) 

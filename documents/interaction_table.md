@@ -19,16 +19,16 @@ Note that we're assuming that no parasit is getting parasited by other parasitic
 parasitic interaction (source)|parasitic interaction (target)| freeliving interaction (source) | freeliving interaction (target)|in question|not useful
 ---|---|---|---|---|---
  |**hasParasite**|**visits**|**preyedUponBy**|**eatenBy**|**livesNear**(131)
-**parasiteOf**| **hasPathogen**|**preysOn**| **ectoParasitoid**|**hasHost**|**interactsWith**
+**parasiteOf**| **hasPathogen**|**preysOn**| **ectoParasitoid**||**interactsWith**
 **ectoParasiteOf**|**hasParasite**|**eats**| **parasiteOf**|**kills**|**inhabits**(15)
-**kleptoparasiteOf**||**flowersVisitedBy**|**ectoParasiteOf**|**hostOf**|**pollinates**|
+**kleptoparasiteOf**||**flowersVisitedBy**|**ectoParasiteOf**||**pollinates**|
 **endoparasiteOf**| |**hasPathogen**|**kleptoparasiteOf**|**hasDispersalVector**|**farms** (1)
 **parasitoidOf**| |**pollinatedBy**|**visitsFlowersOf**|**hasVector**|**livesUnder**(113)|
 **endoparasitoidOf**(1462)| |**hasParasite**|**endoparasiteOf**|**symbiontOf** |**livesOn**(1073)|
-**ectoParasitoid**(61)| | |**parasitoidOf**|| **guestOf**(141)
+**ectoParasitoid**(61)| |**hostOf**|**parasitoidOf**|| **guestOf**(141)
 **pathogenOf**| | |**endoparasitoidOf**(1462)|**vectorOf**| **livesInsideOf**(583)
  | | |**ectoParasitoid**(61)|**dispersalVectorOf**|**adjacentTo**
- | | | | **pathogenOf** |
+ | | |**hasHost**| **pathogenOf** |
 ## Raw interaction type IDs and their definitions
 
 Interaction | ID | Definition

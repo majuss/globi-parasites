@@ -23,12 +23,17 @@ async function analyse(ranks) {
             RETURN v
             `)
             result = await result.all();
-            try { output.push(ranks[i]+ ' ' + result[0].name + ' is before: ' + node.name) } catch (err) { }
+            
+            if(result.length != 0){
+                //console.log(result.length)
+            let rankie = "super" + ranks[i]
+            //console.log(rankie);
+            db.query(`UPDATE '${result[0]._key}' WITH { rank: "${rankie}" } IN nodes_otl`)
+            output.push(ranks[i]+ ' ' + result[0].name + ' is before: ' + node.name)
+            }
         }
-        jsonexport(output, function (err, csv) {
-            if (err) return console.log(err);
-            fs.writeFileSync('analysis/generated_tables/' + ranks[i] + '_under_' + ranks[i] + '.csv', csv);
-        });
+
     }
+    console.log("done correcting ranks");
 }
 analyse(ranks);
