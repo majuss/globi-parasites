@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('arangojs')();
-const ranks = ["phylum", "kingdom", "class", "order", "family"]
+const ranks = ["domain", "phylum", "kingdom", "class", "order", "family"]
 
 for (let i = 0; i < ranks.length; i++) {
 

@@ -44,6 +44,7 @@ wait
 arangosh --server.authentication false --javascript.execute-string 'db._query("FOR doc in nodes_otl INSERT doc IN nodes_otl_bak");
                                                                     db._query("FOR doc in edges_otl INSERT doc IN edges_otl_bak");' 
 #create nodes/edges OTT backup
+node analysis/correct_phylum_under_phylum.js                                                #correct against ranks under ranks, ie. when a phyllum is under another phylum
 echo "$(tput setaf 1)$(tput setab 7)------- Interaction entries tagged; Weinstein2016 data created; OTL Tree imported (4/8) --------$(tput sgr 0)" 1>&3
 node build_freeliving_source.js                     #build sub-tree from freeliving (source) tagged interaction_tsv entries
 node build_freeliving_target.js                     #build sub-tree from freeliving (target) tagged interaction_tsv entries
@@ -61,14 +62,16 @@ node write_pis.js                       #write PIs to subtree
 node taxonomic_majority_censoring.js    #start TMC on subtree
 node find_origins.js                    #tag origins
 echo "$(tput setaf 1)$(tput setab 7)------- TMC done, origins found (6/8) --------$(tput sgr 0)" 1>&3
+node count/tag_counts_subtree.js        #tag subtree with counts, so that tag_origins_to tree transfers the counts to the fulltree
 node tagging/tag_origins_toTree.js      #transfer tagged origins to full OTT tree
 arangosh --server.authentication false --javascript.execute-string 'db._query(`UPDATE "304358" with {freeliving:1, freelivingw:1} in nodes_otl`);'  #set the root node freeliving
 node tagging/tag_ott_pfl.js             #tag fl/p according to origins on full tree
 node tagging/tag_ott_pfl_wein.js        #tag fl/p according to weinstein origins
 echo "$(tput setaf 1)$(tput setab 7)------- Finished extrapolating full-tree (7/8) --------$(tput sgr 0)" 1>&3
+mkdir analysis/generated_tables         #create dir to store tables in it
 node counting/generate_counts.js        #generate a table inside collection counts
 node weinstein/import_origin_counts.js  #importing _from origin counts per phylum from weinstein paper
-node counting/tag_counts_fulltree_metazoa.js    #tagging underlying counts to phylum - family
+node counting/tag_counts_fulltree.js    #tagging underlying counts to phylum - family
 ###
 node counting/generate_counts2.js       #write table to disk about nr of extrapolated taxa
 node analysis/find_shortpathes.js       #get table of path lengthes written to disc

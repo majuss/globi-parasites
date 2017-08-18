@@ -2,7 +2,7 @@
 const db = require('arangojs')();
 const fs = require('fs');
 const jsonexport = require('jsonexport');
-const ranks = ["kingdom", "phylum", "class", "order", "family"]
+const ranks = ["domain", "kingdom", "phylum", "class", "order", "family"]
 
 async function analyse(ranks) {
 
@@ -32,7 +32,6 @@ async function analyse(ranks) {
             output.push(ranks[i]+ ' ' + result[0].name + ' is before: ' + node.name)
             }
         }
-
     }
     console.log("done correcting ranks");
 }

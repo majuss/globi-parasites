@@ -66,3 +66,19 @@ function taglossfrom(cursor) {
         taglossfrom(cursor);
     });
 }
+
+db.query(`  FOR doc IN nodes_otl_sub
+            FILTER doc.sum_leafs_import != null
+            return doc`, {}, { ttl: 1000 * 3600 }).then(tagimport);
+
+function tagimport(cursor) {
+if (!cursor.hasNext()) { console.log('Finished tagging import counts'); return };
+cursor.next().then(async doc => {
+try {await db.query(`UPDATE "${doc._key}" WITH { 
+                                                    nr_leaf_parasites_import: ${doc.nr_leaf_parasites_import},
+                                                    nr_leaf_freeliving_import: ${doc.nr_leaf_freeliving_import},
+                                                    nr_sum_leafs_import: ${doc.sum_leafs_import} } IN nodes_otl`);
+} catch (e) { }
+tagimport(cursor);
+});
+}

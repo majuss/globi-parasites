@@ -5,13 +5,11 @@ const db = fastango3('http://127.0.0.1:8529');
 
 const convert = () => {
     const db = require('@arangodb').db;
-
     const childsToProcess = ['nodes_otl/304358'];
 
     while (childsToProcess.length) {
 
         const parent = db._document(childsToProcess.shift());
-
         const childs = db._query(`FOR v IN OUTBOUND '${parent._id}' edges_otl RETURN v`).toArray();
 
         for (const child of childs) {
@@ -23,7 +21,6 @@ const convert = () => {
             childsToProcess.push(child._id);
         }
     }
-
     return 'done'; // res[0];
 };
 

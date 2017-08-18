@@ -256,6 +256,24 @@ FOR node IN 0..100 OUTBOUND 'nodes_otl/691846' edges_otl
     `)
     para_leafs_full_wein = await para_leafs_full_wein.all();
 
+let origins = await db.query(`
+RETURN count(
+    FOR node IN nodes_otl
+    FILTER node.origin_from == 1
+    Return node._id
+)
+`)
+    origins = await origins.all()
+
+let origins_metazoa = await db.query(`
+    RETURN count(
+        FOR node IN 0..100 OUTBOUND 'nodes_otl/691846' edges_otl
+        FILTER node.origin_from == 1
+        Return node._id
+    )
+    `)
+        origins_metazoa = await origins_metazoa.all()
+
 let percent_noott_parasites_nd = ((100 / parasites_interaction_nd) * noott_parasites_nd).toFixed(2);
 let percent_noott_parasites_d = ((100 / parasites_interaction_d) * noott_parasites_d).toFixed(2);
 let percent_noott_freeliving_nd = ((100 / freeliving_interaction_nd) * noott_freeliving_nd).toFixed(2);
@@ -298,7 +316,9 @@ INSERT {    _key: 'table',
             'Metazoan paraistic leaf nodes in subtree: our origins': ${await para_leafs_meta_sub},
             'Crosses leafs': ${await crossCountLeafs},
             'Crosses leafs in Metazoa': ${await crossCountLeafsMeta},
-            'Crosses in Metazoa': ${await crossCountMeta}
+            'Crosses in Metazoa': ${await crossCountMeta},
+            'origin overall from': ${await origins},
+            'origins in Metazoa from': ${await origins_metazoa}
          } in counts`);
             console.log("Finished counts1")
 }
