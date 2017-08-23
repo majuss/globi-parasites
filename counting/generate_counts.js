@@ -274,6 +274,33 @@ let origins_metazoa = await db.query(`
     `)
         origins_metazoa = await origins_metazoa.all()
 
+let origins_fungi = await db.query(`
+    RETURN count(
+        FOR node IN 0..100 OUTBOUND 'nodes_otl/352914' edges_otl
+        FILTER node.origin_from == 1
+        Return node._id
+    )
+    `)
+        origins_fungi = await origins_fungi.all()
+
+let origins_plants = await db.query(`
+    RETURN count(
+        FOR node IN 0..100 OUTBOUND 'nodes_otl/5268475' edges_otl
+        FILTER node.origin_from == 1
+        Return node._id
+    )
+    `)
+        origins_plants = await origins_plants.all()
+
+let origins_sar = await db.query(`
+    RETURN count(
+        FOR node IN 0..100 OUTBOUND 'nodes_otl/5246039' edges_otl
+        FILTER node.origin_from == 1
+        Return node._id
+    )
+    `)
+        origins_sar = await origins_sar.all()
+
 let percent_noott_parasites_nd = ((100 / parasites_interaction_nd) * noott_parasites_nd).toFixed(2);
 let percent_noott_parasites_d = ((100 / parasites_interaction_d) * noott_parasites_d).toFixed(2);
 let percent_noott_freeliving_nd = ((100 / freeliving_interaction_nd) * noott_freeliving_nd).toFixed(2);
@@ -318,7 +345,10 @@ INSERT {    _key: 'table',
             'Crosses leafs in Metazoa': ${await crossCountLeafsMeta},
             'Crosses in Metazoa': ${await crossCountMeta},
             'origin overall from': ${await origins},
-            'origins in Metazoa from': ${await origins_metazoa}
+            'origins in Metazoa from': ${await origins_metazoa},
+            'origins in funi': ${await origins_fungi},
+            'origins in plants': ${await origins_plants},
+            'origins in sar': ${await origins_sar}
          } in counts`);
             console.log("Finished counts1")
 }

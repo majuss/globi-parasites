@@ -33,10 +33,7 @@ wait
 echo "$(tput setaf 1)$(tput setab 7)------- Interactions imported and collections initialized (3/8) --------$(tput sgr 0)" 1>&3
 cd ..
 bash weinstein/build_weinstein-tsv.sh weinstein/weinstein_extract.md data/taxonomy.tsv      #assign Weinstein entries an OTT-ID
-node tagging/tag_interactionstsv_freelivings.js                                             #tag freeliving (source) interaction entries in interacion_tsv
-node tagging/tag_interactionstsv_parass.js                                                  #tag parasites (source) interaction entries in interacion_tsv
-node tagging/tag_interactionstsv_parast.js                                                  #tag parasites (target) interaction entries in interacion_tsv
-node tagging/tag_interactionstsv_freelivingt.js                                             #tag freeliving (target) interaction entries in interacion_tsv
+node tagging/tag_interactionsts.js                                                          #tag all queried interaction entries in interacion_tsv
 node create_cols.js                                                                         #create collections
 node edgesimport_otl.js &                                                                   #import OTT into edge collection
 node nodesimport_otl.js                                                                     #import OTT into nodes collection
@@ -84,5 +81,9 @@ echo "$runtime minutes"
 echo "$(tput setaf 1)$(tput setab 7)This run took $runtime minutes$(tput sgr 0)" 1>&3
 
 
-#nodes for vis: save website as .html and jage es durch awk '/<svg/,/svg>/' sunburst.html > sunburst.svg
+#nodes for vis: 
+#run extract_ranks
+#run colorise sunburst
+#run gensunburst
+#save website as .html and jage es durch awk '/<svg/,/svg>/' sunburst.html > sunburst.svg
 #dann durch inkscape: inkscape -z -e sunburst.png -w 10000 -h 10000 sunburst.svg

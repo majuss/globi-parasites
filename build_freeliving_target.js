@@ -2,8 +2,8 @@
 
 const db = require('arangojs')();
 
-db.query(`for doc in interaction_tsv
-          filter doc.freeliving == 1 && doc.directionF == 'target'
+db.query(`FOR doc in interaction_tsv
+          FILTER doc.freeliving == 1 && doc.directionF == 'target'
           return doc`, {}, { ttl: 1000 * 3600 }).then(testAvailable); //filter for interaction; ie isparasyte
 
 function testAvailable(cursor) {
