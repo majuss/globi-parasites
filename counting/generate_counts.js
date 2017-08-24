@@ -301,6 +301,22 @@ let origins_sar = await db.query(`
     `)
         origins_sar = await origins_sar.all()
 
+    //sum of origins below or on family
+    let origins_family = await db.query(`
+    let summe=(FOR node IN 0..100 OUTBOUND 'nodes_otl/691846' edges_otl
+    filter node.rank =="family"
+    RETURN node.nr_origins_from)
+    return SUM(summe)
+    `)
+    origins_family = await origins_family.all();
+
+    let losses = await db.query(`
+    RETURN COUNT(FOR node IN 0..100 OUTBOUND 'nodes_otl/691846' edges_otl
+    FILTER node.loss_from == 1
+    RETURN node)
+    `)
+    losses = await losses.all();
+
 let percent_noott_parasites_nd = ((100 / parasites_interaction_nd) * noott_parasites_nd).toFixed(2);
 let percent_noott_parasites_d = ((100 / parasites_interaction_d) * noott_parasites_d).toFixed(2);
 let percent_noott_freeliving_nd = ((100 / freeliving_interaction_nd) * noott_freeliving_nd).toFixed(2);
@@ -348,7 +364,10 @@ INSERT {    _key: 'table',
             'origins in Metazoa from': ${await origins_metazoa},
             'origins in funi': ${await origins_fungi},
             'origins in plants': ${await origins_plants},
-            'origins in sar': ${await origins_sar}
+            'origins in sar': ${await origins_sar},
+            'origins_underOn_family(Metazoa)': ${origins_family},
+            'losses': ${losses}
+            
          } in counts`);
             console.log("Finished counts1")
 }

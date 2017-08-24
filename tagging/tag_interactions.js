@@ -12,15 +12,13 @@ db.query(`FOR doc IN interaction_tsv
           doc.interactionTypeName == "parasitoidOf" ||
           doc.interactionTypeName == "endoparasitoidOf" ||
           doc.interactionTypeName == "pathogenOf"
-          
           UPDATE doc WITH { parasite: 1,
                             directionP: "source",
                             pname: doc.sourceTaxonName } IN interaction_tsv`)
 
-
 //tag parasites target
 
-db.query(`  FOR doc in interaction_tsv
+db.query(`  FOR doc IN interaction_tsv
             FILTER doc.interactionTypeName == "hasParasite" ||
             doc.interactionTypeName == "hasPathogen"
             UPDATE doc WITH {   parasite: 1,
@@ -29,8 +27,7 @@ db.query(`  FOR doc in interaction_tsv
 
 //tag freeliving source
 
-
-db.query(`  FOR doc in interaction_tsv
+db.query(`  FOR doc IN interaction_tsv
             FILTER doc.interactionTypeName == "visits" ||
             doc.interactionTypeName == "preysOn" ||
             doc.interactionTypeName == "eats" ||
@@ -45,7 +42,7 @@ db.query(`  FOR doc in interaction_tsv
 
 //tag freeliving target
 
-db.query(`  FOR doc in interaction_tsv
+db.query(`  FOR doc IN interaction_tsv
             FILTER doc.interactionTypeName == "preyedUponBy" ||
             doc.interactionTypeName == "ectoParasitoid" ||
             doc.interactionTypeName == "parasiteOf" ||
