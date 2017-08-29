@@ -3,6 +3,18 @@
 const db = require('arangojs')();
 
 db.query(`
+FOR doc IN nodes_otl
+FILTER doc.rank == "class"
+UPDATE doc WITH {rank: 'subclass'} IN nodes_otl
+`)
+
+db.query(`
+FOR doc IN nodes_otl
+FILTER doc.rank == "superclass"
+UPDATE doc WITH {rank: 'class'} IN nodes_otl
+`)
+
+db.query(`
 INSERT {
         _key: "691846",
         name: "Metazoa",
@@ -67,7 +79,7 @@ async function counting() {
             } INTO rank_extracte OPTIONS { ignoreErrors: true }
             return v._key
             `);
-            /*
+            
                 family = await family.all();
 
 
@@ -84,7 +96,7 @@ async function counting() {
             `);
 
                     genus = await genus.all();
-
+/*
                     for (const key5 of genus) {
                         let species = await db.query(`
             FOR v,e IN 1..100 outbound 'nodes_otl/${key5}' edges_otl
@@ -98,13 +110,13 @@ async function counting() {
             `);
 
                         species = await species.all();
-                    }
-                }*/
+                    }*/
+                }
             }
         }
     }
     console.log("finished extracting metazoa ranks");
-    
+/*     
     let nullphylla = await db.query(`
     FOR node in rank_extract
     FILTER 
@@ -121,7 +133,7 @@ async function counting() {
         `)
         db.query(`
         REMOVE '${node._key}' IN rank_extract`)
-        }
+        } */
     /*
     let phylla = await db.query(`
     FOR node in rank_extract

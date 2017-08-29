@@ -29,7 +29,7 @@ UPDATE doc WITH {color: "#2C68F0"} in rank_extract //blue
 //remove text for too small cake slizes of sunburst
 db.query(`
 FOR doc in rank_extract
-FILTER doc.rank == "family" || doc.rank == "order"
+FILTER doc.rank == "family" || doc.rank == "order" || doc.rank == "genus" || doc.rank == "species"
 UPDATE doc WITH { name: null} in rank_extract
 `)
 
@@ -53,18 +53,19 @@ async function correct_size() {
         RETURN node)
         `)
         count = await count.all();
-        if(node.name == "Nematomorpha" || node.name == "Orthonectida" || node.name == "Acanthocephala"){ //manual size correction for phylla
+        console.log(count);
+        /*if(node.name == "Nematomorpha" || node.name == "Orthonectida" || node.name == "Acanthocephala"){ //manual size correction for phylla
             let size = await 333 / count;
             db.query(`
             FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
-            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND 'node._id' rank_extracte RETURN v)
             UPDATE node WITH {size: ${size} } IN rank_extract`)
-        }else{
+        }else{*/
             let size = await 1000 / count;
             db.query(`
             FOR node IN 1..100 OUTBOUND '${node._id}' rank_extracte
-            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v)
+            FILTER 0 == LENGTH(FOR v,e,p IN OUTBOUND 'node._id' rank_extracte RETURN v)
             UPDATE node WITH {size: ${size} } IN rank_extract`)
-        }
+        //}
     }
 }

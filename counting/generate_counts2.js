@@ -19,7 +19,7 @@ let toprint = [ "Metazoa:691846:phylum:origins",
                 "Plants:5268475:family:correlation",
                 "SAR:5246039:phylum:origins",
                 "SAR:5246039:class:correlation",
-                "SAR:5246039:family:correlation"
+                "SAR:5246039:genus:correlation"
             ]
 
 async function generate() {
