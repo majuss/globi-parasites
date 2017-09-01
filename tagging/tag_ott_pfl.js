@@ -5,6 +5,9 @@ const db = fastango3('http://127.0.0.1:8529');
 
 const convert = () => {
     const db = require('@arangodb').db;
+    db._query(`
+    UPDATE "304358" with {freeliving:1, freelivingw:1} in nodes_otl
+    `)
     const childsToProcess = ['nodes_otl/304358'];
 
     while (childsToProcess.length) {

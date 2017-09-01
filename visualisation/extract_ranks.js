@@ -3,18 +3,6 @@
 const db = require('arangojs')();
 
 db.query(`
-FOR doc IN nodes_otl
-FILTER doc.rank == "class"
-UPDATE doc WITH {rank: 'subclass'} IN nodes_otl
-`)
-
-db.query(`
-FOR doc IN nodes_otl
-FILTER doc.rank == "superclass"
-UPDATE doc WITH {rank: 'class'} IN nodes_otl
-`)
-
-db.query(`
 INSERT {
         _key: "691846",
         name: "Metazoa",
@@ -40,7 +28,22 @@ async function counting() {
     phylla = await phylla.all();
 
     for (const key of phylla) {
-        let classs = await db.query(`
+        /*
+        var classs;
+        if(key == 395057){
+            classs = await db.query(`
+            FOR v,e IN 1..100 outbound 'nodes_otl/${key}' edges_otl
+            FILTER v.rank == 'superclass'
+            INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
+            INSERT {
+            _from: "rank_extract/${key}",
+            _to: concat('rank_extract/', v._key)
+            } INTO rank_extracte OPTIONS { ignoreErrors: true }
+            return v._key
+            `);
+            console.log("nematodes");
+        }else{*/
+            let classs = await db.query(`
             FOR v,e IN 1..100 outbound 'nodes_otl/${key}' edges_otl
             FILTER v.rank == 'class'
             INSERT v IN rank_extract OPTIONS { ignoreErrors: true }
@@ -50,7 +53,7 @@ async function counting() {
             } INTO rank_extracte OPTIONS { ignoreErrors: true }
             return v._key
             `);
-
+        //}
 
         classs = await classs.all();
 
@@ -82,7 +85,7 @@ async function counting() {
             
                 family = await family.all();
 
-
+/*
                 for (const key4 of family) {
                     let genus = await db.query(`
             FOR v,e IN 1..100 outbound 'nodes_otl/${key4}' edges_otl
@@ -111,29 +114,28 @@ async function counting() {
 
                         species = await species.all();
                     }*/
-                }
+                //}
             }
         }
     }
     console.log("finished extracting metazoa ranks");
-/*     
+ /*
     let nullphylla = await db.query(`
     FOR node in rank_extract
-    FILTER 
-    node.rank == "phylum" && 0 == LENGTH(FOR v,e,p IN OUTBOUND node._id rank_extracte RETURN v) ||
-    node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte FILTER v.parasite == 1 || v.parasitew == 1 RETURN v)
+    FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte RETURN v)                                            //all phylla which doesn't contain any data underneath
+    FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte FILTER v.parasite == 1 || v.parasitew == 1 RETURN v)    //all phylla which only contain freeliving (except species)
     RETURN node
     `)
     nullphylla = await nullphylla.all();
 
-        for(const node of nullphylla){
+        for(const phylum of nullphylla){
         db.query(`
-        FOR v,e IN INBOUND '${node._id}' rank_extracte
+        FOR v,e IN INBOUND '${phylum._id}' rank_extracte
         REMOVE e IN rank_extracte
         `)
         db.query(`
-        REMOVE '${node._key}' IN rank_extract`)
-        } */
+        REMOVE '${phylum._key}' IN rank_extract`)
+        } 
     /*
     let phylla = await db.query(`
     FOR node in rank_extract

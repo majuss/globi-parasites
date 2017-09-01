@@ -6,14 +6,14 @@ edge [fontname = "helvetica"];
     
 
 FamilyA [label=<<B>Family A</B><br/>>, style=filled, color=green]
-GenusA [label=<<B>Genus A</B><br/>>, style=filled, color=red]
-GenusB [label=<<B>Genus B</B><br/>>, style=filled, color=red]
-GenusC [label=<<B>Genus C</B><br/>>, style=filled color=green]
+GenusA [label=<<B>Genus B</B><br/>>, style=filled, color=red]
+GenusB [label=<<B>Genus C</B><br/>>, style=filled, color=red]
+GenusC [label=<<B>Genus A</B><br/>>, style=filled color=green]
 inter  [label=<<B>new<br/>implicit<br/>node</B><br/>>, style=filled color=red]
 
 
 inter -> GenusA
 inter -> GenusB 
-FamilyA -> inter [arrowhead=none,headlabel = "origin", labeldistance=2,labelangle=260]
+FamilyA -> inter [arrowhead=none,headlabel = "origin", labeldistance=3,labelangle=300]
 FamilyA -> GenusC [arrowhead=none]
 }

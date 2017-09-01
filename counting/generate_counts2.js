@@ -19,7 +19,10 @@ let toprint = [ "Metazoa:691846:phylum:origins",
                 "Plants:5268475:family:correlation",
                 "SAR:5246039:phylum:origins",
                 "SAR:5246039:class:correlation",
-                "SAR:5246039:genus:correlation"
+                "SAR:5246039:genus:correlation",
+                "Rhizaria:6929:genus:correlation",
+                "Alveolata:266751:genus:correlation",
+                "Stramenopiles:266745:genus:correlation"
             ]
 
 async function generate() {
@@ -31,7 +34,7 @@ async function generate() {
     FILTER v.rank == '${toprint[i].split(":")[2]}' && v.nr_sum_leafs_import != null
     SORT v.name asc
     RETURN {
-    'name':                           v.name,
+    '${toprint[i].split(":")[2]}':    v.name,
     'origins(parent)':                v.nr_origins_from,
     'origins(children)':              v.nr_origins_to,
     'losses(parent)':                 v.nr_losses_from,
@@ -51,10 +54,12 @@ async function generate() {
     'inferred parasitic leafs according to our origins':        ((100/v.sum_leafs) *v.nr_leaf_parasites)/100,
     'inferred parasitic leafs according to weinstein origins':  ((100/v.sum_leafs) *v.nr_leaf_parasites_weinstein)/100,
     'log transformed': '',
-    'log of imported parasitic leafs':  LOG10(v.nr_leaf_parasites_import),
-    'log of imported freeliving leafs': LOG10(v.nr_leaf_freeliving_import),
-    'log of inferred parasitic leafs':  LOG10(v.nr_leaf_parasites),
-    'log of inferred freeliving leafs': LOG10(v.nr_cross_free_leafs + v.nr_leaf_parasites_weinstein),
+    'log of sum imported leafs': LOG10(v.sum_leafs_import + 1),
+    'log of sum OTT lefas': LOG10(v.sum_leafs + 1),
+    'log of imported parasitic leafs':  LOG10(v.nr_leaf_parasites_import + 1),
+    'log of imported freeliving leafs': LOG10(v.nr_leaf_freeliving_import + 1),
+    'log of inferred parasitic leafs':  LOG10(v.nr_leaf_parasites + 1),
+    'log of inferred freeliving leafs': LOG10(v.nr_cross_free_leafs + v.nr_leaf_parasites_weinstein + 1),
     'percentage correlation': '',
     '% share parasites imported':   ((100/v.sum_leafs_import)*v.nr_leaf_parasites_import)/100,
     '% share freeliving imported':  ((100/v.sum_leafs_import)*v.nr_leaf_freeliving_import)/100,
