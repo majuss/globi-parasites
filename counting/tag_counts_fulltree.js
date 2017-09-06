@@ -24,7 +24,7 @@ LET origins_w = count(for x IN 0..100 OUTBOUND v edges_otl
 
 LET leaf_paras = count(FOR node IN 0..100 OUTBOUND v._id edges_otl
     FILTER 0 == LENGTH(FOR c,m,p IN OUTBOUND node._id edges_otl RETURN c)
-    FILTER node.parasite == 1 && node.freelivingw == 1
+    FILTER node.parasite == 1 && node.freelivingw == 1 || node.parasite == 1 && node.parasitew == 1
     RETURN node._id)
 
 LET leaf_parasw = count(FOR node IN 0..100 OUTBOUND v._id edges_otl

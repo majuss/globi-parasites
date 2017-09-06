@@ -82,5 +82,5 @@ echo "$(tput setaf 1)$(tput setab 7)This run took $runtime minutes$(tput sgr 0)"
 #run extract_ranks
 #run colorise sunburst
 #run gensunburst
-#save website as .html and jage es durch awk '/<svg/,/svg>/' sunburst.html > sunburst.svg
+#save website as .html and jage es durch "awk '/<svg/,/svg>/' sunburst.html > sunburst.svg"
 #dann durch inkscape: inkscape -z -e sunburst.png -w 10000 -h 10000 sunburst.svg
