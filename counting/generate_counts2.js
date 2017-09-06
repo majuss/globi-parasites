@@ -54,15 +54,15 @@ async function generate() {
     'inferred parasitic leafs according to our origins':        ((100/v.sum_leafs) *v.nr_leaf_parasites)/100,
     'inferred parasitic leafs according to weinstein origins':  ((100/v.sum_leafs) *v.nr_leaf_parasites_weinstein)/100,
     'log transformed': '',
-    'log of sum imported leafs': LOG10(v.sum_leafs_import + 1),
+    'log of sum imported leafs': LOG10(v.nr_sum_leafs_import + 1),
     'log of sum OTT lefas': LOG10(v.sum_leafs + 1),
     'log of imported parasitic leafs':  LOG10(v.nr_leaf_parasites_import + 1),
     'log of imported freeliving leafs': LOG10(v.nr_leaf_freeliving_import + 1),
     'log of inferred parasitic leafs':  LOG10(v.nr_leaf_parasites + 1),
     'log of inferred freeliving leafs': LOG10(v.nr_cross_free_leafs + v.nr_leaf_parasites_weinstein + 1),
     'percentage correlation': '',
-    '% share parasites imported':   ((100/v.sum_leafs_import)*v.nr_leaf_parasites_import)/100,
-    '% share freeliving imported':  ((100/v.sum_leafs_import)*v.nr_leaf_freeliving_import)/100,
+    '% share parasites imported':   ((100/v.nr_sum_leafs_import)*v.nr_leaf_parasites_import)/100,
+    '% share freeliving imported':  ((100/v.nr_sum_leafs_import)*v.nr_leaf_freeliving_import)/100,
     '% share parasites inferred':   ((100/v.sum_leafs)*v.nr_leaf_parasites)/100,
     '% share freeliving inferred':  ((100/v.sum_leafs)*(v.nr_cross_free_leafs + v.nr_leaf_parasites_weinstein))/100
     }
