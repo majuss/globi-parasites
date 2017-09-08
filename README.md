@@ -14,3 +14,8 @@ bash build_data.sh
 ```
 
 After that you can start scripts inside visualisation to generate the sunbursts. The generated tables are stored in analysis/generated_tables
+
+
+
+![CC](https://i.creativecommons.org/l/by-nc/4.0/88x31.png)
+This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License.](http://creativecommons.org/licenses/by-nc/4.0/)
