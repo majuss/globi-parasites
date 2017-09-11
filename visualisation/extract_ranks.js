@@ -119,10 +119,10 @@ async function counting() {
         }
     }
     console.log("finished extracting metazoa ranks");
- /*
+ 
     let nullphylla = await db.query(`
     FOR node in rank_extract
-    FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte RETURN v)                                            //all phylla which doesn't contain any data underneath
+    FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte RETURN v)                                               //all phylla which doesn't contain any data underneath
     FILTER node.rank == "phylum" && 0 == LENGTH(FOR v,e IN OUTBOUND node._id rank_extracte FILTER v.parasite == 1 || v.parasitew == 1 RETURN v)    //all phylla which only contain freeliving (except species)
     RETURN node
     `)
