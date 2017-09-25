@@ -1,4 +1,4 @@
-# GLoBIs parasites
+# GloBIs parasites
 
 Here is the workflow to reproduce the current findings:
 
